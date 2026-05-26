@@ -9,7 +9,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(morgan("dev"));
 
-app.use("/", authRouter);
+app.use("/api/auth", authRouter);
 
 app.get("/", (req, res) => {
     res.status(200).json({message: "Server is running"});
