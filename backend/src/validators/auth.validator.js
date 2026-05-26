@@ -18,9 +18,9 @@ export const validateRegisterUser = [
         .matches(/^\d{10}$/).withMessage("Contact must be a 10-digit number"),
     body("fullname")
         .notEmpty().withMessage("Fullname is required")
-        .length({min: 3}).withMessage("Fullname must be atleast 3 character long"),
+        .isLength({min: 3}).withMessage("Fullname must be atleast 3 character long"),
     body("password")
         .notEmpty().withMessage("Password is required")
-        .isLength({min: 6}).withMessage("Password must be atleast 6 characters long"),
+        .isLength({min: 6}).withMessage("Password must be atleast 6 character long"),
     validateRequest
 ];

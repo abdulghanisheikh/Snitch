@@ -8,7 +8,7 @@ const startServer = () => {
     connectToDB();
 
     app.listen(PORT, () => {
-        console.log(`Server on ${PORT}`);
+        console.log(`Server listening on port ${PORT}`);
     });
 }
 
