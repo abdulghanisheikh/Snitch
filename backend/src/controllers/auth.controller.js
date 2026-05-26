@@ -26,9 +26,7 @@ const sendTokenResponse = async({user, res, message}) => {
 
 export const registerUser = async(req, res) => {
     try {
-        const { email, password, contact, fullname } = req.body;
-
-        console.log("hello from register user controller");
+        const { email, password, contact, fullname, isSeller } = req.body;
 
         const existingUser = await User.findOne({
             $or: [
@@ -48,9 +46,11 @@ export const registerUser = async(req, res) => {
             email,
             contact,
             password,
-            fullname
+            fullname,
+            role: isSeller? "seller": "buyer"
         });
 
+        // create token and send response
         await sendTokenResponse({user: newUser, res, message: "User registered"});
     } catch(err) {
         console.log("error:", err.message);

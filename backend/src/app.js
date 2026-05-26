@@ -12,7 +12,7 @@ app.use(morgan("dev"));
 app.use("/api/auth", authRouter);
 
 app.get("/", (req, res) => {
-    res.status(200).json({message: "Server is running"});
+    res.status(200).json({message: 'Server is running'});
 });
 
 export default app;
