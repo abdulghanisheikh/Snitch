@@ -53,8 +53,6 @@ export const registerUser = async(req, res) => {
         // create token and send response
         await sendTokenResponse({user: newUser, res, message: "User registered"});
     } catch(err) {
-        console.log("error:", err.message);
-
         res.status(400).json({
             success: false,
             error: err.message

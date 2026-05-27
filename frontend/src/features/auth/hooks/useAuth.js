@@ -1,7 +1,7 @@
 import { registerUser } from "../services/auth.api.js";
 import { useDispatch } from "react-redux";
 import { setLoading, setUser, setError } from "../state/auth.slice.js";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 export const useAuth = () => {
     const dispatch = useDispatch();
@@ -11,16 +11,17 @@ export const useAuth = () => {
             dispatch(setLoading(true));
 
             const {data} = await registerUser({email, contact, fullname, password, isSeller});
-            const {success, message, user} = data;
 
+            const {success, message, user} = data;
+            
             if(success) {
                 setUser(user);
-                toast.success(message, {
-                    autoClose: 2000
-                });
+                toast.success(message);
             }
 
+            return data;
         } catch(err) {
+            toast.error(err.response?.data?.message || "Error in user registration");
             dispatch(setError(err.response?.data?.message || "Error in user registration"));
         } finally {
             dispatch(setLoading(false));
