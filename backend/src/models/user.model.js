@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema({
     },
     contact: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -27,7 +28,7 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-// hashing password before saving in db
+// hashing password before saving into db
 userSchema.pre("save", async function() {
     // this -> userSchema
 

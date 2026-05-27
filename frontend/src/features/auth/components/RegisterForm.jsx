@@ -1,10 +1,11 @@
 import {Link} from "react-router";
+import SellerCheckBox from "./SellerCheckBox";
 
 const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) => {
   return (
     <form 
     onSubmit={(e) => handleRegisterClick(e)}
-    className="bg-white dark:bg-zinc-900 shadow-2xl rounded-2xl overflow-hidden border-3 border-blue-400 dark:border-blue-800 lg:text-sm text-xs lg:w-1/3">
+    className="bg-white dark:bg-zinc-900 shadow-2xl rounded-2xl overflow-hidden border-3 border-blue-400 dark:border-blue-800 lg:text-sm text-xs text-white lg:w-1/3">
       
       <div className="flex flex-col py-5 px-8">
         <h2 className="text-4xl font-extrabold text-center text-zinc-800 dark:text-white">
@@ -83,6 +84,16 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
               id="contact"
               type="text"
             />
+          </div>
+
+          <div className="mt-5 ml-1.5 flex items-center gap-1.5">
+            <SellerCheckBox 
+            userInput={userInput} 
+            setUserInput={setUserInput}
+            />
+            <label
+            className="block font-medium text-zinc-600 dark:text-zinc-200"
+            >Register as seller</label>
           </div>
 
           <div className="lg:mt-8 mt-6">

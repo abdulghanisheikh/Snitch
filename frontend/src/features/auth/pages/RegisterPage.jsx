@@ -9,7 +9,8 @@ const RegisterPage = () => {
     fullname: "",
     contact: "",
     email: "",
-    password: ""
+    password: "",
+    isSeller: false
   });
 
   const loading = useSelector(state => state.auth.loading);
@@ -18,17 +19,18 @@ const RegisterPage = () => {
   const handleRegisterClick = async(e) => {
     e.preventDefault();
 
-    const { fullname, contact, email, password } = userInput;
-    const data = await handleRegisterUser({ fullname, contact, email, password });
+    const { fullname, contact, email, password, isSeller } = userInput;
+
+    const data = await handleRegisterUser({ fullname, contact, email, password, isSeller });
 
     const {success} = data;
 
     if(success) {
-      setUserInput({fullname: "", contact: "", email: "", password: ""});
+      setUserInput({fullname: "", contact: "", email: "", password: "", isSeller: false});
     }
   }
 
-  return <main className="h-screen w-screen flex flex-col bg-zinc-900 justify-center items-center">
+  return <main className="h-screen w-screen flex bg-zinc-900 justify-center items-center">
     <RegisterForm
       userInput={userInput}
       setUserInput={setUserInput}

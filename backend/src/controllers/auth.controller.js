@@ -47,7 +47,7 @@ export const registerUser = async(req, res) => {
             contact,
             password,
             fullname,
-            role: isSeller? "seller": "buyer"
+            role: isSeller ? "seller" : "buyer"
         });
 
         // create token and send response
