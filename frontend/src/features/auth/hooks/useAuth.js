@@ -1,4 +1,4 @@
-import { registerUser } from "../services/auth.api.js";
+import { registerUser, loginUser } from "../services/auth.api.js";
 import { useDispatch } from "react-redux";
 import { setLoading, setUser, setError } from "../state/auth.slice.js";
 import { toast } from "react-toastify";
@@ -17,7 +17,7 @@ export const useAuth = () => {
             const {success, message, user} = data;
 
             if(success) {
-                setUser(user);
+                dispatch(setUser(user));
                 toast.success(message, {
                     autoClose: 1500
                 });
@@ -36,5 +36,34 @@ export const useAuth = () => {
         }
     }
 
-    return { handleRegisterUser };
+    const handleLoginUser = async({email, password}) => {
+        try {
+            dispatch(setLoading(true));
+
+            const {data} = await loginUser({email, password});
+
+            const {success, message, user} = data;
+
+            if(success) {
+                dispatch(setUser(user));
+
+                toast.success(message, {
+                    autoClose: 1500
+                });
+
+                setTimeout(() => {
+                    navigate('/')
+                }, 2000);
+            }
+
+            return data;
+        } catch(err) {
+            dispatch(setError(err.response?.data?.message || "Error in user login"));
+            toast.error(err.response?.data?.message || "Error in user login");
+        } finally {
+            dispatch(setLoading(false));
+        }
+    }
+
+    return { handleRegisterUser, handleLoginUser };
 }

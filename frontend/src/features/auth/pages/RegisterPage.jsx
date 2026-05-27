@@ -32,9 +32,10 @@ const RegisterPage = () => {
     <RegisterForm
       userInput={userInput}
       setUserInput={setUserInput}
-      handleRegisterClick={handleRegisterClick}
+      handleRegisterClick={(e) => handleRegisterClick(e)}
       loading={loading}
     />
+
     <ToastContainer position="top-right" />
   </main>
 }
