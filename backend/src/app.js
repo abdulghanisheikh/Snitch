@@ -6,14 +6,14 @@ import cors from "cors";
 
 const app = express();
 
-app.use(cors({
-    origin: ["http://localhost:5173"],
-    methods: ["POST", "GET"],
-    credentials: true
-}));
 app.use(cookieParser());
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cors({
+    origin: ["http://localhost:5173"],
+    methods: ["POST", "GET", "DELETE", "PUT", "PATCH"],
+    credentials: true
+}));
 
 app.use("/api/auth", authRouter);
 

@@ -20,11 +20,9 @@ const RegisterPage = () => {
     e.preventDefault();
 
     const { fullname, contact, email, password, isSeller } = userInput;
-
     const data = await handleRegisterUser({ fullname, contact, email, password, isSeller });
 
     const {success} = data;
-
     if(success) {
       setUserInput({fullname: "", contact: "", email: "", password: "", isSeller: false});
     }

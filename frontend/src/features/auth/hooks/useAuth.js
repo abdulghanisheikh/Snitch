@@ -19,7 +19,7 @@ export const useAuth = () => {
             if(success) {
                 setUser(user);
                 toast.success(message, {
-                    autoClose: 2000
+                    autoClose: 1500
                 });
 
                 setTimeout(() => {
