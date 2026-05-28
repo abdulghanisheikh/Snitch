@@ -1,7 +1,7 @@
 import LoginForm from "../components/LoginForm";
 import { useState } from "react";
-import {useSelector} from "react-redux";
-import {useAuth} from "../hooks/useAuth.js";
+import { useSelector } from "react-redux";
+import { useAuth } from "../hooks/useAuth.js";
 import { ToastContainer } from "react-toastify";
 
 const LoginPage = () => {

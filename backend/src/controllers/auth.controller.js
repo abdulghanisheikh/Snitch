@@ -89,3 +89,18 @@ export const loginUser = async(req, res) => {
         });
     }
 }
+
+export const googleCallback = async(req, res) => {
+    try {
+        const user = req.user;
+
+        console.log("user data:", user);
+
+        res.send("got it");
+    } catch(err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+}

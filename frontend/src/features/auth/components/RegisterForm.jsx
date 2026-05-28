@@ -1,5 +1,6 @@
 import {Link} from "react-router";
 import SellerCheckBox from "./SellerCheckBox";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) => {
   return (
@@ -11,9 +12,12 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
         <h2 className="text-4xl font-extrabold text-center text-zinc-800 dark:text-white">
           Register User
         </h2>
-        
-        <div className="mt-6">
 
+        <div className="self-center mt-5">
+          <GoogleLoginButton />
+        </div>
+
+        <div className="mt-6">
           <div className="relative">
             <label
               className="block font-medium text-zinc-600 dark:text-zinc-200"
@@ -96,7 +100,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
             >Register as seller</label>
           </div>
 
-          <div className="lg:mt-8 mt-6">
+          <div className="mt-6">
             <button
               className="w-full px-4 py-3 tracking-tight text-white bg-linear-to-r from-blue-600 to-cyan-600 rounded-lg active:scale-90 duration-300 ease-in-out outline-none cursor-pointer"
               type="submit"
