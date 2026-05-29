@@ -9,8 +9,8 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
     className="bg-white dark:bg-zinc-900 shadow-2xl rounded-2xl overflow-hidden border-3 border-blue-400 dark:border-blue-800 lg:text-sm text-xs text-white lg:w-1/3">
       
       <div className="flex flex-col py-5 px-8">
-        <h2 className="text-4xl font-extrabold text-center text-zinc-800 dark:text-white">
-          Register User
+        <h2 className="text-4xl tracking-tight font-extrabold text-center text-zinc-800 dark:text-white">
+          Register
         </h2>
 
         <div className="self-center mt-5">

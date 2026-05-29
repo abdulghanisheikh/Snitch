@@ -2,7 +2,7 @@ import { appConfig } from "../configs/config.js";
 import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 
-const sendTokenResponse = async({user, res, message}) => {
+const sendTokenResponse = async ({ user, res, message }) => {
     const token = await jwt.sign({
         id: user._id
     }, appConfig.JWT_SECRET, {
@@ -24,18 +24,18 @@ const sendTokenResponse = async({user, res, message}) => {
     });
 }
 
-export const registerUser = async(req, res) => {
+export const registerUser = async (req, res) => {
     try {
         const { email, password, contact, fullname, isSeller } = req.body;
 
         const existingUser = await User.findOne({
             $or: [
-                {email},
-                {contact}
+                { email },
+                { contact }
             ]
         });
 
-        if(existingUser) {
+        if (existingUser) {
             return res.status(400).json({
                 success: false,
                 message: "User with this email or contact already exists."
@@ -51,8 +51,8 @@ export const registerUser = async(req, res) => {
         });
 
         // create token and send response
-        await sendTokenResponse({user: newUser, res, message: "User registered"});
-    } catch(err) {
+        await sendTokenResponse({ user: newUser, res, message: "User registered" });
+    } catch (err) {
         res.status(400).json({
             success: false,
             error: err.message
@@ -60,13 +60,13 @@ export const registerUser = async(req, res) => {
     }
 }
 
-export const loginUser = async(req, res) => {
+export const loginUser = async (req, res) => {
     try {
-        const {email, password} = req.body;
+        const { email, password } = req.body;
 
-        const user = await User.findOne({email}).select("+password");
+        const user = await User.findOne({ email }).select("+password");
 
-        if(!user) {
+        if (!user) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid email or password"
@@ -74,15 +74,15 @@ export const loginUser = async(req, res) => {
         }
 
         const isPasswordMatch = await user.comparePasswords(password);
-        if(!isPasswordMatch) {
+        if (!isPasswordMatch) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid email or password"
             });
         }
-        
+
         await sendTokenResponse({ user, res, message: "User logged-In" });
-    } catch(err) {
+    } catch (err) {
         return res.status(500).json({
             success: false,
             error: err.message
@@ -90,14 +90,34 @@ export const loginUser = async(req, res) => {
     }
 }
 
-export const googleCallback = async(req, res) => {
+export const googleCallback = async (req, res) => {
     try {
         const user = req.user;
+        const { id, displayName, emails, photo } = req.user;
 
-        console.log("user data:", user);
+        const email = emails[0].value;
+        const profilePic = photo[0].value;
 
-        res.send("got it");
-    } catch(err) {
+        let user = await User.findOne({email});
+
+        if(!user) {
+            user = await User.create({
+                email,
+                googleId: id,
+                fullname: displayName
+            });
+        }
+
+        const token = jwt.sign(
+            {id: user._id},
+            appConfig.JWT_SECRET, 
+            {expiresIn: "7d"}
+        );
+
+        res.cookies("token", token);
+        res.status(200).redirect("http://localhost:5173/");
+        
+    } catch (err) {
         return res.status(500).json({
             success: false,
             error: err.message
