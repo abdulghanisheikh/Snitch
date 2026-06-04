@@ -5,7 +5,7 @@ import authRouter from "./routes/auth.routes.js";
 import cors from "cors";
 import passport from "passport";
 import {Strategy as GoogleStrategy} from "passport-google-oauth20";
-import { appConfig } from "./configs/config.js";
+import { appConfig } from "./configs/app.config.js";
 
 const app = express();
 

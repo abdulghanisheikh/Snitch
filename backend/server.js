@@ -1,4 +1,4 @@
-import {appConfig} from "./src/configs/config.js";
+import {appConfig} from "./src/configs/app.config.js";
 import app from "./src/app.js";
 import connectToDB from "./src/configs/db.config.js";
 

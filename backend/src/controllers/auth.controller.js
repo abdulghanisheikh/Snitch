@@ -1,4 +1,4 @@
-import { appConfig } from "../configs/config.js";
+import { appConfig } from "../configs/app.config.js";
 import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 
@@ -92,11 +92,10 @@ export const loginUser = async (req, res) => {
 
 export const googleCallback = async (req, res) => {
     try {
-        const user = req.user;
-        const { id, displayName, emails, photo } = req.user;
+        const { id, displayName, emails, photos } = req.user;
 
         const email = emails[0].value;
-        const profilePic = photo[0].value;
+        const profilePic = photos[0].value;
 
         let user = await User.findOne({email});
 
@@ -114,9 +113,9 @@ export const googleCallback = async (req, res) => {
             {expiresIn: "7d"}
         );
 
-        res.cookies("token", token);
+        res.cookie("token", token);
         res.status(200).redirect("http://localhost:5173/");
-        
+
     } catch (err) {
         return res.status(500).json({
             success: false,

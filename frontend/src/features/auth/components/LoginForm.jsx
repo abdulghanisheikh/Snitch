@@ -4,7 +4,7 @@ const LoginForm = ({userInput, setUserInput, loading, handleLoginClick}) => {
   return (
     <form 
     onSubmit={handleLoginClick}
-    className="bg-white dark:bg-zinc-900 shadow-2xl rounded-2xl overflow-hidden border-3 border-blue-400 dark:border-blue-800 lg:text-sm text-xs text-white lg:w-1/3">
+    className="bg-white dark:bg-zinc-900 shadow-2xl rounded-2xl overflow-hidden border-3 border-blue-400 dark:border-blue-800 text-white lg:max-w-120">
       
       <div className="flex flex-col py-5 px-8">
         <h2 className="text-4xl tracking-tight font-extrabold text-center text-zinc-800 dark:text-white">
@@ -13,7 +13,7 @@ const LoginForm = ({userInput, setUserInput, loading, handleLoginClick}) => {
         
         <div className="mt-6">
 
-          <div className="relative">
+          <div className="relative lg:text-sm text-xs">
             <label
               className="block font-medium text-zinc-600 dark:text-zinc-200"
               htmlFor="email"
@@ -31,7 +31,7 @@ const LoginForm = ({userInput, setUserInput, loading, handleLoginClick}) => {
             />
           </div>
 
-          <div className="mt-4">
+          <div className="mt-4 lg:text-sm text-xs">
             <label
               className="block font-medium text-zinc-600 dark:text-zinc-200"
               htmlFor="password"
@@ -60,7 +60,7 @@ const LoginForm = ({userInput, setUserInput, loading, handleLoginClick}) => {
         </div>
       </div>
 
-      <div className="px-8 py-4 mt-5 dark:bg-zinc-800">
+      <div className="px-8 py-4 mt-5 dark:bg-zinc-800 lg:text-sm text-xs">
         <div className="text-white text-center">
           Did not have an account? {` `}
           <Link to="/register" className="font-medium underline text-blue-300">

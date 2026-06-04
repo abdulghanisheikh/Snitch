@@ -8,7 +8,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
     onSubmit={handleRegisterClick}
     className="bg-white dark:bg-zinc-900 shadow-2xl rounded-2xl overflow-hidden border-3 border-blue-400 dark:border-blue-800 lg:text-sm text-xs text-white lg:w-1/3">
       
-      <div className="flex flex-col py-5 px-8">
+      <div className="flex flex-col py-4 px-8">
         <h2 className="text-4xl tracking-tight font-extrabold text-center text-zinc-800 dark:text-white">
           Register
         </h2>
@@ -17,7 +17,13 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
           <GoogleLoginButton />
         </div>
 
-        <div className="mt-6">
+        <div className="flex items-center gap-2 mt-4">
+          <div className="flex-1 h-px bg-gray-300 dark:bg-gray-600" />
+          <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">Or</span>
+          <div className="flex-1 h-px bg-gray-300 dark:bg-gray-600" />
+        </div>
+
+        <div className="mt-4">
           <div className="relative">
             <label
               className="block font-medium text-zinc-600 dark:text-zinc-200"

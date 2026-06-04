@@ -26,7 +26,7 @@ const LoginPage = () => {
     }
   }
 
-  return <div className="h-screen w-screen flex bg-zinc-900 justify-center items-center">
+  return <div className="min-h-screen w-screen flex bg-zinc-900 justify-center items-center">
     <LoginForm 
     userInput={userInput}
     setUserInput={setUserInput}
