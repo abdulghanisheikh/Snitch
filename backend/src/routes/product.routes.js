@@ -14,7 +14,7 @@ const router = express.Router();
 router.post("/", authenticateSeller, createProductValidator, upload.array("photo", 7), createProduct);
 
 /**
- * @route GET /api/product/
+ * @route GET /api/product/seller
  * @description see all products of the authenticated seller
  * @access private (seller only)
  */

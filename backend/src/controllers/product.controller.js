@@ -40,7 +40,7 @@ export const createProduct = async(req, res) => {
     }
 }
 
-export const getSellerProducts = async (req, res) => {
+export const getSellerProducts = async(req, res) => {
     const seller = req.user;
 
     try {
