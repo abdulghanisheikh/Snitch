@@ -39,3 +39,24 @@ export const createProduct = async(req, res) => {
         });
     }
 }
+
+export const getSellerProducts = async (req, res) => {
+    const seller = req.user;
+
+    try {
+        const products = await Product.find({ seller: seller.id });
+
+        res.status(200).json({
+            success: true,
+            message: "Products fetched",
+            products
+        });
+    } catch(err) {
+        console.log("Get products error:", err.message);
+
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+}
