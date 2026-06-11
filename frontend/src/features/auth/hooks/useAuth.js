@@ -10,7 +10,7 @@ export const useAuth = () => {
 
     const handleRegisterUser = async({email, contact, fullname, password, isSeller = false}) => {
         try {
-            dispatch(setLoading(true));
+            dispatch(setLoading("register"));
 
             const {data} = await registerUser({email, contact, fullname, password, isSeller});
 
@@ -32,13 +32,13 @@ export const useAuth = () => {
             toast.error(err.response?.data?.message || "Error in user registration");
             dispatch(setError(err.response?.data?.message || "Error in user registration"));
         } finally {
-            dispatch(setLoading(false));
+            dispatch(setLoading(""));
         }
     }
 
     const handleLoginUser = async({email, password}) => {
         try {
-            dispatch(setLoading(true));
+            dispatch(setLoading("login"));
 
             const {data} = await loginUser({email, password});
 
@@ -61,7 +61,7 @@ export const useAuth = () => {
             dispatch(setError(err.response?.data?.message || "Error in user login"));
             toast.error(err.response?.data?.message || "Error in user login");
         } finally {
-            dispatch(setLoading(false));
+            dispatch(setLoading(""));
         }
     }
 

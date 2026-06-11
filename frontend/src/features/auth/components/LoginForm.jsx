@@ -65,7 +65,7 @@ const LoginForm = ({userInput, setUserInput, loading, handleLoginClick}) => {
               className="w-full px-4 py-3 tracking-tight text-white bg-linear-to-r from-blue-600 to-cyan-600 rounded-lg active:scale-90 duration-300 ease-in-out outline-none cursor-pointer"
               type="submit"
             >
-              {loading ? "Logging In..." : "Log In"}
+              {loading === "login" ? "Logging In..." : "Log In"}
             </button>
           </div>
         </div>
