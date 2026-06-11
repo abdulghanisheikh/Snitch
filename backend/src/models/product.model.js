@@ -16,7 +16,7 @@ const productSchema = new mongoose.Schema({
     },
     price: {
         amount: {
-            type: Number,
+            type: String,
             required: true
         },
         currency: {
@@ -27,8 +27,10 @@ const productSchema = new mongoose.Schema({
     },
     images: [
         { 
-            url: { type: String, required: true },
-            alt: { type: String, required: true }
+            url: { 
+                type: String,
+                required: true
+            }
         }
     ]
 }, { timestamps: true });

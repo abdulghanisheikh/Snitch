@@ -25,9 +25,9 @@ const sendTokenResponse = async ({ user, res, message }) => {
 }
 
 export const registerUser = async (req, res) => {
-    try {
-        const { email, password, contact, fullname, isSeller } = req.body;
+    const { email, password, contact, fullname, isSeller } = req.body;
 
+    try {
         const existingUser = await User.findOne({
             $or: [
                 { email },
@@ -50,7 +50,6 @@ export const registerUser = async (req, res) => {
             role: isSeller ? "seller" : "buyer"
         });
 
-        // create token and send response
         await sendTokenResponse({ user: newUser, res, message: "User registered" });
     } catch (err) {
         res.status(400).json({
@@ -61,19 +60,20 @@ export const registerUser = async (req, res) => {
 }
 
 export const loginUser = async (req, res) => {
-    try {
-        const { email, password } = req.body;
+    const { email, password } = req.body;
 
+    try {
         const user = await User.findOne({ email }).select("+password");
 
         if (!user) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid email or password"
+                message: "Invalid credentials"
             });
         }
 
         const isPasswordMatch = await user.comparePasswords(password);
+
         if (!isPasswordMatch) {
             return res.status(400).json({
                 success: false,
@@ -91,9 +91,9 @@ export const loginUser = async (req, res) => {
 }
 
 export const googleCallback = async (req, res) => {
-    try {
-        const { id, displayName, emails, photos } = req.user;
+    const { id, displayName, emails, photos } = req.user; // from google server
 
+    try {
         const email = emails[0].value;
         const profilePic = photos[0].value;
 
@@ -115,7 +115,6 @@ export const googleCallback = async (req, res) => {
 
         res.cookie("token", token);
         res.status(200).redirect("http://localhost:5173/");
-
     } catch (err) {
         return res.status(500).json({
             success: false,
