@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 
-const ProductForm = ({ handleSubmit, product, setProduct }) => {
+const ProductForm = ({ handleSubmit, product, setProduct, loading }) => {
     const [isDragOver, setIsDragOver] = useState(false);
     const inputRef = useRef();
 
@@ -171,7 +171,7 @@ const ProductForm = ({ handleSubmit, product, setProduct }) => {
 
                 {/* Submit Button */}
                 <button type="submit" className="border-none outline-none p-3 rounded-[10px] text-white text-[clamp(12px,1.8vw,14px)] bg-blue-500 font-semibold tracking-wide cursor-pointer transition-colors duration-250 mt-1 hover:bg-blue-400">
-                    Add Product
+                    {loading === 'product' ? "Adding Product..." : "Add Product"}
                 </button>
             </form>
         </div>

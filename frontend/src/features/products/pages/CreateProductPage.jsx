@@ -2,6 +2,7 @@ import ProductForm from "../components/ProductForm";
 import { ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { useProduct } from "../hooks/useProduct.js";
+import { useSelector } from "react-redux";
 
 const CreateProductPage = () => {
 	const [product, setProduct] = useState({
@@ -13,6 +14,8 @@ const CreateProductPage = () => {
 		},
 		images: []
 	});
+
+	const loading = useSelector(state => state.product.loading);
 
 	const { handleCreateProduct } = useProduct();
 
@@ -53,6 +56,7 @@ const CreateProductPage = () => {
 				handleSubmit={handleSubmit}
 				setProduct={setProduct}
 				product={product}
+				loading={loading}
 			/>
 			<ToastContainer position="top-right" />
 		</div>
