@@ -1,24 +1,18 @@
 import { useState, useRef } from "react";
 
-const ProductForm = ({ handleSubmit }) => {
-    const [currency, setCurrency] = useState("INR");
-    const [images, setImages] = useState([]);
-
+const ProductForm = ({ handleSubmit, product, setProduct }) => {
     const [isDragOver, setIsDragOver] = useState(false);
     const inputRef = useRef();
 
     const handleFiles = (files) => {
-        const valid = Array.from(files).filter(f => f.type.startsWith("image/"));
-        const newImgs = valid.map(f => ({ file: f, url: URL.createObjectURL(f), id: Math.random() }));
-        setImages(prev => [...prev, ...newImgs]);
-    };
+        const valid = Array.from(files).filter(f => f.type.startsWith('image/'));
+        const newImgs = valid.map(f => ({
+            file: f,
+            url: URL.createObjectURL(f),
+            id: crypto.randomUUID()
+        }));
 
-    const removeImage = (id) => {
-        setImages(prev => {
-            const img = prev.find(i => i.id === id);
-            if (img) URL.revokeObjectURL(img.url);
-            return prev.filter(i => i.id !== id);
-        });
+        setProduct(prev => ({ ...prev, images: [...prev.images, ...newImgs] }));
     };
 
     const handleDrop = (e) => {
@@ -27,12 +21,21 @@ const ProductForm = ({ handleSubmit }) => {
         handleFiles(e.dataTransfer.files);
     };
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setProduct(prev => ({ ...prev, [name]: value }));
+    }
+
+    const handlePriceChange = (e) => {
+        const { name, value } = e.target;
+        setProduct(prev => ({ ...prev, price: { ...prev.price, [name]: value } }));
+    }
+
     return (
         <div className="w-screen min-h-screen flex items-center justify-center bg-[#111111] p-5">
             <form
                 onSubmit={handleSubmit}
                 className="flex flex-direction flex-col gap-3 w-full max-w-120 p-6 bg-[#1a1a1a] text-white border border-[#333333] sm:rounded-[20px]"
-                onSubmit={e => e.preventDefault()}
             >
                 {/* Heading with Custom Pulse Dots */}
                 <p className="text-[clamp(30px,4vw,22px)] font-semibold tracking-tight relative flex items-center pl-7.5 text-[#00bfff] mb-1">
@@ -45,9 +48,12 @@ const ProductForm = ({ handleSubmit }) => {
                 <div className="flex gap-2 w-full">
                     <label className="relative block flex-1">
                         <input
+                            value={product.title}
                             type="text"
                             placeholder=" "
                             required
+                            name="title"
+                            onChange={handleChange}
                             className="peer bg-[#2a2a2a] text-white w-full pt-5 pr-2 pb-1.5 pl-2.5 outline-none border border-[rgba(150,150,150,0.3)] rounded-col rounded-[10px] text-[clamp(11px,1.6vw,13px)] font-sans"
                         />
                         <span className="absolute left-2.5 top-3.5 text-[clamp(10px,1.4vw,12px)] text-white/45 cursor-text transition-all duration-250 ease-out pointer-events-none peer-focus:text-[#00bfff] peer-focus:top-1 peer-focus:text-[clamp(9px,1.1vw,10px)] peer-focus:font-semibold peer-[:not(:placeholder-shown)]:text-[#00bfff] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-[clamp(9px,1.1vw,10px)] peer-[:not(:placeholder-shown)]:font-semibold">
@@ -59,8 +65,11 @@ const ProductForm = ({ handleSubmit }) => {
                 {/* Description */}
                 <label className="relative block w-full">
                     <textarea
-                        placeholder=" "
+                        placeholder=""
+                        value={product.description}
                         required
+                        name="description"
+                        onChange={handleChange}
                         className="peer bg-[#2a2a2a] text-white w-full pt-5 pr-2 pb-1.5 pl-2.5 outline-none border border-[rgba(150,150,150,0.3)] rounded-[10px] text-[clamp(11px,1.6vw,13px)] font-sans min-h-18 resize-none"
                     />
                     <span className="absolute left-2.5 top-3.5 text-[clamp(10px,1.4vw,12px)] text-white/45 cursor-text transition-all duration-250 ease-out pointer-events-none peer-focus:text-[#00bfff] peer-focus:top-1 peer-focus:text-[clamp(9px,1.1vw,10px)] peer-focus:font-semibold peer-[:not(:placeholder-shown)]:text-[#00bfff] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-[clamp(9px,1.1vw,10px)] peer-[:not(:placeholder-shown)]:font-semibold">
@@ -72,9 +81,12 @@ const ProductForm = ({ handleSubmit }) => {
                 <div className="flex items-center gap-2 w-full">
                     <label className="relative block flex-1">
                         <input
+                            value={product.price.amount}
                             type="text"
-                            placeholder=" "
+                            name="amount"
+                            placeholder=''
                             required
+                            onChange={handlePriceChange}
                             className="peer bg-[#2a2a2a] text-white w-full pt-5 pr-2 pb-1.5 pl-2.5 outline-none border border-[rgba(150,150,150,0.3)] rounded-[10px] text-[clamp(11px,1.6vw,13px)] font-sans"
                         />
                         <span className="absolute left-2.5 top-3.5 text-[clamp(10px,1.4vw,12px)] text-white/45 cursor-text transition-all duration-250 ease-out pointer-events-none peer-focus:text-[#00bfff] peer-focus:top-1 peer-focus:text-[clamp(9px,1.1vw,10px)] peer-focus:font-semibold peer-[:not(:placeholder-shown)]:text-[#00bfff] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-[clamp(9px,1.1vw,10px)] peer-[:not(:placeholder-shown)]:font-semibold">
@@ -84,9 +96,10 @@ const ProductForm = ({ handleSubmit }) => {
 
                     <div className="w-[20%]">
                         <select
-                        onChange={(e) => setCurrency(e.target.value)}
-                        value={currency}
-                        className="cursor-pointer w-full h-full py-3.5 bg-[#2a2a2a] text-white px-3 outline-none border border-white/20 rounded-lg text-xs focus:border-[#00bfff] transition-colors appearance-none"
+                            name="currency"
+                            onChange={handlePriceChange}
+                            value={product.price.currency}
+                            className="cursor-pointer w-full h-full py-3.5 bg-[#2a2a2a] text-white px-3 outline-none border border-white/20 rounded-lg text-xs focus:border-[#00bfff] transition-colors appearance-none"
                         >
                             <option value="" disabled>Select Currency</option>
                             <option value="INR">INR</option>
@@ -135,23 +148,22 @@ const ProductForm = ({ handleSubmit }) => {
                     </div>
 
                     {/* Previews Window */}
-                    {images.length > 0 && (
+                    {product.images.length > 0 && (
                         <>
                             <div className="grid grid-cols-[repeat(auto-fill,minmax(72px,1fr))] gap-2 mt-0.5">
-                                {images.map(img => (
+                                {product.images.map(img => (
                                     <div key={img.id} className="relative rounded-lg overflow-hidden aspect-square bg-[#2a2a2a]">
                                         <img src={img.url} alt={img.file.name} className="w-full h-full object-cover block" />
                                         <button
                                             type="button"
                                             className="absolute top-1 right-1 w-4 h-4 rounded-full bg-black/70 border-none text-white text-[11px] cursor-pointer flex items-center justify-center leading-none transition-colors duration-200 hover:bg-red-600"
-                                            onClick={() => removeImage(img.id)}
                                             aria-label="Remove image"
                                         >✕</button>
                                     </div>
                                 ))}
                             </div>
                             <p className="text-[clamp(9px,1.2vw,11px)] text-white/35 text-right mt-0.5">
-                                {images.length} image{images.length !== 1 ? "s" : ""} selected
+                                {product.images.length} image{product.images.length !== 1 ? "s" : ""} selected
                             </p>
                         </>
                     )}

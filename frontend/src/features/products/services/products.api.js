@@ -10,7 +10,7 @@ export const createProduct = async(formData) => {
     return response;
 }
 
-export const getAllProducts = async() => {
+export const getSellerProducts = async() => {
     const response = await productApiInstance.get("/seller");
     return response;
 }
