@@ -1,6 +1,7 @@
 import {Routes, Route} from "react-router";
 import RegisterPage from "../features/auth/pages/RegisterPage";
 import LoginPage from "../features/auth/pages/LoginPage";
+import CreateProductPage from "../features/products/pages/CreateProductPage";
 
 const AppRoutes = () => {
   return <Routes>
@@ -10,6 +11,7 @@ const AppRoutes = () => {
     </Route>
     <Route path="/register" element={<RegisterPage />}></Route>
     <Route path="/login" element={<LoginPage />}></Route>
+    <Route path="/create-product" element={<CreateProductPage />}></Route>
   </Routes>
 }
 
