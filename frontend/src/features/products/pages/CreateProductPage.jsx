@@ -30,13 +30,13 @@ const CreateProductPage = () => {
 		formData.append("priceCurrency", product.price.currency);
 
 		for(let i = 0; i < product.images.length; i++) {
-			const imageFile = product.images[i].file;
-			formData.append("photo", imageFile);
+			formData.append("photo", product.images[i].file);
 		}
 
 		const data = await handleCreateProduct(formData);
 
 		const { success } = data;
+
 		if(success) {
 			setProduct({
 				title: "",

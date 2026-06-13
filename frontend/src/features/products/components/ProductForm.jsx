@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import ProductCreateLoader from "./ProductCreateLoader";
 
 const ProductForm = ({ handleSubmit, product, setProduct, loading }) => {
     const [isDragOver, setIsDragOver] = useState(false);
@@ -171,7 +172,10 @@ const ProductForm = ({ handleSubmit, product, setProduct, loading }) => {
 
                 {/* Submit Button */}
                 <button type="submit" className="border-none outline-none p-3 rounded-[10px] text-white text-[clamp(12px,1.8vw,14px)] bg-blue-500 font-semibold tracking-wide cursor-pointer transition-colors duration-250 mt-1 hover:bg-blue-400">
-                    {loading === 'product' ? "Adding Product..." : "Add Product"}
+                    {loading === 'product' ? <div className="flex items-center justify-center gap-1">
+                        <p>Adding Product</p>
+                        <ProductCreateLoader />
+                    </div> : "Add Product"}
                 </button>
             </form>
         </div>

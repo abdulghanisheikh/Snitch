@@ -20,7 +20,6 @@ export const useProduct = () => {
             return data;
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in creating product");
-            return {error: err.response?.data?.message || "Error in creating product"};
         } finally {
             dispatch(setLoading(''));
         }
@@ -39,8 +38,6 @@ export const useProduct = () => {
             return data;
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in creating product");
-
-            return { error: err.response?.data?.message || "Error in creating product" };
         } finally {
             dispatch(setLoading(''));
         }
