@@ -38,3 +38,26 @@ export const authenticateSeller = async(req, res, next) => {
         });
     }
 }
+
+export const authenticateUser = async(req, res, next) => {
+    const token = req.cookies.token;
+
+    try {
+        if(!token) {
+            return res.status(401).json({
+                success: false,
+                message: "No token found, Unauthorized"
+            });
+        }
+
+        const decoded = await jwt.verify(token, appConfig.JWT_SECRET);
+
+        req.user = decoded;
+        next();
+    } catch(err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+}

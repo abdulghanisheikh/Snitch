@@ -175,11 +175,11 @@ const ProductForm = ({ handleSubmit, product, setProduct, loading }) => {
             </div>
 
             {/* Submit Button */}
-            <button type="submit" className="border-none outline-none p-3 rounded-[10px] text-white text-[clamp(12px,1.8vw,14px)] bg-blue-500 font-semibold tracking-wider cursor-pointer transition-colors duration-250 mt-1 hover:bg-blue-400">
-                {loading === 'product' ? <div disabled className="flex items-center justify-center gap-1">
-                    <p>Adding Product</p>
-                    <ProductCreateLoader />
-                </div> : "Add Product"}
+            <button type="submit" className="border-none outline-none p-3 rounded-[10px] text-white text-[clamp(12px,1.8vw,14px)] bg-blue-500 font-semibold tracking-wider cursor-pointer transition-colors duration-250 mt-1 hover:bg-blue-400 items-center justify-center flex">
+                {loading === 'product' ? 
+                    <ProductCreateLoader /> : 
+                    "Add Product"
+                }
             </button>
         </form>
     );

@@ -1,6 +1,6 @@
-import { registerUser, loginUser } from "../services/auth.api.js";
+import { registerUser, loginUser, getMe } from "../services/auth.api.js";
 import { useDispatch } from "react-redux";
-import { setLoading, setUser, setError } from "../state/auth.slice.js";
+import { setLoading, setUser } from "../state/auth.slice.js";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 
@@ -30,7 +30,6 @@ export const useAuth = () => {
             return data;
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in user registration");
-            dispatch(setError(err.response?.data?.message || "Error in user registration"));
         } finally {
             dispatch(setLoading(""));
         }
@@ -58,12 +57,30 @@ export const useAuth = () => {
 
             return data;
         } catch(err) {
-            dispatch(setError(err.response?.data?.message || "Error in user login"));
             toast.error(err.response?.data?.message || "Error in user login");
         } finally {
             dispatch(setLoading(""));
         }
     }
 
-    return { handleRegisterUser, handleLoginUser };
+    const handleGetMe = async() => {
+        try {
+            dispatch(setLoading('get me'));
+
+            const {data} = await getMe();
+
+            const {success, user} = data;
+            if(success) {
+                dispatch(setUser(user));
+            }
+
+            return data;
+        } catch(err) {
+            toast.error(err.response?.data?.message || "Error in fetching user data");
+        } finally {
+            dispatch(setLoading(''));
+        }
+    }
+
+    return { handleRegisterUser, handleLoginUser, handleGetMe };
 }

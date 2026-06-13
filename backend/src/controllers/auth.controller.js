@@ -122,3 +122,22 @@ export const googleCallback = async (req, res) => {
         });
     }
 }
+
+export const getMe = async(req, res) => {
+    const userId = req.user.id;
+
+    try {
+        const user = await User.findById(userId);
+
+        res.status(200).json({
+            success: true,
+            message: "User fetched",
+            user
+        });
+    } catch(err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+} 

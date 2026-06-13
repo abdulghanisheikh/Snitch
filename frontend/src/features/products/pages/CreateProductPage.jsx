@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { useProduct } from "../hooks/useProduct.js";
 import { useSelector } from "react-redux";
-import Navbar from "../../../app/components/Navbar.jsx";
+import Navbar from "../../../shared/components/Navbar.jsx";
 
 const CreateProductPage = () => {
 	const [product, setProduct] = useState({
