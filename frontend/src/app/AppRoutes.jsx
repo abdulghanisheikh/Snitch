@@ -6,12 +6,12 @@ import CreateProductPage from "../features/products/pages/CreateProductPage";
 const AppRoutes = () => {
   return <Routes>
     <Route path="/" element={<div className="h-screen w-screen flex bg-zinc-900 justify-center items-center">
-        <p className="text-white text-3xl">Welcome to the App</p>
+        <p className="text-blue-500 text-7xl font-semibold">Welcome to Snitch</p>
     </div>}>
     </Route>
     <Route path="/register" element={<RegisterPage />}></Route>
     <Route path="/login" element={<LoginPage />}></Route>
-    <Route path="/create-product" element={<CreateProductPage />}></Route>
+    <Route path="/seller/create-product" element={<CreateProductPage />}></Route>
   </Routes>
 }
 
