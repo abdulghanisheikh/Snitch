@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { useProduct } from "../hooks/useProduct.js";
 import { useSelector } from "react-redux";
+import Navbar from "../../../app/components/Navbar.jsx";
 
 const CreateProductPage = () => {
 	const [product, setProduct] = useState({
@@ -51,7 +52,9 @@ const CreateProductPage = () => {
 	}
 
 	return (
-		<div className="min-h-screen w-screen flex bg-zinc-900 justify-center items-center">
+		<div className="min-h-screen w-screen flex flex-col bg-zinc-900 items-center">
+			<Navbar />
+			
 			<ProductForm
 				handleSubmit={handleSubmit}
 				setProduct={setProduct}
