@@ -28,7 +28,7 @@ const RegisterPage = () => {
     }
   }
 
-  return <main className="min-h-screen w-screen flex bg-zinc-900 justify-center items-center">
+  return <main className="min-h-screen w-screen flex justify-center items-center">
     <RegisterForm
       userInput={userInput}
       setUserInput={setUserInput}

@@ -9,7 +9,7 @@ const Navbar = () => {
             </Link>
             <p className="text-white text-lg tracking-wide">List Item</p>
         </div>
-        <p className="text-xl text-blue-400 tracking-wider font-semibold">Snitch</p>
+        <p className="text-3xl font-bold text-[#6F4E37] tracking-wider">Snitch</p>
     </nav>
 }
 
