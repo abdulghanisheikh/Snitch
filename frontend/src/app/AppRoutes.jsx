@@ -8,17 +8,25 @@ import Dashboard from "../features/products/pages/Dashboard";
 
 const AppRoutes = () => {
 	return <Routes>
-		<Route path="/" element={<Protected>
-			<Dashboard />
-		</Protected>}>
-		</Route>
 		<Route path="/register" element={<RegisterPage />}></Route>
 		<Route path="/login" element={<LoginPage />}></Route>
+		<Route path="/" element={
+			<Protected>
+				<p className="text-4xl">Welcome to <span className="text-[#6F4E37] font-semibold">Snitch</span></p>
+			</Protected>
+		}>
+		</Route>
 		<Route path="/seller/create-product" element={
 			<SellerProtected>
 				<CreateProductPage />
 			</SellerProtected>
 		}></Route>
+		<Route path="/seller/dashboard" element={
+			<SellerProtected>
+				<Dashboard />	
+			</SellerProtected>
+		}>
+		</Route>
 	</Routes>
 }
 
