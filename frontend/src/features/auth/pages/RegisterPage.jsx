@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useAuth } from "../hooks/useAuth.js";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
+import Navbar from "../../../shared/components/Navbar.jsx";
 
 const RegisterPage = () => {
   const [userInput, setUserInput] = useState({
@@ -28,7 +29,9 @@ const RegisterPage = () => {
     }
   }
 
-  return <main className="min-h-screen w-screen flex justify-center items-center">
+  return <main className="min-h-screen w-screen flex flex-col justify-start items-center">
+    <Navbar />
+
     <RegisterForm
       userInput={userInput}
       setUserInput={setUserInput}

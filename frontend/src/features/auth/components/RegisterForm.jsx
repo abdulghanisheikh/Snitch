@@ -1,15 +1,14 @@
 import {Link} from "react-router";
-import SellerCheckBox from "./SellerCheckBox";
 import GoogleLoginButton from "./GoogleLoginButton";
 
 const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) => {
   return (
     <form 
     onSubmit={handleRegisterClick}
-    className="bg-white dark:bg-zinc-900 shadow-2xl rounded-2xl overflow-hidden border-3 border-blue-400 dark:border-blue-800 lg:text-sm text-xs text-white lg:w-1/3">
+    className="bg-white text-black lg:text-sm text-xs lg:w-1/3">
       
       <div className="flex flex-col py-4 px-8">
-        <h2 className="text-4xl tracking-tight font-extrabold text-center text-zinc-800 dark:text-white">
+        <h2 className="text-4xl font-semibold text-center">
           Register
         </h2>
 
@@ -19,14 +18,14 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
 
         <div className="flex items-center gap-2 mt-4">
           <div className="flex-1 h-px bg-gray-300 dark:bg-gray-600" />
-          <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">Or</span>
+          <span className="text-sm font-medium">Or</span>
           <div className="flex-1 h-px bg-gray-300 dark:bg-gray-600" />
         </div>
 
         <div className="mt-4">
           <div className="relative">
             <label
-              className="block font-medium text-zinc-600 dark:text-zinc-200"
+              className="block font-medium"
               htmlFor="email"
             >
               Email
@@ -35,7 +34,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
               value={userInput.email}
               onChange={(e) => setUserInput({...userInput, [e.target.name]: e.target.value})}
               placeholder="you@example.com"
-              className="block w-full px-4 py-2 mt-1 text-zinc-800 bg-white border-2 rounded-lg dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-opacity-50 focus:outline-none focus:ring focus:ring-blue-400"
+              className="block w-full px-4 py-2 mt-1 border outline-none border-black rounded-lg"
               name="email"
               id="email"
               type="email"
@@ -44,7 +43,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
 
           <div className="mt-4">
             <label
-              className="block font-medium text-zinc-600 dark:text-zinc-200"
+              className="block font-medium"
               htmlFor="password"
             >
               Password
@@ -53,7 +52,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
               value={userInput.password}
               onChange={(e) => setUserInput({...userInput, [e.target.name]: e.target.value})}
               placeholder="••••••••"
-              className="block w-full px-4 py-2 mt-1 text-zinc-800 bg-white border-2 rounded-lg dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-opacity-50 focus:outline-none focus:ring focus:ring-blue-400"
+              className="block w-full px-4 py-2 mt-1 border outline-none border-black rounded-lg"
               name="password"
               id="password"
               type="password"
@@ -62,7 +61,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
 
           <div className="mt-4">
             <label
-              className="block font-medium text-zinc-600 dark:text-zinc-200"
+              className="block font-medium"
               htmlFor="fullname"
             >
               Full Name
@@ -71,7 +70,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
               value={userInput.fullname}
               onChange={(e) => setUserInput({...userInput, [e.target.name]: e.target.value})}
               placeholder="Enter your full name"
-              className="block w-full px-4 py-2 mt-1 text-zinc-800 bg-white border-2 rounded-lg dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-opacity-50 focus:outline-none focus:ring focus:ring-blue-400"
+              className="block w-full px-4 py-2 mt-1 border outline-none border-black rounded-lg"
               name="fullname"
               id="fullname"
               type="text"
@@ -80,7 +79,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
 
           <div className="mt-4">
             <label
-              className="block font-medium text-zinc-600 dark:text-zinc-200"
+              className="block font-medium"
               htmlFor="contact"
             >
               Contact
@@ -89,7 +88,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
               value={userInput.contact}
               onChange={(e) => setUserInput({...userInput, [e.target.name]: e.target.value})}
               placeholder="Enter your contact number"
-              className="block w-full px-4 py-2 mt-1 text-zinc-800 bg-white border-2 rounded-lg dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-opacity-50 focus:outline-none focus:ring focus:ring-blue-400"
+              className="block w-full px-4 py-2 mt-1 border outline-none border-black rounded-lg"
               name="contact"
               id="contact"
               type="text"
@@ -97,18 +96,19 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
           </div>
 
           <div className="mt-5 ml-1.5 flex items-center gap-1.5">
-            <SellerCheckBox 
-            userInput={userInput} 
-            setUserInput={setUserInput}
+            <input
+            type="checkbox"
+            checked={userInput.isSeller}
+            className="h-4 w-4 cursor-pointer"
+            onChange={(e) => setUserInput({...userInput, isSeller: e.target.checked})}
             />
-            <label
-            className="block font-medium text-zinc-600 dark:text-zinc-200"
-            >Register as seller</label>
+
+            <p>Register as Seller</p>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-3">
             <button
-              className="w-full px-4 py-3 tracking-tight text-white bg-linear-to-r from-blue-600 to-cyan-600 rounded-lg active:scale-90 duration-300 ease-in-out outline-none cursor-pointer"
+              className="w-full px-4 py-3 tracking-tight text-white bg-black active:scale-90 duration-300 ease-in-out outline-none cursor-pointer"
               type="submit"
             >
               {loading === "register" ? "Creating..." : "Create Account"}
@@ -117,10 +117,10 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
         </div>
       </div>
 
-      <div className="px-8 py-4 mt-5 dark:bg-zinc-800">
-        <div className="text-white text-center">
+      <div className="px-8 py-4">
+        <div className="text-black text-center">
           Already have an account? {` `}
-          <Link to="/login" className="font-medium underline text-blue-300">
+          <Link to="/login" className="font-medium underline text-blue-500">
             Login In
           </Link>
         </div>
