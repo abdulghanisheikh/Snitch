@@ -16,16 +16,18 @@ const AppRoutes = () => {
 			</Protected>
 		}>
 		</Route>
-		<Route path="/seller/create-product" element={
-			<SellerProtected>
-				<CreateProductPage />
-			</SellerProtected>
-		}></Route>
-		<Route path="/seller/dashboard" element={
-			<SellerProtected>
-				<Dashboard />	
-			</SellerProtected>
-		}>
+		<Route path="/seller">
+			<Route path="create-product" element={
+				<SellerProtected>
+					<CreateProductPage />
+				</SellerProtected>
+			}></Route>
+
+			<Route path="dashboard" element={
+				<SellerProtected>
+					<Dashboard />
+				</SellerProtected>
+			}></Route>
 		</Route>
 	</Routes>
 }
