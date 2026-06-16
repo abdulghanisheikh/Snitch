@@ -52,7 +52,7 @@ const CreateProductPage = () => {
 	}
 
 	return (
-		<div className="min-h-screen w-screen flex flex-col bg-zinc-900 items-center">
+		<main className="min-h-screen w-screen flex flex-col items-center">
 			<Navbar />
 			
 			<ProductForm
@@ -62,7 +62,7 @@ const CreateProductPage = () => {
 				loading={loading}
 			/>
 			<ToastContainer position="top-right" />
-		</div>
+		</main>
 	)
 }
 

@@ -3,16 +3,21 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useAuth } from "../hooks/useAuth.js";
 import { ToastContainer } from "react-toastify";
-import Navbar from "../../../shared/components/Navbar.jsx";
+import { Navigate } from "react-router";
 
 const LoginPage = () => {
-	const loading = useSelector(state => state.auth.loading);
-	const { handleLoginUser } = useAuth();
-
 	const [userInput, setUserInput] = useState({
 		email: "",
 		password: ""
 	});
+	const { handleLoginUser } = useAuth();
+
+	const loading = useSelector(state => state.auth.loading);
+	const user = useSelector(state => state.auth.user);
+
+	if(!loading && user) {
+		return <Navigate to='/'></Navigate>;
+	}
 
 	const handleLoginClick = async (e) => {
 		e.preventDefault();
@@ -27,9 +32,11 @@ const LoginPage = () => {
 		}
 	}
 
-	return <div className="min-h-screen w-screen flex flex-col items-center">
+	return <main className="min-h-screen w-screen flex flex-col items-center">
 
-		<Navbar/>
+		<header className="flex w-full px-10 py-3 justify-end">
+			<h1 className="text-[#6F4E37] text-3xl">Snitch</h1>
+		</header>
 
 		<LoginForm
 			userInput={userInput}
@@ -39,7 +46,7 @@ const LoginPage = () => {
 		/>
 
 		<ToastContainer position="top-right" />
-	</div>
+	</main>
 }
 
 export default LoginPage;

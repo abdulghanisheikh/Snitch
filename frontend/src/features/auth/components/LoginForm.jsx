@@ -8,7 +8,7 @@ const LoginForm = ({userInput, setUserInput, loading, handleLoginClick}) => {
     className="bg-white text-black overflow-hidden lg:text-sm text-xs lg:w-1/3">
       
       <div className="flex flex-col py-5 px-8">
-        <h2 className="text-4xl font-semibold text-center">
+        <h2 className="text-4xl font-semibold text-center text-[#4a270d]">
           Login
         </h2>
 
@@ -71,7 +71,7 @@ const LoginForm = ({userInput, setUserInput, loading, handleLoginClick}) => {
         </div>
       </div>
 
-      <div className="px-8 py-4 mt-5 bg-gray-50 lg:text-sm text-xs">
+      <div className="px-8 py-2">
         <div className="text-black text-center">
           Did not have an account? {` `}
           <Link to="/register" className="font-medium underline text-blue-600">

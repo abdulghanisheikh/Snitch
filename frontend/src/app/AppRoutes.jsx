@@ -4,13 +4,12 @@ import LoginPage from "../features/auth/pages/LoginPage";
 import CreateProductPage from "../features/products/pages/CreateProductPage";
 import SellerProtected from "../features/auth/components/SellerProtected";
 import Protected from "../features/auth/components/Protected";
+import Dashboard from "../features/products/pages/Dashboard";
 
 const AppRoutes = () => {
 	return <Routes>
 		<Route path="/" element={<Protected>
-			<div className="h-screen w-screen flex bg-zinc-900 justify-center items-center">
-				<p className="text-blue-500 text-7xl font-semibold">Welcome to Snitch</p>
-			</div>
+			<Dashboard />
 		</Protected>}>
 		</Route>
 		<Route path="/register" element={<RegisterPage />}></Route>

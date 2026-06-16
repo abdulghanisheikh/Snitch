@@ -8,7 +8,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
     className="bg-white text-black lg:text-sm text-xs lg:w-1/3">
       
       <div className="flex flex-col py-4 px-8">
-        <h2 className="text-4xl font-semibold text-center">
+        <h2 className="text-4xl font-semibold text-center text-[#4a270d]">
           Register
         </h2>
 
@@ -117,7 +117,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
         </div>
       </div>
 
-      <div className="px-8 py-4">
+      <div className="px-8 py-2">
         <div className="text-black text-center">
           Already have an account? {` `}
           <Link to="/login" className="font-medium underline text-blue-500">
