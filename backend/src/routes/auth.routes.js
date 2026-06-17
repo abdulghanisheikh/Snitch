@@ -38,6 +38,11 @@ router.get("/google/callback",
     googleCallback
 );
 
+/**
+ * @route GET /api/auth/me
+ * @description gets the user data
+ * @access private
+ */
 router.get("/me", authenticateUser, getMe);
 
 export default router;

@@ -9,22 +9,26 @@ const Dashboard = () => {
 
     const sellerProducts = useSelector(state => state.product.sellerProducts);
 
+    const initDashboard = async() => {
+        await handleGetSellerProducts();
+    }
+
     useEffect(() => {
-        handleGetSellerProducts();
+        initDashboard();
     }, []);
 
     return <main className="h-screen w-screen flex flex-col">
-        <Navbar />
+        <Navbar pageName="Dashboard" />
 
-        <section className="flex flex-col px-10 py-2 gap-5">
-            <p className="text-4xl">Dashboard</p>
-
-            <div className="flex h-full w-full justify-start items-center gap-3 py-2">
+        <section className="flex flex-col px-15 py-2 gap-3">
+            <div className="flex lg:flex-row flex-col h-full w-full justify-start items-center gap-5 py-2">
                 {
                     sellerProducts.length === 0 ?
                     <p>No Products Listed</p> :
-                    sellerProducts.map((p, index) => {
-                        return <ProductCard key={index} product={p} />
+                    sellerProducts.map((product, index) => {
+                        console.log("product:", product);
+                        
+                        return <ProductCard key={index} product={product} />
                     })
                 }
             </div>

@@ -53,7 +53,7 @@ const CreateProductPage = () => {
 
 	return (
 		<main className="min-h-screen w-screen flex flex-col items-center">
-			<Navbar />
+			<Navbar pageName="List Item" />
 			
 			<ProductForm
 				handleSubmit={handleSubmit}
