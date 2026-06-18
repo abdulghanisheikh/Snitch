@@ -6,7 +6,7 @@ const sendTokenResponse = async ({ user, res, message }) => {
     const token = await jwt.sign({
         id: user._id
     }, appConfig.JWT_SECRET, {
-        expiresIn: "7d"
+        expiresIn: "1d"
     });
 
     res.cookie("token", token);
@@ -109,8 +109,8 @@ export const googleCallback = async (req, res) => {
 
         const token = jwt.sign(
             {id: user._id},
-            appConfig.JWT_SECRET, 
-            {expiresIn: "7d"}
+            appConfig.JWT_SECRET,
+            {expiresIn: "1d"}
         );
 
         res.cookie("token", token);

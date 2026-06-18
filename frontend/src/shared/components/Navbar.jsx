@@ -1,7 +1,6 @@
 import { MdArrowBackIos } from "react-icons/md";
 import {Link} from "react-router";
 import { useSelector } from "react-redux";
-import {useAuth} from "../../features/auth/hooks/useAuth.js";
 
 const Navbar = ({pageName}) => {
     const user = useSelector(state => state.auth.user);
@@ -15,11 +14,11 @@ const Navbar = ({pageName}) => {
         </div>
 
         <div className="flex items-center lg:text-sm text-xs gap-5">
-            <Link className="cursor-pointer">Dashboard</Link>
+            <Link to='/seller/dashboard' className="cursor-pointer">Dashboard</Link>
             {
-                user.role === 'seller' && <Link className="cursor-pointer">Create Product</Link>
+                user.role === 'seller' && <Link to='/seller/create-product' className="cursor-pointer">Create Product</Link>
             }
-            <Link className="cursor-pointer">New Account</Link>
+            <Link className="cursor-pointer" to='/register'>New Account</Link>
             <p className="cursor-pointer" onClick={() => console.log("logout")}>Logout</p>
         </div>
 
