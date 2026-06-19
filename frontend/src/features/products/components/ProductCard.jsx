@@ -1,13 +1,4 @@
-import { useState } from "react";
-
 const ProductCard = ({product}) => {
-	const [added, setAdded] = useState(false);
-
-	const handleAdd = () => {
-		setAdded(true);
-		setTimeout(() => setAdded(false), 2000);
-	};
-
 	const getPrice = () => {
 		const { currency, amount } = product.price;
 
@@ -40,15 +31,16 @@ const ProductCard = ({product}) => {
 				{product.description}
 			</p>
 
-			<button
-				onClick={handleAdd}
-				className={`w-full py-3 text-sm cursor-pointer font-semibold tracking-widest uppercase transition-all duration-300 rounded-xs ${added
-						? "bg-green-700 text-white"
-						: "bg-black text-white hover:bg-neutral-800 active:scale-95"
-					}`}
-			>
-				{added ? "Added to Bag ✓" : "Add to Bag"}
-			</button>
+			<div className="flex items-center justify-between gap-2">
+				<button
+				className="flex-1 py-2 text-xs cursor-pointer tracking-widest uppercase transition-all duration-300 rounded-xs bg-black text-white">
+					Remove
+				</button>
+
+				<button className="flex-1 py-2 text-xs cursor-pointer tracking-widest uppercase transition-all duration-300 rounded-xs bg-black text-white">
+					Edit
+				</button>
+			</div>
 		</div>
 	</main>
 }

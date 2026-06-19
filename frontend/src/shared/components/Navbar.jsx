@@ -20,7 +20,7 @@ const Navbar = ({ pageName }) => {
         </div>
 
         <div className="flex items-center gap-8">
-            <Link to='/seller/dashboard' className="flex flex-col items-center cursor-pointer justify-center gap-1">
+            <Link to='/' className="flex flex-col items-center cursor-pointer justify-center gap-1">
                 <MdOutlineSpaceDashboard size={21} />
                 <p className="text-xs">Dashboard</p>
             </Link>
@@ -32,9 +32,9 @@ const Navbar = ({ pageName }) => {
                 </Link>
             }
 
-            <Link to='/register' className="flex flex-col items-center justify-center gap-1 cursor-pointer">
+            <Link to='/account' className="flex flex-col items-center justify-center gap-1 cursor-pointer">
                 <VscAccount size={21} />
-                <p className="text-xs">New Account</p>
+                <p className="text-xs">Account</p>
             </Link>
             
             <div 
