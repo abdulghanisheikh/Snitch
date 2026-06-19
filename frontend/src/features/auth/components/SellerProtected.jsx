@@ -11,6 +11,10 @@ const SellerProtected = ({children}) => {
         </div>
     }
 
+    if(!user) {
+        return <Navigate to='/login' />;
+    }
+
     if(user.role !== 'seller') {
         return <Navigate to='/' />;
     }

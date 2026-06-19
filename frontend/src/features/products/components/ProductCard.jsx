@@ -1,8 +1,5 @@
 import { useState } from "react";
 
-const bagImageUrl =
-	"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80";
-
 const ProductCard = ({product}) => {
 	const [added, setAdded] = useState(false);
 
@@ -24,7 +21,7 @@ const ProductCard = ({product}) => {
 	return <main className="w-80 rounded-sm overflow-hidden shadow-2xl bg-white">
 		<div className="relative">
 			<img
-				src={product.images.length === 0 ? '' : product.images[0].url}
+				src={product.images.length === 0 ? '#' : product.images[0].url}
 				alt="No Image"
 				className="w-full h-72 object-cover"
 			/>

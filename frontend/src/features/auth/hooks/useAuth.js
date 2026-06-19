@@ -1,4 +1,4 @@
-import { registerUser, loginUser, getMe } from "../services/auth.api.js";
+import { registerUser, loginUser, getMe, logoutUser } from "../services/auth.api.js";
 import { useDispatch } from "react-redux";
 import { setLoading, setUser } from "../state/auth.slice.js";
 import { toast } from "react-toastify";
@@ -8,16 +8,17 @@ export const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleRegisterUser = async({email, contact, fullname, password, isSeller = false}) => {
+    const handleRegisterUser = async ({ email, contact, fullname, password, isSeller = false }) => {
         try {
             dispatch(setLoading("register"));
 
-            const {data} = await registerUser({email, contact, fullname, password, isSeller});
+            const { data } = await registerUser({ email, contact, fullname, password, isSeller });
 
-            const {success, message, user} = data;
+            const { success, message, user } = data;
 
-            if(success) {
+            if (success) {
                 dispatch(setUser(user));
+
                 toast.success(message, {
                     autoClose: 1500
                 });
@@ -28,22 +29,22 @@ export const useAuth = () => {
             }
 
             return data;
-        } catch(err) {
+        } catch (err) {
             toast.error(err.response?.data?.message || "Error in user registration");
         } finally {
-            dispatch(setLoading(""));
+            dispatch(setLoading(''));
         }
     }
 
-    const handleLoginUser = async({email, password}) => {
+    const handleLoginUser = async ({ email, password }) => {
         try {
             dispatch(setLoading("login"));
 
-            const {data} = await loginUser({email, password});
+            const { data } = await loginUser({ email, password });
 
-            const {success, message, user} = data;
+            const { success, message, user } = data;
 
-            if(success) {
+            if (success) {
                 dispatch(setUser(user));
 
                 toast.success(message, {
@@ -56,31 +57,50 @@ export const useAuth = () => {
             }
 
             return data;
-        } catch(err) {
+        } catch (err) {
             toast.error(err.response?.data?.message || "Error in user login");
         } finally {
             dispatch(setLoading(""));
         }
     }
 
-    const handleGetMe = async() => {
+    const handleGetMe = async () => {
         try {
             dispatch(setLoading('get me'));
 
-            const {data} = await getMe();
+            const { data } = await getMe();
 
-            const {success, user} = data;
-            if(success) {
+            const { success, user } = data;
+            if (success) {
                 dispatch(setUser(user));
             }
 
             return data;
-        } catch(err) {
-            toast.error(err.response?.data?.message || "Error in fetching user data");
+        } catch (err) {
+            console.log(err.response?.data?.message || "Error in fetching user data");
         } finally {
             dispatch(setLoading(''));
         }
     }
 
-    return { handleRegisterUser, handleLoginUser, handleGetMe };
+    const handleLogoutUser = async () => {
+        try {
+            dispatch(setLoading('logout'));
+
+            const { data } = await logoutUser();
+
+            const { success, message } = data;
+
+            if (success) {
+                dispatch(setUser(null));
+                toast.success(message, { autoClose: 1500 });
+            }
+        } catch (err) {
+            toast.error(err.response?.data?.message || "Error in user logout");
+        } finally {
+            dispatch(setLoading(''));
+        }
+    }
+
+    return { handleRegisterUser, handleLoginUser, handleGetMe, handleLogoutUser };
 }

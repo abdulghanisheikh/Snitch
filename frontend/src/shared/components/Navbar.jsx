@@ -1,13 +1,15 @@
 import { MdArrowBackIos } from "react-icons/md";
-import {Link} from "react-router";
+import { Link } from "react-router";
 import { useSelector } from "react-redux";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { IoMdCreate } from "react-icons/io";
 import { VscAccount } from "react-icons/vsc";
 import { CgLogOut } from "react-icons/cg";
+import { useAuth } from "../../features/auth/hooks/useAuth.js";
 
 const Navbar = ({ pageName }) => {
     const user = useSelector(state => state.auth.user);
+    const { handleLogoutUser } = useAuth();
 
     return <nav className="flex items-center w-full justify-between py-5 lg:px-10 px-5">
         <div className="flex items-center justify-center gap-3">
@@ -18,26 +20,28 @@ const Navbar = ({ pageName }) => {
         </div>
 
         <div className="flex items-center gap-8">
-            <div className="flex flex-col items-center cursor-pointer justify-center gap-1">
+            <Link to='/seller/dashboard' className="flex flex-col items-center cursor-pointer justify-center gap-1">
                 <MdOutlineSpaceDashboard size={21} />
-                <Link to='/seller/dashboard' className="text-xs">Dashboard</Link>
-            </div>
+                <p className="text-xs">Dashboard</p>
+            </Link>
 
             {
-                user.role === 'seller' && <div className="flex flex-col cursor-pointer items-center justify-center gap-1">
+                user.role === 'seller' && <Link to='/seller/create-product' className="flex flex-col cursor-pointer items-center justify-center gap-1">
                     <IoMdCreate size={21} />
-                    <Link to='/seller/create-product' className="text-xs">List Product</Link>
-                </div>
+                    <p className="text-xs">List Product</p>
+                </Link>
             }
 
-            <div className="flex flex-col items-center justify-center gap-1 cursor-pointer">
+            <Link to='/register' className="flex flex-col items-center justify-center gap-1 cursor-pointer">
                 <VscAccount size={21} />
-                <Link className="text-xs" to='/register'>New Account</Link>
-            </div>
+                <p className="text-xs">New Account</p>
+            </Link>
             
-            <div className="flex flex-col items-center justify-center gap-1 cursor-pointer">
+            <div 
+            onClick={() => handleLogoutUser()}
+            className="flex flex-col items-center justify-center gap-1 cursor-pointer">
                 <CgLogOut size={21} />
-                <p className="text-xs" onClick={() => console.log("logout")}>Logout</p>
+                <p className="text-xs">Logout</p>
             </div>
         </div>
 

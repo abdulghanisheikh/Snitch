@@ -5,6 +5,7 @@ import CreateProductPage from "../features/products/pages/CreateProductPage";
 import SellerProtected from "../features/auth/components/SellerProtected";
 import Protected from "../features/auth/components/Protected";
 import Dashboard from "../features/products/pages/Dashboard";
+import Navbar from "../shared/components/Navbar";
 
 const AppRoutes = () => {
 	return <Routes>
@@ -12,7 +13,10 @@ const AppRoutes = () => {
 		<Route path="/login" element={<LoginPage />}></Route>
 		<Route path="/" element={
 			<Protected>
-				<p className="text-4xl">Welcome to <span className="text-[#6F4E37] font-semibold">Snitch</span></p>
+				<div>
+					<Navbar pageName='' />
+					<p className="text-4xl">Welcome to <span className="text-[#6F4E37] font-semibold">Snitch</span></p>
+				</div>
 			</Protected>
 		}>
 		</Route>

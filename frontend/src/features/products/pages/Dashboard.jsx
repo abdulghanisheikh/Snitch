@@ -25,11 +25,7 @@ const Dashboard = () => {
                 {
                     sellerProducts.length === 0 ?
                     <p>No Products Listed</p> :
-                    sellerProducts.map((product, index) => {
-                        console.log("product:", product);
-                        
-                        return <ProductCard key={index} product={product} />
-                    })
+                    sellerProducts.map((product, index) => <ProductCard key={index} product={product} />)
                 }
             </div>
         </section>
