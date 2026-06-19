@@ -32,7 +32,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
             </label>
             <input
               value={userInput.email}
-              onChange={(e) => setUserInput({...userInput, [e.target.name]: e.target.value})}
+              onChange={e => setUserInput({...userInput, [e.target.name]: e.target.value})}
               placeholder="you@example.com"
               className="block w-full px-4 py-2 mt-1 border outline-none border-black rounded-lg"
               name="email"
@@ -50,7 +50,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
             </label>
             <input
               value={userInput.password}
-              onChange={(e) => setUserInput({...userInput, [e.target.name]: e.target.value})}
+              onChange={e => setUserInput({...userInput, [e.target.name]: e.target.value})}
               placeholder="••••••••"
               className="block w-full px-4 py-2 mt-1 border outline-none border-black rounded-lg"
               name="password"
@@ -68,7 +68,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
             </label>
             <input
               value={userInput.fullname}
-              onChange={(e) => setUserInput({...userInput, [e.target.name]: e.target.value})}
+              onChange={e => setUserInput({...userInput, [e.target.name]: e.target.value})}
               placeholder="Enter your full name"
               className="block w-full px-4 py-2 mt-1 border outline-none border-black rounded-lg"
               name="fullname"
@@ -86,7 +86,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
             </label>
             <input
               value={userInput.contact}
-              onChange={(e) => setUserInput({...userInput, [e.target.name]: e.target.value})}
+              onChange={e => setUserInput({...userInput, [e.target.name]: e.target.value})}
               placeholder="Enter your contact number"
               className="block w-full px-4 py-2 mt-1 border outline-none border-black rounded-lg"
               name="contact"
@@ -100,7 +100,7 @@ const RegisterForm = ({userInput, setUserInput, handleRegisterClick, loading}) =
             type="checkbox"
             checked={userInput.isSeller}
             className="h-4 w-4 cursor-pointer"
-            onChange={(e) => setUserInput({...userInput, isSeller: e.target.checked})}
+            onChange={e => setUserInput({...userInput, isSeller: e.target.checked})}
             />
 
             <p>Register as Seller</p>

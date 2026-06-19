@@ -33,7 +33,7 @@ const LoginForm = ({userInput, setUserInput, loading, handleLoginClick}) => {
             </label>
             <input
               value={userInput.email}
-              onChange={(e) => setUserInput({...userInput, [e.target.name]: e.target.value})}
+              onChange={e => setUserInput({...userInput, [e.target.name]: e.target.value})}
               placeholder="you@example.com"
               className="block w-full px-4 py-2 mt-1 text-black bg-white rounded-lg outline-none border border-black"
               name="email"
@@ -51,7 +51,7 @@ const LoginForm = ({userInput, setUserInput, loading, handleLoginClick}) => {
             </label>
             <input
               value={userInput.password}
-              onChange={(e) => setUserInput({...userInput, [e.target.name]: e.target.value})}
+              onChange={e => setUserInput({...userInput, [e.target.name]: e.target.value})}
               placeholder="••••••••"
               className="block w-full px-4 py-2 mt-1 text-black border rounded-lg border-black outline-none"
               name="password"

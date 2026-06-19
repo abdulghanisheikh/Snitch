@@ -140,4 +140,21 @@ export const getMe = async(req, res) => {
             error: err.message
         });
     }
-} 
+}
+
+export const logoutUser = async(req, res) => {
+    try {
+        res.clearCookie("token");
+
+        res.status(200).json({
+            success: true,
+            message: "User logged out"
+        });
+    }
+    catch(err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+}

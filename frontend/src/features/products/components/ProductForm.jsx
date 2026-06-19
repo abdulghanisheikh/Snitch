@@ -176,7 +176,8 @@ const ProductForm = ({ handleSubmit, product, setProduct, loading }) => {
 
             {/* Submit Button */}
             <button type="submit" className="border-none outline-none p-3 text-[clamp(12px,1.8vw,14px)] bg-black text-white font-semibold tracking-wider active:scale-90 cursor-pointer transition-colors duration-300 ease-in-out mt-1 items-center justify-center flex">
-                {loading === 'product' ? 
+                {
+                    loading === 'product' ? 
                     <ProductCreateLoader /> : 
                     "Publish Listing"
                 }

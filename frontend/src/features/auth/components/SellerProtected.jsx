@@ -7,7 +7,7 @@ const SellerProtected = ({children}) => {
 
     if(loading !== '') {
         return <div className="text-3xl text-white flex justify-center items-center h-screen w-screen">
-            <p>Please Wait...</p>
+            <p>Loading....</p>
         </div>
     }
 
