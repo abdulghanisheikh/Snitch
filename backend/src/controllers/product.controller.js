@@ -60,3 +60,20 @@ export const getSellerProducts = async(req, res) => {
         });
     }
 }
+
+export const getAllProducts = async(req, res) => {
+    try {
+        const products = await Product.find();
+
+        return res.status(200).json({
+            success: true,
+            message: "All products fetched",
+            products
+        });
+    } catch(err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+}

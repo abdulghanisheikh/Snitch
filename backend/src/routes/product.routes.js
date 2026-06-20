@@ -1,6 +1,6 @@
 import express from "express";
-import { createProduct, getSellerProducts } from "../controllers/product.controller.js";
-import { authenticateSeller } from "../middlewares/auth.middleware.js";
+import { createProduct, getSellerProducts, getAllProducts } from "../controllers/product.controller.js";
+import { authenticateSeller, authenticateUser } from "../middlewares/auth.middleware.js";
 import upload from "../configs/upload.config.js";
 import { createProductValidator } from "../validators/product.validator.js";
 
@@ -19,5 +19,12 @@ router.post("/", authenticateSeller, upload.array("photo", 7), createProductVali
  * @access private (seller only)
  */
 router.get("/seller", authenticateSeller, getSellerProducts);
+
+/**
+ * @route GET /api/product/
+ * @description get all products for the user
+ * @access private
+ */
+router.get("/", authenticateUser, getAllProducts);
 
 export default router;

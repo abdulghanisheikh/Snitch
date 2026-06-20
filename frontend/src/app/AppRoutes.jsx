@@ -4,8 +4,8 @@ import LoginPage from "../features/auth/pages/LoginPage";
 import CreateProductPage from "../features/products/pages/CreateProductPage";
 import SellerProtected from "../features/auth/components/SellerProtected";
 import Protected from "../features/auth/components/Protected";
-import Dashboard from "../features/products/pages/Dashboard";
 import AccountPage from "../features/user/pages/AccountPage";
+import Home from "../features/products/pages/Home";
 
 const AppRoutes = () => {
 	return <Routes>
@@ -14,7 +14,7 @@ const AppRoutes = () => {
 		
 		<Route path="/" element={
 			<Protected>
-				<Dashboard />
+				<Home />
 			</Protected>
 		}>
 		</Route>
