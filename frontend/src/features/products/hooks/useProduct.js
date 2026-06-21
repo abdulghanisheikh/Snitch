@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
-import { createProduct, getAllProducts, getSellerProducts } from "../services/products.api.js";
+import { createProduct, getAllProducts, getSellerProducts, getProductDetails } from "../services/products.api.js";
 import { toast } from "react-toastify";
-import { setLoading, setSellerProducts, setProducts } from "../states/products.slice.js";
+import { setLoading, setSellerProducts, setProducts, setProductDetails } from "../states/products.slice.js";
 
 export const useProduct = () => {
     const dispatch = useDispatch();
@@ -61,5 +61,22 @@ export const useProduct = () => {
         }
     }
 
-    return { handleCreateProduct, handleGetSellerProducts, handleGetAllProducts };
+    const handleGetProductDetails = async(productId) => {
+        try {
+            dispatch(setLoading('product details'));
+            const {data} = await getProductDetails(productId);
+
+            const {success, productDetails} = data;
+
+            if(success) {
+                dispatch(setProductDetails(productDetails));
+            }
+        } catch(err) {
+            toast.error(err.response?.data?.message || "Error in getting product details");
+        } finally {
+            dispatch(setLoading(''));
+        }
+    }
+
+    return { handleCreateProduct, handleGetSellerProducts, handleGetAllProducts, handleGetProductDetails };
 }

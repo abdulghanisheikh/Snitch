@@ -77,3 +77,28 @@ export const getAllProducts = async(req, res) => {
         });
     }
 }
+
+export const getProductDetails = async(req, res) => {
+    const productId = req.params.productId;
+    try {
+        const product = await Product.findById(productId);
+
+        if(!product) {
+            return res.status(400).json({
+                success: false,
+                message: "Product does not exist"
+            });
+        }
+        
+        res.status(200).json({
+            success: true,
+            message: "Product details fetched",
+            productDetails: product
+        });
+    } catch(err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+}

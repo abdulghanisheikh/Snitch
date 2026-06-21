@@ -1,5 +1,5 @@
 import express from "express";
-import { createProduct, getSellerProducts, getAllProducts } from "../controllers/product.controller.js";
+import { createProduct, getSellerProducts, getAllProducts, getProductDetails } from "../controllers/product.controller.js";
 import { authenticateSeller, authenticateUser } from "../middlewares/auth.middleware.js";
 import upload from "../configs/upload.config.js";
 import { createProductValidator } from "../validators/product.validator.js";
@@ -23,15 +23,15 @@ router.get("/seller", authenticateSeller, getSellerProducts);
 /**
  * @route GET /api/product/
  * @description get all products for the user
- * @access private
+ * @access public
  */
 router.get("/", getAllProducts);
 
 /**
  * @route GET /api/product/:productId
  * @description gives the product details
- * @access private
+ * @access public
  */
-
+router.get('/:productId', getProductDetails);
 
 export default router;

@@ -25,7 +25,7 @@ const Navbar = ({ pageName }) => {
         <div className="flex items-center gap-8">
             <Link to='/' className="flex flex-col items-center cursor-pointer justify-center gap-1">
                 <MdOutlineSpaceDashboard size={21} />
-                <p className="text-xs">Home</p>
+                <p className="text-xs">Shop</p>
             </Link>
 
             {
