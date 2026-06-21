@@ -9,12 +9,12 @@ const SellerProduct = ({product}) => {
 		if (currency === 'ERU') return '€ ' + amount;
 	}
 
-	return <main className="w-70 h-100 flex flex-col justify-between rounded-sm overflow-hidden shadow-2xl bg-white">
+	return <main className="w-80 h-140 flex flex-col justify-between rounded-sm overflow-hidden shadow-2xl bg-white">
 		<div className="relative">
 			<img
 				src={product.images.length === 0 ? '#' : product.images[0].url}
 				alt="No Image"
-				className="w-full h-72 object-cover"
+				className="w-full h-75 object-cover object-center"
 			/>
 		</div>
 

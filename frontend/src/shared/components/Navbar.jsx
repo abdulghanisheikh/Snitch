@@ -6,6 +6,7 @@ import { IoMdCreate } from "react-icons/io";
 import { VscAccount } from "react-icons/vsc";
 import { CgLogOut } from "react-icons/cg";
 import { useAuth } from "../../features/auth/hooks/useAuth.js";
+import { IoIosLogIn } from "react-icons/io";
 
 const Navbar = ({ pageName }) => {
     const user = useSelector(state => state.auth.user);
@@ -28,23 +29,36 @@ const Navbar = ({ pageName }) => {
             </Link>
 
             {
-                user.role === 'seller' && <Link to='/seller/create-product' className="flex flex-col cursor-pointer items-center justify-center gap-1">
+                user?.role === 'seller' && <Link to='/seller/create-product' className="flex flex-col cursor-pointer items-center justify-center gap-1">
                     <IoMdCreate size={21} />
                     <p className="text-xs">List Product</p>
                 </Link>
             }
 
-            <Link to='/account' className="flex flex-col items-center justify-center gap-1 cursor-pointer">
-                <VscAccount size={21} />
-                <p className="text-xs">Account</p>
-            </Link>
+            {
+                user && <Link to='/account' className="flex flex-col items-center justify-center gap-1 cursor-pointer">
+                    <VscAccount size={21} />
+                    <p className="text-xs">Account</p>
+                </Link>
+            }
             
-            <div 
-            onClick={() => handleLogoutUser()}
-            className="flex flex-col items-center justify-center gap-1 cursor-pointer">
-                <CgLogOut size={21} />
-                <p className="text-xs">Logout</p>
-            </div>
+            {
+                user ? (
+                    <div
+                    onClick={() => handleLogoutUser()}
+                    className="flex flex-col items-center justify-center gap-1 cursor-pointer">
+                        <CgLogOut size={21} />
+                        <p className="text-xs">Logout</p>
+                    </div>
+                ) : (
+                    <Link
+                    to='/login'
+                    className="flex flex-col items-center justify-center gap-1 cursor-pointer">
+                        <IoIosLogIn size={21} />
+                        <p className="text-xs">Login</p>
+                    </Link>
+                )
+            }
         </div>
 
         <p className="text-3xl font-bold text-[#6F4E37] tracking-wider">Snitch</p>

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useProduct } from "../hooks/useProduct";
 import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
+import { ToastContainer } from "react-toastify";
 
 const Home = () => {
     const products = useSelector(state => state.product.products);
@@ -20,13 +21,15 @@ const Home = () => {
             <p className="text-xs lg:text-sm opacity-50">Upgrade your closet with our latest exclusive collection.</p>
         </div>
 
-        <div className="flex items-center flex-wrap lg:justify-start justify-center gap-5 mt-5">
+        <div className="flex items-center flex-wrap lg:justify-start justify-center gap-8 mt-5">
             {
                 products.length === 0 ? 
                 <p>No products</p> : 
                 products.map((product, index) => <ProductCard product={product} key={index} />)
             }
         </div>
+        
+        <ToastContainer position="top-right" />
     </main>
 }
 

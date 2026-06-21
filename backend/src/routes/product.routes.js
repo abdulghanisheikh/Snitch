@@ -25,6 +25,13 @@ router.get("/seller", authenticateSeller, getSellerProducts);
  * @description get all products for the user
  * @access private
  */
-router.get("/", authenticateUser, getAllProducts);
+router.get("/", getAllProducts);
+
+/**
+ * @route GET /api/product/:productId
+ * @description gives the product details
+ * @access private
+ */
+
 
 export default router;
