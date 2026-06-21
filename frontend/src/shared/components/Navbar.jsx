@@ -13,9 +13,11 @@ const Navbar = ({ pageName }) => {
 
     return <nav className="flex items-center w-full justify-between py-5 lg:px-10 px-5">
         <div className="flex items-center justify-center gap-3">
-            <Link to='/'>
-                <MdArrowBackIos color="black" size={25} className="cursor-pointer active:scale-90 duration-300 ease-linear" />
-            </Link>
+            {
+                pageName !== 'Home' && <Link to='/'>
+                    <MdArrowBackIos color="black" size={25} className="cursor-pointer active:scale-90 duration-300 ease-linear" />
+                </Link>
+            }
             <p className="text-black text-lg tracking-wide">{pageName}</p>
         </div>
 

@@ -2,7 +2,7 @@ import Navbar from '../../../shared/components/Navbar';
 import { useProduct } from '../../products/hooks/useProduct.js';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import ProductCard from '../../products/components/ProductCard';
+import SellerProduct from '../../products/components/SellerProduct.jsx';
 
 const AccountPage = () => {
     const { handleGetSellerProducts } = useProduct();
@@ -29,7 +29,7 @@ const AccountPage = () => {
                     {
                         sellerProducts.length === 0 ?
                             <p>No Products Listed</p> :
-                            sellerProducts.map((product, index) => <ProductCard key={index} product={product} />)
+                            sellerProducts.map((product, index) => <SellerProduct key={index} product={product} />)
                     }
                 </div>
             </section>
