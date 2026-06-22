@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 
 const Home = () => {
     const products = useSelector(state => state.product.products);
-    const { handleGetAllProducts } = useProduct();
+    const { handleGetAllProducts, handleGetProductDetails } = useProduct();
 
     useEffect(() => {
         handleGetAllProducts();
@@ -25,7 +25,11 @@ const Home = () => {
             {
                 products.length === 0 ? 
                 <p>No products</p> : 
-                products.map((product, index) => <ProductCard product={product} key={index} />)
+                products.map((product, index) => <ProductCard
+                product={product} 
+                key={index} 
+                handleGetProductDetails={() => handleGetProductDetails(product._id)}
+                />)
             }
         </div>
         

@@ -1,4 +1,4 @@
-const ProductCard = ({product}) => {
+const ProductCard = ({product, handleGetProductDetails}) => {
     
     const getPrice = () => {
 		const { currency, amount } = product.price;
@@ -10,7 +10,9 @@ const ProductCard = ({product}) => {
 		if (currency === 'ERU') return '€ ' + amount;
 	}
 
-    return <main className="w-80 h-120 flex flex-col justify-between rounded-sm overflow-hidden shadow-2xl bg-white cursor-pointer hover:scale-105 duration-300 ease-in-out">
+    return <main 
+    onClick={ handleGetProductDetails }
+    className="w-80 h-120 flex flex-col justify-between rounded-sm overflow-hidden shadow-2xl bg-white cursor-pointer hover:scale-105 duration-300 ease-in-out">
         <div className="relative">
             <img
                 src={product.images.length === 0 ? '#' : product.images[0].url}
