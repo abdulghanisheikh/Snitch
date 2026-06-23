@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
 import { createProduct, getAllProducts, getSellerProducts, getProductDetails } from "../services/products.api.js";
 import { toast } from "react-toastify";
-import { setLoading, setSellerProducts, setProducts, setProductDetails } from "../states/products.slice.js";
+import { setLoading, setSellerProducts, setProducts } from "../states/products.slice.js";
 
 export const useProduct = () => {
     const dispatch = useDispatch();
