@@ -69,7 +69,7 @@ export const useProduct = () => {
             const {success, productDetails} = data;
 
             if(success) {
-                dispatch(setProductDetails(productDetails));
+                return productDetails;
             }
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in getting product details");

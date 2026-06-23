@@ -1,30 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MdArrowBackIos } from "react-icons/md";
-import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router";
 import { useProduct } from "../hooks/useProduct";
 
 const ProductDetail = () => {
-    const productDetails = useSelector(state => state.product.productDetails);
-    const { handleGetProductDetails } = useProduct();
+    const [product, setProduct] = useState(null);
 
+    const { handleGetProductDetails } = useProduct();
     const { productId } = useParams();
 
-    const getPrice = () => {
-		const { currency, amount } = productDetails.price;
-
-		if (currency === 'INR') return '₹ ' + amount;
-		if (currency === 'USD') return '$ ' + amount;
-		if (currency === 'GBP') return '£ ' + amount;
-		if (currency === 'JPY') return '¥ ' + amount;
-		if (currency === 'ERU') return '€ ' + amount;
-
-        return;
-	}
-
     useEffect(() => {
-        handleGetProductDetails(productId);
-    });
+        const fetchProductDetail = async() => {
+            const detail = await handleGetProductDetails(productId);
+            setProduct(detail);
+        }
+        
+        fetchProductDetail();
+    }, [productId]);
 
     return <main className="min-h-screen w-screen flex flex-col gap-20">
 
@@ -44,22 +36,22 @@ const ProductDetail = () => {
         <div className="flex lg:flex-row w-full flex-col items-center justify-center">
             {/* Image panel */}
             <img
-                src={`${productDetails?.images?.length === 0 ? '' : productDetails?.images[0].url}`}
+                src={`${product?.images?.length === 0 ? '' : product?.images[0].url}`}
                 alt="No Image"
                 className="object-contain flex-1 h-100"
             />
 
             <div className="flex-1 flex flex-col justify-center px-13 py-10 h-full">
                 <h1 className="text-3xl text-stone-900 mb-2">
-                    {productDetails?.title}
+                    {product?.title}
                 </h1>
 
                 <div className="w-10 border-b-2 rounded-full border-stone-900 mb-4" />
 
-                <p className="text-[#9c6b4f] font-medium mb-5">{getPrice}</p>
+                <p className="text-[#9c6b4f] font-medium mb-5">{product?.price.currency} {product?.price.amount}</p>
 
                 <p className="text-sm text-stone-600 leading-relaxed max-w-sm mb-6">
-                    {productDetails?.description}
+                    {product?.description}
                 </p>
 
                 <hr className="border-zinc-400 rounded-full mb-5 border" />
