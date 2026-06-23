@@ -4,10 +4,13 @@ import { useProduct } from "../hooks/useProduct";
 import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const Home = () => {
     const products = useSelector(state => state.product.products);
-    const { handleGetAllProducts, handleGetProductDetails } = useProduct();
+    const { handleGetAllProducts } = useProduct();
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         handleGetAllProducts();
@@ -17,7 +20,7 @@ const Home = () => {
         <Navbar pageName='Home' />
         
         <div className="flex flex-col gap-3 items-center justify-center">
-            <p className="text-5xl opacity-95">Welcome to <span className="text-[#6F4E37] font-semibold">Snitch</span></p>
+            <p className="text-5xl opacity-95">Curated Products</p>
             <p className="text-xs lg:text-sm opacity-50">Upgrade your closet with our latest exclusive collection.</p>
         </div>
 
@@ -25,11 +28,13 @@ const Home = () => {
             {
                 products.length === 0 ? 
                 <p>No products</p> : 
-                products.map((product, index) => <ProductCard
-                product={product} 
-                key={index} 
-                handleGetProductDetails={() => handleGetProductDetails(product._id)}
-                />)
+                products.map((product, index) => {
+                    return <ProductCard
+                    product={product} 
+                    key={index} 
+                    handleOnClick={() => navigate(`/product/${product._id}`)}
+                    />
+                })
             }
         </div>
         

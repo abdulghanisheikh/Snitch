@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { MdArrowBackIos } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import { useProduct } from "../hooks/useProduct";
 
-const ProductDetails = () => {
+const ProductDetail = () => {
     const productDetails = useSelector(state => state.product.productDetails);
     const { handleGetProductDetails } = useProduct();
+
+    const { productId } = useParams();
 
     const getPrice = () => {
 		const { currency, amount } = productDetails.price;
@@ -16,13 +18,15 @@ const ProductDetails = () => {
 		if (currency === 'GBP') return '£ ' + amount;
 		if (currency === 'JPY') return '¥ ' + amount;
 		if (currency === 'ERU') return '€ ' + amount;
+
+        return;
 	}
 
     useEffect(() => {
-        handleGetProductDetails(productDetails?._id);
+        handleGetProductDetails(productId);
     });
 
-    return <main className="min-h-screen w-screen flex flex-col">
+    return <main className="min-h-screen w-screen flex flex-col gap-20">
 
         <nav className="flex items-center w-full justify-between py-5 lg:px-10 px-5">
             <div className="flex items-center justify-center gap-3">
@@ -37,7 +41,7 @@ const ProductDetails = () => {
             <p className="text-3xl font-bold text-[#6F4E37] tracking-wider">Snitch</p>
         </nav>
 
-        <div className="flex lg:flex-row items-center justify-center">
+        <div className="flex lg:flex-row w-full flex-col items-center justify-center">
             {/* Image panel */}
             <img
                 src={`${productDetails?.images?.length === 0 ? '' : productDetails?.images[0].url}`}
@@ -79,4 +83,4 @@ const ProductDetails = () => {
     </main>
 }
 
-export default ProductDetails;
+export default ProductDetail;

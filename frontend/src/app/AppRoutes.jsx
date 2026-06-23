@@ -6,7 +6,7 @@ import SellerProtected from "../features/auth/components/SellerProtected";
 import Protected from "../features/auth/components/Protected";
 import AccountPage from "../features/user/pages/AccountPage";
 import Home from "../features/products/pages/Home";
-import ProductDetails from "../features/products/pages/ProductDetails";
+import ProductDetail from "../features/products/pages/ProductDetail";
 
 const AppRoutes = () => {
 	return <Routes>
@@ -14,7 +14,7 @@ const AppRoutes = () => {
 		<Route path="/login" element={ <LoginPage /> }></Route>
 		<Route path="/" element={ <Home /> }></Route>
 
-		<Route path='/details' element={ <ProductDetails /> }></Route>
+		<Route path='/product/:productId' element={ <ProductDetail /> }></Route>
 
 		<Route path="/seller">
 			<Route path="create-product" element={

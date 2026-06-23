@@ -1,4 +1,4 @@
-const ProductCard = ({product, handleGetProductDetails}) => {
+const ProductCard = ({product, handleOnClick}) => {
     
     const getPrice = () => {
 		const { currency, amount } = product.price;
@@ -11,7 +11,7 @@ const ProductCard = ({product, handleGetProductDetails}) => {
 	}
 
     return <main 
-    onClick={ handleGetProductDetails }
+    onClick={ handleOnClick }
     className="w-80 h-120 flex flex-col justify-between rounded-sm overflow-hidden shadow-2xl bg-white cursor-pointer hover:scale-105 duration-300 ease-in-out">
         <div className="relative">
             <img

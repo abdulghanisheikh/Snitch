@@ -2,11 +2,9 @@ import { useDispatch } from "react-redux"
 import { createProduct, getAllProducts, getSellerProducts, getProductDetails } from "../services/products.api.js";
 import { toast } from "react-toastify";
 import { setLoading, setSellerProducts, setProducts, setProductDetails } from "../states/products.slice.js";
-import { useNavigate } from "react-router";
 
 export const useProduct = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const handleCreateProduct = async(formData) => {
         try {
@@ -72,7 +70,6 @@ export const useProduct = () => {
 
             if(success) {
                 dispatch(setProductDetails(productDetails));
-                navigate('/details');
             }
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in getting product details");
