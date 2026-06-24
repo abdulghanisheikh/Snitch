@@ -16,22 +16,22 @@ const Home = () => {
         handleGetAllProducts();
     }, []);
 
-    return <main className="flex flex-col min-h-screen w-screen items-center gap-10">
+    return <main className="flex flex-col min-h-screen w-screen items-center gap-10 justify-center">
         <Navbar pageName='Home' />
         
-        <div className="flex flex-col gap-3 items-center justify-center">
-            <p className="text-5xl opacity-95">Curated Products</p>
+        <div className="flex flex-col gap-3 items-center justify-center w-full">
+            <p className="lg:text-5xl text-2xl opacity-95">Curated Products</p>
             <p className="text-xs lg:text-sm opacity-50">Upgrade your closet with our latest exclusive collection.</p>
         </div>
 
-        <div className="flex items-center flex-wrap lg:justify-start justify-center gap-8 mt-5">
+        <div className="flex lg:flex-row flex-col items-center lg:flex-wrap lg:justify-start justify-center lg:gap-8 gap-5 mt-5 lg:px-15 px-1">
             {
                 products.length === 0 ? 
                 <p>No products</p> : 
                 products.map((product, index) => {
                     return <ProductCard
                     product={product} 
-                    key={index} 
+                    key={index}
                     handleOnClick={() => navigate(`/product/${product._id}`)}
                     />
                 })

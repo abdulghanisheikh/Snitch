@@ -25,22 +25,22 @@ const ProductDetail = () => {
     const images = product?.images ?? [];
 
     return (
-        <main className="min-h-screen w-screen flex flex-col gap-20">
+        <main className="min-h-screen w-screen flex flex-col lg:gap-20">
 
             <nav className="flex items-center w-full justify-between py-5 lg:px-10 px-5">
-                <div className="flex items-center justify-center gap-3">
-                    <Link to='/'>
-                        <MdArrowBackIos color="black" size={25} className="cursor-pointer active:scale-90 duration-300 ease-linear" />
-                    </Link>
-                    <p className="text-black text-lg tracking-wide">Product Details</p>
-                </div>
-                <p className="text-3xl font-bold text-[#6F4E37] tracking-wider">Snitch</p>
+
+                <Link to='/' className="flex items-center justify-center lg:gap-3">
+                    <MdArrowBackIos color="black" size={25} className="cursor-pointer active:scale-90 duration-300 ease-linear" />
+                    <p className="text-black lg:text-lg text-sm tracking-wide">Product Details</p>
+                </Link>
+                <p className="lg:text-3xl text-xl font-bold text-[#6F4E37] tracking-wider">Snitch</p>
+
             </nav>
 
-            <div className="flex lg:flex-row flex-col w-screen items-center justify-center px-20">
+            <div className="flex lg:flex-row flex-col w-screen items-center justify-center px-5 lg:px-20">
 
                 {/* Image panel */}
-                <div className="flex-1 flex flex-col items-center gap-4">
+                <div className="flex-1 flex flex-col items-center w-full sm:w-full lg:gap-4 gap-1">
                     {/* Main image */}
                     <img
                         src={activeImage ?? ''}
@@ -50,14 +50,14 @@ const ProductDetail = () => {
 
                     {/* Thumbnail strip — only renders when there are multiple images */}
                     {images.length > 1 && (
-                        <div className="flex items-center gap-3 flex-wrap justify-center">
+                        <div className="flex items-center lg:gap-3 gap-2 flex-wrap justify-center">
                             {images.map((img, index) => (
                                 <button
                                     key={index}
                                     type="button"
                                     onClick={() => setActiveImage(img.url)}
                                     className={`
-                                        w-16 h-16 rounded border-2 overflow-hidden shrink-0
+                                        lg:w-16 lg:h-16 w-12 h-12 rounded border-2 overflow-hidden shrink-0
                                         transition-all duration-200 ease-linear cursor-pointer
                                         ${activeImage === img.url
                                             ? 'border-stone-900 scale-105'
@@ -77,7 +77,7 @@ const ProductDetail = () => {
                 </div>
 
                 {/* Info panel */}
-                <div className="flex-1 flex flex-col justify-center px-13 py-10 h-full">
+                <div className="lg:flex-1 flex flex-col justify-center lg:px-13 px-2 py-10 h-full w-full">
                     <h1 className="text-3xl text-stone-900 mb-2">
                         {product?.title}
                     </h1>
@@ -88,7 +88,7 @@ const ProductDetail = () => {
                         {product?.price.currency} {product?.price.amount}
                     </p>
 
-                    <p className="text-sm text-stone-600 leading-relaxed max-w-sm mb-6">
+                    <p className="lg:text-sm text-xs text-stone-600 leading-relaxed max-w-sm mb-6">
                         {product?.description}
                     </p>
 
@@ -97,13 +97,13 @@ const ProductDetail = () => {
                     <div className="flex flex-col items-center gap-3 mt-5">
                         <button
                             type="button"
-                            className="w-2/3 bg-stone-900 rounded-xs cursor-pointer text-white text-sm tracking-widest uppercase py-3 hover:bg-stone-800"
+                            className="lg:w-2/3 w-full bg-stone-900 rounded-xs cursor-pointer text-white lg:text-sm text-xs tracking-widest uppercase lg:py-3 py-1.5 hover:bg-stone-800"
                         >
                             Add to Bag
                         </button>
                         <button
                             type="button"
-                            className="w-2/3 rounded-xs border cursor-pointer border-stone-900 text-stone-900 text-sm tracking-widest uppercase py-3 flex items-center justify-center gap-2 hover:bg-stone-50"
+                            className="lg:w-2/3 w-full rounded-xs border cursor-pointer border-stone-900 text-stone-900 lg:text-sm text-xs tracking-widest uppercase lg:py-3 py-1.5 flex items-center justify-center gap-2 hover:bg-stone-50"
                         >
                             Add to Wishlist
                         </button>
