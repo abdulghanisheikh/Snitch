@@ -26,7 +26,7 @@ const ProductCard = ({product, handleOnClick}) => {
                 {product.title}
             </h1>
 
-            <p className="text-base text-gray-700 mb-3">{getPrice()}</p>
+            <p className="text-base text-gray-700 mb-3 font-semibold">{getPrice()}</p>
 
             <hr className="border-gray-300 mb-3" />
 

@@ -24,15 +24,15 @@ const ProductCreateLoader = () => {
 const StyledWrapper = styled.div`
   .loader {
     position: relative;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 10px;
   }
 
   .loader div {
     width: 8%;
-    height: 24%;
-    background: white;
+    height: 25%;
+    background: black;
     position: absolute;
     left: 50%;
     top: 30%;
