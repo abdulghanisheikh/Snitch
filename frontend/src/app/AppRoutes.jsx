@@ -7,6 +7,7 @@ import Protected from "../features/auth/components/Protected";
 import AccountPage from "../features/user/pages/AccountPage";
 import Home from "../features/products/pages/Home";
 import ProductDetail from "../features/products/pages/ProductDetail";
+import EditSellerProduct from "../features/products/components/EditSellerProduct";
 
 const AppRoutes = () => {
 	return <Routes>
@@ -15,6 +16,11 @@ const AppRoutes = () => {
 		<Route path="/" element={ <Home /> }></Route>
 
 		<Route path='/product/:productId' element={ <ProductDetail /> }></Route>
+		<Route path='/product/:sellerProductId' element={
+			<SellerProtected>
+				<EditSellerProduct />
+			</SellerProtected>
+		}></Route>
 
 		<Route path="/seller">
 			<Route path="create-product" element={

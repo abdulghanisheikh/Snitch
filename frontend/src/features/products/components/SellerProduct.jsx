@@ -2,11 +2,11 @@ const SellerProduct = ({product}) => {
 	const getPrice = () => {
 		const { currency, amount } = product.price;
 
-		if (currency === 'INR') return '₹ ' + amount;
-		if (currency === 'USD') return '$ ' + amount;
 		if (currency === 'GBP') return '£ ' + amount;
 		if (currency === 'JPY') return '¥ ' + amount;
-		if (currency === 'ERU') return '€ ' + amount;
+		if (currency === 'EUR') return '€ ' + amount;
+
+		return currency + ' ' + amount;
 	}
 
 	return <main className="w-80 h-140 flex flex-col justify-between rounded-sm overflow-hidden shadow-2xl bg-white">
@@ -29,7 +29,7 @@ const SellerProduct = ({product}) => {
 
 				<hr className="border-gray-300 mb-3" />
 
-				<p className="lg:text-sm text-xs text-gray-800 leading-relaxed mb-5 overflow-y-auto" style={{
+				<p className="text-xs text-gray-800 leading-relaxed mb-5 overflow-y-auto" style={{
 					scrollbarWidth: "none"
 				}}>
 					{product.description}
