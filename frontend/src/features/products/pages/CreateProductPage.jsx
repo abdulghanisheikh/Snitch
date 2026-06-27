@@ -53,7 +53,7 @@ const CreateProductPage = () => {
 
 	return (
 		<main className="min-h-screen w-screen flex flex-col items-center bg-[#111111]/5">
-			<Navbar pageName="List Item" />
+			<Navbar pageName="List Item" backTo='/' />
 
 			{/* Header */}
 			<div className="flex flex-col items-start justify-center mb-1 lg:mr-60">

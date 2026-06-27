@@ -19,7 +19,7 @@ const AccountPage = () => {
     }, []);
 
     return <main className="h-screen w-screen flex flex-col bg-[#111111]/5">
-        <Navbar pageName="Account" />
+        <Navbar pageName="Account" backTo='/' />
 
         {
             user.role === 'seller' && loading === 'seller products' ? (

@@ -109,14 +109,18 @@ const AddVariantFormCard = ({ product }) => {
                                 setVariant({...variant, stock: variant.stock - 1});
                             }}
                             type="button" 
-                            className="w-8 h-8 rounded-lg border border-black/20 text-base flex items-center justify-center hover:border-black/50 transition-colors">-</button>
+                            className="w-8 h-8 rounded-lg border border-black/20 text-base flex items-center justify-center hover:border-black/50 transition-colors">
+                                -
+                            </button>
 
                             <span className="w-7 text-center font-bold text-sm">{variant.stock}</span>
                             
-                            <button 
+                            <button
                             type="button"
                             onClick={() => setVariant({...variant, stock: variant.stock + 1})}
-                            className="w-8 h-8 rounded-lg border border-black/20 text-base flex items-center justify-center hover:border-black/50 transition-colors">+</button>
+                            className="w-8 h-8 rounded-lg border border-black/20 text-base flex items-center justify-center hover:border-black/50 transition-colors">
+                                +
+                            </button>
                         </div>
                     </div>
 
@@ -195,7 +199,7 @@ const AddProductVariant = () => {
     return (
         <main className="flex flex-col items-center min-h-screen w-screen bg-[#111111]/5">
             {/* Mock Header navbar space */}
-            <Navbar pageName="Add Variant" />
+            <Navbar pageName="Add Variant" backTo='/account' />
 
             <form className="flex flex-col gap-2 px-6 py-2.5 mx-auto justify-center items-start text-black">
 

@@ -8,12 +8,12 @@ import { CgLogOut } from "react-icons/cg";
 import { useAuth } from "../../features/auth/hooks/useAuth.js";
 import { IoIosLogIn } from "react-icons/io";
 
-const Navbar = ({ pageName }) => {
+const Navbar = ({ pageName, backTo }) => {
     const user = useSelector(state => state.auth.user);
     const { handleLogoutUser } = useAuth();
 
     return <nav className="flex items-center w-full justify-between lg:py-5 py-2 lg:px-10 px-2">
-        <Link to='/' className="flex items-center justify-center lg:gap-3">
+        <Link to={backTo} className="flex items-center justify-center lg:gap-3">
             {
                 pageName !== 'Shop' && <MdArrowBackIos color="black" size={25} className="cursor-pointer active:scale-90 duration-300 ease-linear" />
             }
