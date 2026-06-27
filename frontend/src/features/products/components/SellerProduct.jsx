@@ -13,7 +13,7 @@ const SellerProduct = ({product}) => {
 
 	const navigate = useNavigate();
 
-	return <main className="w-80 h-130 flex flex-col justify-between rounded-sm overflow-hidden shadow-2xl bg-white">
+	return <main className="w-80 h-130 flex flex-col justify-between rounded-sm overflow-hidden shadow-2xl bg-white border border-black/20">
 		<div className="relative">
 			<img
 				src={product.images.length === 0 ? '#' : product.images[0].url}
@@ -42,14 +42,14 @@ const SellerProduct = ({product}) => {
 
 			<div className="flex items-center justify-between gap-2">
 				<button
-				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-widest uppercase transition-all duration-300 rounded-xs bg-black text-white">
+				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide transition-all duration-300 rounded-xs bg-black text-white">
 					Remove
 				</button>
 
 				<button
 				onClick={() => navigate(`/seller/product/${product._id}`)}
-				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-widest uppercase transition-all duration-300 rounded-xs bg-black text-white hover:bg-black/90 active:scale-90">
-					Edit
+				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide transition-all duration-300 rounded-xs bg-black text-white hover:bg-black/90 active:scale-90">
+					Add Variant
 				</button>
 			</div>
 		</div>

@@ -7,7 +7,7 @@ import Protected from "../features/auth/components/Protected";
 import AccountPage from "../features/user/pages/AccountPage";
 import Home from "../features/products/pages/Home";
 import ProductDetail from "../features/products/pages/ProductDetail";
-import EditSellerProduct from "../features/products/components/EditSellerProduct";
+import AddProductVariant from "../features/products/pages/AddProductVariant";
 
 const AppRoutes = () => {
 	return <Routes>
@@ -26,7 +26,7 @@ const AppRoutes = () => {
 
 			<Route path='product/:productId' element={
 				<SellerProtected>
-					<EditSellerProduct />
+					<AddProductVariant />
 				</SellerProtected>
 			}></Route>
 		</Route>

@@ -16,7 +16,7 @@ const Home = () => {
         handleGetAllProducts();
     }, []);
 
-    return <main className="flex flex-col min-h-screen w-screen items-center gap-8 justify-between">
+    return <main className="flex flex-col min-h-screen w-screen items-center gap-8 justify-between bg-[#111111]/5">
         <Navbar pageName='Shop' />
         
         <div className="flex flex-col gap-3 items-center justify-center w-full">

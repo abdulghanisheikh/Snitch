@@ -10,9 +10,9 @@ const ProductCard = ({product, handleOnClick}) => {
 		if (currency === 'ERU') return '€ ' + amount;
 	}
 
-    return <main 
+    return <main
     onClick={ handleOnClick }
-    className="w-80 h-120 flex flex-col justify-between rounded-sm overflow-hidden shadow-2xl bg-white cursor-pointer hover:scale-105 duration-300 ease-in-out">
+    className="w-80 h-120 flex flex-col justify-between rounded-md overflow-hidden shadow-md bg-white cursor-pointer hover:scale-105 duration-300 ease-in-out border border-black/20">
         <div className="relative">
             <img
                 src={product.images.length === 0 ? '#' : product.images[0].url}

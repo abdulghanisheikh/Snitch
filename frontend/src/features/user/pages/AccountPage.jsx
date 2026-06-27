@@ -18,7 +18,7 @@ const AccountPage = () => {
         initSellerProducts();
     }, []);
 
-    return <main className="h-screen w-screen flex flex-col">
+    return <main className="h-screen w-screen flex flex-col bg-[#111111]/5">
         <Navbar pageName="Account" />
 
         {

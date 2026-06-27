@@ -35,19 +35,8 @@ const ProductForm = ({ handleSubmit, product, setProduct, loading }) => {
     return (
         <form
             onSubmit={handleSubmit}
-            className="flex flex-direction flex-col gap-3 w-full max-w-120 p-6 text-black sm:rounded-[20px]"
+            className="flex flex-direction flex-col gap-3 w-full max-w-120 p-6 text-black rounded-md border border-black/20 bg-white"
         >
-            <div className="flex flex-col items-start justify-center mb-1">
-                <h1 className="text-lg">Curate Your Product</h1>
-
-                {/* Heading with Custom Pulse Dots */}
-                <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d] font-semibold tracking-tight relative flex items-center pl-7.5 mb-1">
-                    <span className="absolute left-0 w-4 h-4 rounded-full bg-[#6F4E37]" />
-                    <span className="absolute left-0 w-4 h-4 rounded-full bg-[#6F4E37] animate-[ping_1s_linear_infinite]" />
-                    Add Product
-                </p>
-            </div>
-
             {/* Product Name */}
             <div className="flex gap-2 w-full">
                 <label className="relative block flex-1">

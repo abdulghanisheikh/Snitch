@@ -1,5 +1,5 @@
 import express from "express";
-import { createProduct, getSellerProducts, getAllProducts, getProductDetails } from "../controllers/product.controller.js";
+import { createProduct, getSellerProducts, getAllProducts, getProductDetails, addProductVariant } from "../controllers/product.controller.js";
 import { authenticateSeller, authenticateUser } from "../middlewares/auth.middleware.js";
 import upload from "../configs/upload.config.js";
 import { createProductValidator } from "../validators/product.validator.js";
@@ -39,6 +39,6 @@ router.get('/:productId', authenticateSeller, getProductDetails);
  * @description Add the variant of the product
  * @access private
  */
-router.post('/:productId/variants', upload.single('photo'), authenticateSeller, (req, res) => {console.log()});
+router.post('/:productId/variants', upload.single('photo'), authenticateSeller, addProductVariant);
 
 export default router;

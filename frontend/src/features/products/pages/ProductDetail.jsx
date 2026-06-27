@@ -28,7 +28,7 @@ const ProductDetail = () => {
 
     const images = product?.images ?? [];
 
-    return <main className="min-h-screen w-screen flex flex-col items-center lg:gap-10">
+    return <main className="min-h-screen w-screen flex flex-col items-center lg:gap-10 bg-[#111111]/5">
                 <nav className="flex items-center w-full justify-between py-5 lg:px-10 px-5">
                     <Link to='/' className="flex items-center justify-center lg:gap-3">
                         <MdArrowBackIos color="black" size={25} className="cursor-pointer active:scale-90 duration-300 ease-linear" />
