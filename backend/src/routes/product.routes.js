@@ -32,6 +32,6 @@ router.get("/", getAllProducts);
  * @description gives the product details
  * @access public
  */
-router.get('/:productId', getProductDetails);
+router.get('/:productId', authenticateSeller, getProductDetails);
 
 export default router;

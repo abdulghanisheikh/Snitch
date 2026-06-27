@@ -10,6 +10,11 @@ export const createProduct = async(formData) => {
     return response;
 }
 
+export const updateProduct = async(productId, formData) => {
+    const response = await productApiInstance.put(`/${productId}`, formData);
+    return response;
+}
+
 export const getSellerProducts = async() => {
     const response = await productApiInstance.get("/seller");
     return response;
@@ -21,6 +26,6 @@ export const getAllProducts = async() => {
 }
 
 export const getProductDetails = async(productId) => {
-    const response = await productApiInstance(`/${productId}`);
+    const response = await productApiInstance.get(`/${productId}`);
     return response;
 }

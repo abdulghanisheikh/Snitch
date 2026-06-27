@@ -64,8 +64,8 @@ export const useProduct = () => {
     const handleGetProductDetails = async(productId) => {
         try {
             dispatch(setLoading('product details'));
-            const {data} = await getProductDetails(productId);
 
+            const {data} = await getProductDetails(productId);
             const {success, productDetails} = data;
 
             if(success) {

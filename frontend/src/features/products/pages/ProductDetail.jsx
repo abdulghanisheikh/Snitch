@@ -17,17 +17,18 @@ const ProductDetail = () => {
         const fetchProductDetail = async () => {
             const detail = await handleGetProductDetails(productId);
             setProduct(detail);
+            
             if (detail?.images?.length > 0) {
                 setActiveImage(detail.images[0].url);
             }
-        };
+        }
 
         fetchProductDetail();
     }, [productId]);
 
     const images = product?.images ?? [];
 
-    return <main className="min-h-screen w-screen flex flex-col lg:gap-20">
+    return <main className="min-h-screen w-screen flex flex-col items-center lg:gap-10">
                 <nav className="flex items-center w-full justify-between py-5 lg:px-10 px-5">
                     <Link to='/' className="flex items-center justify-center lg:gap-3">
                         <MdArrowBackIos color="black" size={25} className="cursor-pointer active:scale-90 duration-300 ease-linear" />
@@ -45,10 +46,10 @@ const ProductDetail = () => {
                         </div>
                     ) : 
                     (
-                        <div className="flex lg:flex-row flex-col w-screen items-center justify-center px-5 lg:px-20">
+                        <div className="flex lg:flex-row flex-col w-2/3 items-center justify-center px-5 lg:px-20">
 
                             {/* Image panel */}
-                            <div className="flex-1 flex flex-col items-center w-full sm:w-full lg:gap-4 gap-1">
+                            <div className="flex-1 flex flex-col w-full border border-black/10 shadow-md shadow-black/10 rounded-md lg:gap-4 gap-1">
                                 {/* Main image */}
                                 <img
                                     src={activeImage ?? ''}
@@ -105,13 +106,13 @@ const ProductDetail = () => {
                                 <div className="flex flex-col items-center gap-3 mt-5">
                                     <button
                                         type="button"
-                                        className="lg:w-2/3 w-full bg-stone-900 rounded-xs cursor-pointer text-white lg:text-sm text-xs tracking-widest uppercase lg:py-3 py-1.5 hover:bg-stone-800"
+                                        className="lg:w-2/3 w-full bg-stone-900 rounded-xs cursor-pointer text-white lg:text-sm text-xs tracking-widest uppercase py-1.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90"
                                     >
                                         Add to Cart
                                     </button>
                                     <button
                                         type="button"
-                                        className="lg:w-2/3 w-full rounded-xs border cursor-pointer border-stone-900 text-stone-900 lg:text-sm text-xs tracking-widest uppercase lg:py-3 py-1.5 flex items-center justify-center gap-2 hover:bg-stone-50"
+                                        className="lg:w-2/3 w-full rounded-xs border cursor-pointer border-stone-900 text-stone-900 lg:text-sm text-xs tracking-widest uppercase py-1.5 flex items-center active:scale-90 justify-center gap-2 hover:bg-stone-300 duration-300 ease-in-out"
                                     >
                                         Buy Now
                                     </button>

@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router";
+
 const SellerProduct = ({product}) => {
 	const getPrice = () => {
 		const { currency, amount } = product.price;
@@ -9,7 +11,9 @@ const SellerProduct = ({product}) => {
 		return currency + ' ' + amount;
 	}
 
-	return <main className="w-80 h-140 flex flex-col justify-between rounded-sm overflow-hidden shadow-2xl bg-white">
+	const navigate = useNavigate();
+
+	return <main className="w-80 h-130 flex flex-col justify-between rounded-sm overflow-hidden shadow-2xl bg-white">
 		<div className="relative">
 			<img
 				src={product.images.length === 0 ? '#' : product.images[0].url}
@@ -38,11 +42,13 @@ const SellerProduct = ({product}) => {
 
 			<div className="flex items-center justify-between gap-2">
 				<button
-				className="flex-1 py-2 text-xs cursor-pointer tracking-widest uppercase transition-all duration-300 rounded-xs bg-black text-white">
+				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-widest uppercase transition-all duration-300 rounded-xs bg-black text-white">
 					Remove
 				</button>
 
-				<button className="flex-1 py-2 text-xs cursor-pointer tracking-widest uppercase transition-all duration-300 rounded-xs bg-black text-white">
+				<button
+				onClick={() => navigate(`/seller/product/${product._id}`)}
+				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-widest uppercase transition-all duration-300 rounded-xs bg-black text-white hover:bg-black/90 active:scale-90">
 					Edit
 				</button>
 			</div>

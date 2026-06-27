@@ -12,9 +12,7 @@ const AccountPage = () => {
     const loading = useSelector(state => state.product.loading);
     const user = useSelector(state => state.auth.user);
 
-    const initSellerProducts = async() => {
-        await handleGetSellerProducts();
-    } 
+    const initSellerProducts = async() => await handleGetSellerProducts();
 
     useEffect(() => {
         initSellerProducts();
@@ -24,26 +22,24 @@ const AccountPage = () => {
         <Navbar pageName="Account" />
 
         {
-            user.role === 'seller' && <section className="flex flex-col px-15 py-2 gap-3">
-                <p className="text-lg tracking-wide self-start lg:ml-10">Your Listed Products</p>
-
-                {
-                    loading === 'seller products' ? (
-                        <div className="flex flex-col items-center justify-center w-screen px-5 lg:px-20 mt-15">
-                            <ProductCreateLoader />
-                            <p className="text-lg">Loading Product</p>
-                        </div>
-                    ) : (
-                        <div className="flex lg:flex-row flex-col h-full w-full justify-start items-center gap-5 py-2">
-                            {
-                                sellerProducts.length === 0 ?
-                                    <p className='font-semibold text-lg'>No Products Listed</p> :
-                                    sellerProducts.map((product, index) => <SellerProduct key={index} product={product} />)
-                            }
-                        </div>
-                    )
-                }
-            </section>
+            user.role === 'seller' && loading === 'seller products' ? (
+                <section className="flex flex-col items-center justify-center w-screen px-5 lg:px-20 mt-15">
+                    <ProductCreateLoader />
+                    <p className="text-lg">Loading Products</p>
+                </section>
+            ) : (
+                <section className="flex flex-col px-15 py-2 gap-3">
+                    <p className="text-lg tracking-wide self-start lg:ml-10">Your Listed Products</p>
+        
+                    <div className="flex lg:flex-row flex-col h-full w-full justify-start items-center gap-5 py-2">
+                        {
+                            sellerProducts.length === 0 ?
+                                <p className='font-semibold text-lg'>No Products Listed</p> :
+                                sellerProducts.map((product, index) => <SellerProduct key={index} product={product} />)
+                        }
+                    </div>
+                </section>
+            )
         }
     </main>
 }

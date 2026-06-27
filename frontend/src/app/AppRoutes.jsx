@@ -16,16 +16,17 @@ const AppRoutes = () => {
 		<Route path="/" element={ <Home /> }></Route>
 
 		<Route path='/product/:productId' element={ <ProductDetail /> }></Route>
-		<Route path='/product/:sellerProductId' element={
-			<SellerProtected>
-				<EditSellerProduct />
-			</SellerProtected>
-		}></Route>
 
 		<Route path="/seller">
 			<Route path="create-product" element={
 				<SellerProtected>
 					<CreateProductPage />
+				</SellerProtected>
+			}></Route>
+
+			<Route path='product/:productId' element={
+				<SellerProtected>
+					<EditSellerProduct />
 				</SellerProtected>
 			}></Route>
 		</Route>
