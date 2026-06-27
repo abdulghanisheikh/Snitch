@@ -32,7 +32,7 @@ const ProductDetail = () => {
                 <nav className="flex items-center w-full justify-between py-5 lg:px-10 px-5">
                     <Link to='/' className="flex items-center justify-center lg:gap-3">
                         <MdArrowBackIos color="black" size={25} className="cursor-pointer active:scale-90 duration-300 ease-linear" />
-                        <p className="text-black lg:text-lg text-sm tracking-wide">Product Details</p>
+                        <p className="text-black text-xl tracking-wide">{product?.title || 'Product Detail'}</p>
                     </Link>
                     <p className="lg:text-3xl text-xl font-bold text-[#6F4E37] tracking-wider">Snitch</p>
                 </nav>

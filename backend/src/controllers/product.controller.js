@@ -102,3 +102,7 @@ export const getProductDetails = async(req, res) => {
         });
     }
 }
+
+export const addVariant = async(req, res) => {
+    
+}

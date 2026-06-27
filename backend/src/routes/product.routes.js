@@ -30,8 +30,15 @@ router.get("/", getAllProducts);
 /**
  * @route GET /api/product/:productId
  * @description gives the product details
- * @access public
+ * @access private
  */
 router.get('/:productId', authenticateSeller, getProductDetails);
+
+/**
+ * @route POST /api/product/:productId/variants
+ * @description Add the variant of the product
+ * @access private
+ */
+router.post('/:productId/variants', upload.single('photo'), authenticateSeller, (req, res) => {console.log()});
 
 export default router;
