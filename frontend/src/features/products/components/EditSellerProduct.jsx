@@ -222,7 +222,7 @@ const AddVariantForm = ({ basePrice, onAdd }) => {
     };
 
     return (
-        <div className="border border-black/10 rounded-[12px] overflow-hidden bg-white h-full flex flex-col">
+        <div className="border border-black/10 rounded-xl overflow-hidden bg-white h-full flex flex-col">
             <button
                 type="button"
                 onClick={() => setOpen(o => !o)}
@@ -245,7 +245,7 @@ const AddVariantForm = ({ basePrice, onAdd }) => {
                                         placeholder=" "
                                         value={form.price.amount}
                                         onChange={e => setField("price", { ...form.price, amount: e.target.value })}
-                                        className={`peer w-full pt-5 pr-2 pb-1.5 pl-2.5 outline-none rounded-[10px] text-[clamp(11px,1.6vw,13px)] border ${errors.amount ? "border-red-400" : "border-black"}`}
+                                        className={`peer w-full pt-5 pr-2 pb-1.5 pl-2.5 outline-none rounded-[10px] text-[clamp(11px,1.6vw,13px)] border border-black/20`}
                                     />
                                     <span className="absolute left-2.5 top-3.5 text-[clamp(10px,1.4vw,12px)] cursor-text transition-all duration-250 ease-out pointer-events-none peer-focus:top-1 peer-focus:text-[10px] peer-focus:font-semibold peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:font-semibold">
                                         Amount
@@ -254,7 +254,7 @@ const AddVariantForm = ({ basePrice, onAdd }) => {
                                 <select
                                     value={form.price.currency}
                                     onChange={e => setField("price", { ...form.price, currency: e.target.value })}
-                                    className="w-[22%] py-3.5 px-2 outline-none border border-black/50 rounded-lg text-xs cursor-pointer focus:border-black transition-colors appearance-none"
+                                    className="w-[22%] py-3.5 px-2 outline-none border border-black/20 rounded-lg text-xs cursor-pointer focus:border-black transition-colors appearance-none"
                                 >
                                     {["INR", "USD", "GBP", "JPY", "EUR"].map(c => <option key={c}>{c}</option>)}
                                 </select>
