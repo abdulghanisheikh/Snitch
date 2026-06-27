@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import Navbar from "../../../shared/components/Navbar";
 import { useProduct } from "../hooks/useProduct";
 import { ToastContainer } from "react-toastify";
+import { useRef } from "react";
 
 const AttrChip = ({ attrKey, value, onRemove }) => (
     <div className="inline-flex items-center gap-1 bg-[#f5efe9] border border-black/20 rounded-full py-0.5 pl-3 pr-2">
@@ -19,20 +20,33 @@ const AttrChip = ({ attrKey, value, onRemove }) => (
     </div>
 );
 
-const ImageUploadZone = () => (
+const ImageUploadZone = ({ inputRef, handleImageFileUpload }) => (
     <div>
-        <div className="border border-dashed border-black/20 rounded-[10px] py-5 px-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-[#37261b] hover:bg-white/50 transition-all duration-300">
+        <div
+            onClick={() => inputRef.current?.click()}
+            className="border border-dashed border-black/20 rounded-[10px] py-5 px-3 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-[#37261b] hover:bg-white/50 transition-all duration-300"
+        >
             <svg className="w-8 h-8 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <rect x="3" y="3" width="18" height="18" rx="3" />
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <path d="M21 15l-5-5L5 21" />
             </svg>
+
             <p className="text-[clamp(11px,1.5vw,13px)] text-center">
                 Drop images here or <span className="font-semibold">browse</span>
             </p>
+
             <p className="text-[clamp(9px,1.2vw,11px)] text-black/50">PNG, JPG, WEBP — multiple allowed</p>
             <p className="text-[clamp(9px,1.2vw,11px)] text-black/50">Max Size 5 MB</p>
-            <input type="file" accept="image/*" multiple className="hidden" />
+
+            <input
+                ref={inputRef}
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleImageFileUpload}
+                className="hidden"
+            />
         </div>
     </div>
 );
@@ -45,9 +59,12 @@ const AddVariantFormCard = ({ product }) => {
         attributes: []
     });
 
+    const [imagePreviews, setImagePreviews] = useState([]);
     const [attributes, setAttributes] = useState([]);
     const [attrKey, setAttrKey] = useState('');
     const [attrValue, setAttrValue] = useState('');
+
+    const imageInputReference = useRef(null);
 
     const handleAddAttribute = () => {
         if (!attrKey.trim() || !attrValue.trim()) return;
@@ -70,10 +87,59 @@ const AddVariantFormCard = ({ product }) => {
         setVariant({...variant, price: e.target.value});
     }
 
+    const handleImageFileUpload = () => {
+        const imageField = imageInputReference.current;
+        const files = imageField?.files ? Array.from(imageField.files) : [];
+
+        // Merge new files with existing ones and dedupe by name+size
+        const existing = variant.images || [];
+        const combined = [...existing, ...files];
+        const seen = new Set();
+        const deduped = [];
+        for (const f of combined) {
+            const key = `${f.name}_${f.size}`;
+            if (!seen.has(key)) {
+                seen.add(key);
+                deduped.push(f);
+            }
+        }
+
+        setVariant({ ...variant, images: deduped });
+
+        // clear input so same file can be selected again if needed
+        if (imageField) imageField.value = "";
+    }
+
+    const handleRemoveImage = (index) => {
+        const newImages = (variant.images || []).filter((_, i) => i !== index);
+        setVariant({ ...variant, images: newImages });
+    }
+
+    useEffect(() => {
+        if (!variant.images || variant.images.length === 0) {
+            setImagePreviews([]);
+            return;
+        }
+
+        const previews = variant.images.map((file, index) => ({
+            url: URL.createObjectURL(file),
+            name: file.name,
+            id: `${file.name}-${index}`
+        }));
+
+        setImagePreviews(previews);
+
+        return () => {
+            previews.forEach((preview) => URL.revokeObjectURL(preview.url));
+        };
+    }, [variant.images]);
+
     return (
         <div className="border border-black/20 rounded-sm overflow-hidden bg-white h-full flex flex-col shadow-sm ">
             <div className="p-4 flex flex-col gap-4 flex-1 justify-between">
                 <div className="flex flex-col gap-4">
+                    <p>{product?.title}</p>
+
                     {/* Price Box */}
                     <div>
                         <p className="text-[9px] font-bold tracking-widest text-black/40 mb-1.5 uppercase">Price</p>
@@ -108,8 +174,8 @@ const AddVariantFormCard = ({ product }) => {
                                 if(variant.stock === 0) return;
                                 setVariant({...variant, stock: variant.stock - 1});
                             }}
-                            type="button" 
-                            className="w-8 h-8 rounded-lg border border-black/20 text-base flex items-center justify-center hover:border-black/50 transition-colors">
+                            type="button"
+                            className="w-8 h-8 cursor-pointer rounded-lg border border-black/20 text-base flex items-center justify-center hover:border-black/50 transition-colors">
                                 -
                             </button>
 
@@ -118,7 +184,7 @@ const AddVariantFormCard = ({ product }) => {
                             <button
                             type="button"
                             onClick={() => setVariant({...variant, stock: variant.stock + 1})}
-                            className="w-8 h-8 rounded-lg border border-black/20 text-base flex items-center justify-center hover:border-black/50 transition-colors">
+                            className="w-8 h-8 cursor-pointer rounded-lg border border-black/20 text-base flex items-center justify-center hover:border-black/50 transition-colors">
                                 +
                             </button>
                         </div>
@@ -127,7 +193,33 @@ const AddVariantFormCard = ({ product }) => {
                     {/* Variant Images Upload Box */}
                     <div>
                         <p className="text-[9px] font-bold tracking-widest text-black/40 mb-1.5 uppercase">Variant Images</p>
-                        <ImageUploadZone />
+                        <ImageUploadZone inputRef={imageInputReference} handleImageFileUpload={handleImageFileUpload} />
+
+                        {imagePreviews.length > 0 && (
+                            <div className="mt-4">
+                                <p className="text-[9px] uppercase tracking-widest text-black/40 mb-2">Selected Images</p>
+
+                                <div className="grid grid-cols-3 gap-2">
+                                    {imagePreviews.map((preview, idx) => (
+                                        <div key={preview.id} className="relative rounded-lg border border-black/10 overflow-hidden bg-[#faf8f5] h-fit w-fit">
+                                            <button
+                                                type="button"
+                                                onClick={() => handleRemoveImage(idx)}
+                                                className="absolute top-1 right-1 z-10 w-6 h-6 rounded-full bg-white/90 border border-black/10 text-xs flex items-center justify-center text-red-600 hover:bg-red-50"
+                                                aria-label={`Remove ${preview.name}`}
+                                            >
+                                                ✕
+                                            </button>
+                                            <img
+                                                src={preview.url}
+                                                alt={`${preview.name} preview`}
+                                                className="h-20 w-20 object-cover"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Variant Dynamic Attributes Setup */}
@@ -209,7 +301,7 @@ const AddProductVariant = () => {
                     <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d] font-semibold relative flex items-center pl-6 tracking-wide">
                         <span className="absolute left-0 w-3 h-3 rounded-full bg-[#6F4E37]" />
                         <span className="absolute left-0 w-3 h-3 rounded-full bg-[#6F4E37] animate-[ping_1s_linear_infinite]" />
-                        Add Variant
+                        Variant & Inventory
                     </p>
                 </div>
 
