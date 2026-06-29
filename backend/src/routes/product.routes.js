@@ -30,9 +30,9 @@ router.get("/", getAllProducts);
 /**
  * @route GET /api/product/:productId
  * @description gives the product details
- * @access private
+ * @access public
  */
-router.get('/:productId', authenticateSeller, getProductDetails);
+router.get('/:productId', getProductDetails);
 
 /**
  * @route POST /api/product/:productId/variants
