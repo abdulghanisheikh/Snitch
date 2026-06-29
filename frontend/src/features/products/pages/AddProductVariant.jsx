@@ -42,7 +42,7 @@ const AddProductVariant = () => {
                     </p>
                 </div>
 
-                <AddVariantForm product={product} />
+                <AddVariantForm product={product} key={product?.title} />
             </form>
 
             <ToastContainer position='top-right' />

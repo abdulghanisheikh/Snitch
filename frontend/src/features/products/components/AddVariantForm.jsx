@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const AttrChip = ({ attrKey, value, onRemove }) => (
     <div className="inline-flex items-center gap-1 bg-[#f5efe9] border border-black/20 rounded-full py-0.5 pl-3 pr-2">
@@ -48,7 +48,7 @@ const ImageUploadZone = ({ imageInputRef, handleImageFileUpload }) => (
 
 const AddVariantForm = ({ product }) => {
     const [variant, setVariant] = useState({
-        price: 0,
+        price: product?.price?.amount || 0,
         stock: 0,
         images: [],
         attributes: null
