@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 
 const AttrChip = ({ attrKey, value, onRemove }) => (
     <div className="inline-flex items-center gap-1 bg-[#f5efe9] border border-black/20 rounded-full py-0.5 pl-3 pr-2">
@@ -51,8 +51,35 @@ const AddVariantForm = ({ product }) => {
         price: product?.price?.amount || 0,
         stock: 0,
         images: [],
-        attributes: null
+        attributes: {}
     });
+
+    const [currentKey, setCurrentKey] = useState('');
+    const [currentValue, setCurrentValue] = useState('');
+
+    const handleAddAttribute = () => {
+        const key = currentKey.trim();
+        const value = currentValue.trim();
+
+        if(!key || !value) return;
+
+        setVariant(prev => ({
+            ...prev,
+            attributes: { ...prev.attributes, [key]: value }
+        }));
+
+        setCurrentKey('');
+        setCurrentValue('');
+    }
+
+    const handleRemoveAttribute = (attribute) => {
+        setVariant(prev => {
+            const attributes = { ...prev.attributes };
+            
+            delete attributes[attribute];
+            return { ...prev, attributes };
+        });
+    }
 
     const imageInputRef = useRef();
 
@@ -174,14 +201,19 @@ const AddVariantForm = ({ product }) => {
                         {/* Interactive fields to add to the dynamic stack */}
                         <div className="flex gap-2 mb-3">
                             <input
+                                onChange={e => setCurrentKey(e.target.value)}
+                                value={currentKey}
                                 placeholder="Key (e.g. color)"
                                 className="flex-1 px-2.5 py-2 border rounded-[10px] border-black/20 focus:border-black text-xs outline-none font-mono transition-colors"
                             />
                             <input
+                                value={currentValue}
+                                onChange={e => setCurrentValue(e.target.value)}
                                 placeholder="Value (e.g. white)"
                                 className="flex-1 px-2.5 py-2 border rounded-[10px] border-black/20 focus:border-black text-xs outline-none transition-colors"
                             />
                             <button
+                                onClick={handleAddAttribute}
                                 type="button"
                                 className="px-3 py-2 rounded-[10px] border border-black/20 text-xs font-bold text-[#6F4E37] bg-[#f5efe9] hover:bg-[#ecddd3] transition-colors cursor-pointer"
                             >
@@ -190,17 +222,18 @@ const AddVariantForm = ({ product }) => {
                         </div>
 
                         {/* Staged collection view wrapper */}
-                        {/* {variant.attributes.length > 0 && (
+                        {Object.keys(variant.attributes).length > 0 && (
                             <div className="flex flex-wrap gap-1.5 p-2 bg-[#faf8f5] border border-black/20 rounded-[10px]">
-                                {variant.attributes.map((attr, idx) => (
+                                {Object.keys(variant.attributes).map((attribute, index) => (
                                     <AttrChip
-                                        key={idx}
-                                        attrKey={attr.key}
-                                        value={attr.value}
+                                        key={index}
+                                        attrKey={attribute}
+                                        value={variant.attributes[attribute]}
+                                        onRemove={() => handleRemoveAttribute(attribute)}
                                     />
                                 ))}
                             </div>
-                        )} */}
+                        )}
                     </div>
                 </div>
 
