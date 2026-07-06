@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router";
 import RegisterPage from "../features/auth/pages/RegisterPage";
 import LoginPage from "../features/auth/pages/LoginPage";
-import CreateProductPage from "../features/products/pages/CreateProductPage";
+import CreateProduct from "../features/products/pages/CreateProduct";
 import SellerProtected from "../features/auth/components/SellerProtected";
 import Protected from "../features/auth/components/Protected";
 import AccountPage from "../features/user/pages/AccountPage";
@@ -20,7 +20,7 @@ const AppRoutes = () => {
 		<Route path="/seller">
 			<Route path="create-product" element={
 				<SellerProtected>
-					<CreateProductPage />
+					<CreateProduct />
 				</SellerProtected>
 			}></Route>
 

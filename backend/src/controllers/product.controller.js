@@ -117,7 +117,13 @@ export const addProductVariant = async(req, res) => {
                 fileName: file.originalname
             });
         }));
-        
+
+        const product = await Product.findById(productId);
+
+        res.json({
+            success: true,
+            message: "Product variant added"
+        });
     } catch(err) {
         return res.status(500).json({
             success: false,

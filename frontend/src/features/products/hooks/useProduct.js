@@ -88,6 +88,8 @@ export const useProduct = () => {
             if(success) {
                 toast.success(message);
             }
+
+            return data;
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in adding product variant");
         } finally {

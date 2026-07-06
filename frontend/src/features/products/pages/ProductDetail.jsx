@@ -3,7 +3,7 @@ import { MdArrowBackIos } from "react-icons/md";
 import { Link, useParams } from "react-router";
 import { useProduct } from "../hooks/useProduct";
 import { useSelector } from "react-redux";
-import ProductCreateLoader from "../components/ProductCreateLoader";
+import Loader from "../components/Loader";
 
 const ProductDetail = () => {
     const [product, setProduct] = useState(null);
@@ -41,7 +41,7 @@ const ProductDetail = () => {
                     loading === 'product details' ? 
                     (
                         <div className="flex flex-col items-center justify-center w-screen px-5 lg:px-20 gap-5">
-                            <ProductCreateLoader />
+                            <Loader />
                             <p className="text-xl">Loading Product</p>
                         </div>
                     ) : 

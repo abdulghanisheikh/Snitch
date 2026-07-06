@@ -3,7 +3,7 @@ import { useProduct } from '../../products/hooks/useProduct.js';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import SellerProduct from '../../products/components/SellerProduct.jsx';
-import ProductCreateLoader from '../../products/components/ProductCreateLoader.jsx';
+import Loader from '../../products/components/Loader.jsx';
 
 const AccountPage = () => {
     const { handleGetSellerProducts } = useProduct();
@@ -24,7 +24,7 @@ const AccountPage = () => {
         {
             user.role === 'seller' && loading === 'seller products' ? (
                 <section className="flex flex-col items-center justify-center w-screen px-5 lg:px-20 mt-15">
-                    <ProductCreateLoader />
+                    <Loader />
                     <p className="text-lg">Loading Products</p>
                 </section>
             ) : (

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ProductCreateLoader = () => {
+const Loader = () => {
     return (
         <StyledWrapper>
             <div className="loader">
@@ -32,7 +32,7 @@ const StyledWrapper = styled.div`
   .loader div {
     width: 8%;
     height: 25%;
-    background: black;
+    background: white;
     position: absolute;
     left: 50%;
     top: 30%;
@@ -112,4 +112,4 @@ const StyledWrapper = styled.div`
     animation-delay: -0.1s;
   }`;
 
-export default ProductCreateLoader;
+export default Loader;

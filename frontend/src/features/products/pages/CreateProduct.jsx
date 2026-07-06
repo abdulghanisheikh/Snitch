@@ -1,4 +1,4 @@
-import ProductForm from "../components/ProductForm";
+import ProductForm from "../components/ProductForm.jsx";
 import { ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { useProduct } from "../hooks/useProduct.js";
