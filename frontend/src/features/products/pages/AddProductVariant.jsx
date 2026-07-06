@@ -100,7 +100,7 @@ const AddProductVariant = () => {
                     <div className="flex flex-col justify-center items-start">
                         <h1 className="text-lg">Add a variant to this product</h1>
 
-                        <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d] font-semibold relative flex items-center lg:pl-6 tracking-wide">
+                        <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d] font-semibold relative flex items-center lg:pl-6 lg:tracking-wide">
                             <span className="absolute left-0 w-3 h-3 rounded-full bg-[#6F4E37]" />
                             <span className="absolute left-0 w-3 h-3 rounded-full bg-[#6F4E37] animate-[ping_1s_linear_infinite]" />
                             Variant & Inventory

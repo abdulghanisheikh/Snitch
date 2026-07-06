@@ -159,9 +159,7 @@ const AddVariantForm = ({ product, productId }) => {
                             <label className="relative block flex-1">
                                 <input
                                     value={variant.price}
-                                    onChange={(e) =>
-                                        setVariant({ ...variant, price: e.target.value })
-                                    }
+                                    onChange={e => setVariant({ ...variant, price: e.target.value })}
                                     type="number"
                                     placeholder=""
                                     className="peer w-full pt-5 pr-2 pb-1.5 pl-2.5 outline-none rounded-[10px] text-[clamp(11px,1.6vw,13px)] border border-black/20 focus:border-black transition-colors"
@@ -271,23 +269,23 @@ const AddVariantForm = ({ product, productId }) => {
                         </p>
 
                         {/* Interactive fields to add to the dynamic stack */}
-                        <div className="flex gap-2 mb-3">
+                        <div className="flex gap-2 mb-3 w-full">
                             <input
                                 onChange={(e) => setCurrentKey(e.target.value)}
                                 value={currentKey}
                                 placeholder="Key (e.g. color)"
-                                className="flex-1 px-2.5 py-2 border rounded-[10px] border-black/20 focus:border-black text-xs outline-none font-mono transition-colors"
+                                className="w-1/3 px-2.5 py-2 border rounded-[10px] border-black/20 focus:border-black text-xs outline-none font-mono transition-colors"
                             />
                             <input
                                 value={currentValue}
                                 onChange={(e) => setCurrentValue(e.target.value)}
                                 placeholder="Value (e.g. white)"
-                                className="flex-1 px-2.5 py-2 border rounded-[10px] border-black/20 focus:border-black text-xs outline-none transition-colors"
+                                className="w-1/3 px-2.5 py-2 border rounded-[10px] border-black/20 focus:border-black text-xs outline-none transition-colors"
                             />
                             <button
                                 onClick={handleAddAttribute}
                                 type="button"
-                                className="px-3 py-2 rounded-[10px] border border-black/20 text-xs font-bold text-[#6F4E37] bg-[#f5efe9] hover:bg-[#ecddd3] transition-colors cursor-pointer"
+                                className="w-1/3 px-3 py-2 rounded-[10px] border border-black/20 text-xs font-bold text-[#6F4E37] bg-[#f5efe9] hover:bg-[#ecddd3] transition-colors cursor-pointer"
                             >
                                 + Add
                             </button>
