@@ -142,13 +142,12 @@ const AddVariantForm = ({ product, productId }) => {
     return (
         <form
             onSubmit={handleSubmit}
-            className="border border-black/20 rounded-sm overflow-hidden bg-white h-full w-full flex flex-col shadow-sm "
+            className="border border-black/20 rounded-sm overflow-hidden bg-white h-full w-full flex flex-col shadow-sm"
         >
             <div className="p-4 flex flex-col gap-4 flex-1 justify-between">
                 <div className="flex flex-col gap-4">
-                    <p className="tracking-wide text-lg">
-                        <span className="italic text-sm">Product - </span>
-                        {product?.title}
+                    <p className="tracking-wide text-sm">
+                        Product - <span className="italic text-xl">{product?.title}</span>
                     </p>
 
                     {/* Price Box */}

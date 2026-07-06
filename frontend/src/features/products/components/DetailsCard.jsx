@@ -46,7 +46,7 @@ const DetailsCard = ({ product, images, activeImage, setActiveImage }) => {
 
             <div className="w-10 border-b-2 rounded-full border-stone-900 mb-4" />
 
-            <p className="text-[#9c6b4f] mb-5 font-semibold">
+            <p className="text-black mb-5 font-semibold">
                 {product?.price.currency} {product?.price.amount}
             </p>
 
