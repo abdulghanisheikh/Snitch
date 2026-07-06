@@ -120,7 +120,15 @@ export const addProductVariant = async(req, res) => {
 
         const product = await Product.findById(productId);
 
-        res.json({
+        product.variants.push({
+            stock,
+            attributes,
+            images,
+            price: { ...product.price, amount: priceAmount }
+        });
+        await product.save();
+
+        res.status(200).json({
             success: true,
             message: "Product variant added"
         });
