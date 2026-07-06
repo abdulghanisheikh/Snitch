@@ -3,11 +3,10 @@ const DetailsCard = ({ product, images, activeImage, setActiveImage }) => {
     return <main className="flex flex-col items-start justify-center">
         <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d]">Details</p>
 
-        {/* CHANGED: Removed max-w-5xl, added lg:w-[80vw] and w-full to fill 80% viewport width */}
         <section className="flex lg:flex-row flex-col items-center justify-center px-5 lg:px-20 shadow-md shadow-black/10 rounded-md border border-black/10 lg:w-[80vw] w-full">
 
             {/* Image panel */}
-            <div className="lg:basis-1/2 w-full flex flex-col lg:gap-4 gap-1 justify-center py-6">
+            <div className="lg:basis-1/2 w-full flex flex-col lg:gap-4 gap-1 justify-center">
                 {/* Main image container */}
                 <div className="w-full aspect-square max-h-100 flex items-center justify-center overflow-hidden">
                     <img
@@ -26,9 +25,9 @@ const DetailsCard = ({ product, images, activeImage, setActiveImage }) => {
                                 type="button"
                                 onClick={() => setActiveImage(img.url)}
                                 className={`
-                                                    lg:w-16 lg:h-16 w-12 h-12 rounded border-2 overflow-hidden shrink-0
-                                                    transition-all duration-200 ease-linear cursor-pointer
-                                                    ${activeImage === img.url
+                                        lg:w-16 lg:h-16 w-12 h-12 rounded border-2 overflow-hidden shrink-0
+                                        transition-all duration-200 ease-linear cursor-pointer
+                                        ${activeImage === img.url
                                         ? 'border-stone-900 scale-105'
                                         : 'border-stone-300 hover:border-stone-500 opacity-70 hover:opacity-100'
                                     }
@@ -47,18 +46,16 @@ const DetailsCard = ({ product, images, activeImage, setActiveImage }) => {
 
             {/* Info panel */}
             <div className="lg:basis-1/2 flex flex-col justify-center lg:px-13 px-2 py-10 h-full w-full">
-                <h1 className="text-3xl text-stone-900 mb-2">
+                <h1 className="text-4xl text-stone-900 mb-2">
                     {product?.title}
                 </h1>
 
-                <div className="w-10 border-b-2 rounded-full border-stone-900 mb-4" />
+                <p className="lg:text-sm text-xs text-stone-600 leading-relaxed max-w-sm mb-6">
+                    {product?.description}
+                </p>
 
                 <p className="text-black mb-5 font-semibold">
                     {product?.price.currency} {product?.price.amount}
-                </p>
-
-                <p className="lg:text-sm text-xs text-stone-600 leading-relaxed max-w-sm mb-6">
-                    {product?.description}
                 </p>
 
                 <hr className="border-zinc-400 rounded-full mb-5 border" />

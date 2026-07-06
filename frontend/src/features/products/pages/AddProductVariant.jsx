@@ -37,7 +37,7 @@ const AddProductVariant = () => {
                 <section className="flex flex-col justify-center items-start lg:w-1/2">
                     <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d]">Details</p>
 
-                    <div className="flex lg:flex-row w-full flex-col shadow-sm items-center border border-black/10 rounded-sm">
+                    <div className="flex lg:flex-row w-full flex-col shadow-sm items-start border border-black/10 rounded-sm">
 
                         {/* Image panel */}
                         <div className="flex-1 flex flex-col lg:gap-4 gap-1">
@@ -78,18 +78,16 @@ const AddProductVariant = () => {
 
                         {/* Info panel */}
                         <div className="lg:flex-1 flex flex-col justify-center lg:px-13 px-2 py-10 h-full w-full">
-                            <h1 className="text-3xl text-stone-900 mb-2">
+                            <h1 className="text-3xl text-stone-900 mb-1">
                                 {product?.title}
                             </h1>
 
-                            <div className="w-10 border-b-2 rounded-full border-stone-900 mb-4" />
+                            <p className="lg:text-sm text-xs text-stone-600 leading-relaxed max-w-sm mb-4">
+                                {product?.description}
+                            </p>
 
                             <p className="text-black mb-5 font-semibold">
                                 {product?.price.currency} {product?.price.amount}
-                            </p>
-
-                            <p className="lg:text-sm text-xs text-stone-600 leading-relaxed max-w-sm mb-6">
-                                {product?.description}
                             </p>
                         </div>
                     </div>

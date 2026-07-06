@@ -273,13 +273,13 @@ const AddVariantForm = ({ product, productId }) => {
                             <input
                                 onChange={(e) => setCurrentKey(e.target.value)}
                                 value={currentKey}
-                                placeholder="Key (e.g. color)"
-                                className="w-1/3 px-2.5 py-2 border rounded-[10px] border-black/20 focus:border-black text-xs outline-none font-mono transition-colors"
+                                placeholder="e.g. color"
+                                className="w-1/3 px-2.5 py-2 border rounded-[10px] border-black/20 focus:border-black text-xs outline-none transition-colors"
                             />
                             <input
                                 value={currentValue}
                                 onChange={(e) => setCurrentValue(e.target.value)}
-                                placeholder="Value (e.g. white)"
+                                placeholder="e.g. white"
                                 className="w-1/3 px-2.5 py-2 border rounded-[10px] border-black/20 focus:border-black text-xs outline-none transition-colors"
                             />
                             <button
