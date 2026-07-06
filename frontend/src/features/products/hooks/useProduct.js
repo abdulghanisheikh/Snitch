@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { createProduct, getAllProducts, getSellerProducts, getProductDetails } from "../services/products.api.js";
+import { createProduct, getAllProducts, getSellerProducts, getProductDetails, addProductVariant } from "../services/products.api.js";
 import { toast } from "react-toastify";
 import { setLoading, setSellerProducts, setProducts } from "../states/products.slice.js";
 
@@ -78,5 +78,22 @@ export const useProduct = () => {
         }
     }
 
-    return { handleCreateProduct, handleGetSellerProducts, handleGetAllProducts, handleGetProductDetails };
+    const handleAddProductVariant = async({ productId, stock, images, attributes, priceAmount }) => {
+        try {
+            dispatch(setLoading('variant'));
+
+            const { data } = await addProductVariant({ productId, stock, images, attributes, priceAmount });
+            const { success, message } = data;
+
+            if(success) {
+                toast.success(message);
+            }
+        } catch(err) {
+            toast.error(err.response?.data?.message || "Error in adding product variant");
+        } finally {
+            dispatch(setLoading(''));
+        }
+    }
+
+    return { handleCreateProduct, handleGetSellerProducts, handleGetAllProducts, handleGetProductDetails, handleAddProductVariant };
 }

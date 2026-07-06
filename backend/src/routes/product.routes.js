@@ -39,6 +39,6 @@ router.get('/:productId', getProductDetails);
  * @description Add the variant of the product
  * @access private
  */
-router.post('/:productId/variants', upload.single('photo'), authenticateSeller, addProductVariant);
+router.post('/:productId/variants', upload.array('photos'), authenticateSeller, addProductVariant);
 
 export default router;

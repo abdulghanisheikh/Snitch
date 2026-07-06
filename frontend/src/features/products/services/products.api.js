@@ -29,3 +29,15 @@ export const getProductDetails = async(productId) => {
     const response = await productApiInstance.get(`/${productId}`);
     return response;
 }
+
+export const addProductVariant = async({ productId, images, stock, attributes, priceAmount }) => {
+    const formData = new FormData();
+    
+    formData.append('photos', images);
+    formData.append('stock', stock);
+    formData.append('priceAmount', priceAmount);
+    formData.append('attributes', attributes);
+
+    const response = await productApiInstance.post(`/${productId}/variant`, formData);
+    return response;
+}

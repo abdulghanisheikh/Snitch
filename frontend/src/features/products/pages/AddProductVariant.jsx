@@ -11,10 +11,6 @@ const AddProductVariant = () => {
     const { handleGetProductDetails } = useProduct();
     const { productId } = useParams();
 
-    const handleOnSubmit = async() => {
-        console.log("form submitted");
-    }
-
     useEffect(() => {
         const fetchProductDetails = async() => {
             const productDetails = await handleGetProductDetails(productId);
@@ -29,7 +25,7 @@ const AddProductVariant = () => {
             {/* Mock Header navbar space */}
             <Navbar pageName="Add Variant" backTo='/account' />
 
-            <form onSubmit={handleOnSubmit} className="flex flex-col gap-2 px-6 py-2.5 mx-auto justify-center items-start text-black">
+            <div className="flex flex-col gap-2 px-6 py-2.5 mx-auto justify-center items-start text-black">
 
                 {/* Header */}
                 <div className="flex flex-col justify-center items-start">
@@ -42,8 +38,8 @@ const AddProductVariant = () => {
                     </p>
                 </div>
 
-                <AddVariantForm product={product} key={product?.title} />
-            </form>
+                <AddVariantForm product={product} productId={productId} />
+            </div>
 
             <ToastContainer position='top-right' />
         </main>

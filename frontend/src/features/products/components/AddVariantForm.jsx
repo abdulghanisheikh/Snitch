@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useProduct } from "../hooks/useProduct";
 
 const AttrChip = ({ attrKey, value, onRemove }) => (
     <div className="inline-flex items-center gap-1 bg-[#f5efe9] border border-black/20 rounded-full py-0.5 pl-3 pr-2">
@@ -46,7 +47,9 @@ const ImageUploadZone = ({ imageInputRef, handleImageFileUpload }) => (
     </div>
 );
 
-const AddVariantForm = ({ product }) => {
+const AddVariantForm = ({ product, productId }) => {
+    const { handleAddProductVariant } = useProduct();
+
     const [variant, setVariant] = useState({
         price: product?.price?.amount || 0,
         stock: 0,
@@ -75,7 +78,7 @@ const AddVariantForm = ({ product }) => {
     const handleRemoveAttribute = (attribute) => {
         setVariant(prev => {
             const attributes = { ...prev.attributes };
-            
+
             delete attributes[attribute];
             return { ...prev, attributes };
         });
@@ -99,8 +102,22 @@ const AddVariantForm = ({ product }) => {
         e.target.value = '';
     }
 
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+
+        await handleAddProductVariant({
+            productId,
+            stock: variant.stock,
+            images: variant.images,
+            attributes: variant.attributes,
+            priceAmount: variant.price
+        });
+    }
+
     return (
-        <div className="border border-black/20 rounded-sm overflow-hidden bg-white h-full flex flex-col shadow-sm ">
+        <form
+        onSubmit={handleSubmit}
+        className="border border-black/20 rounded-sm overflow-hidden bg-white h-full flex flex-col shadow-sm ">
             <div className="p-4 flex flex-col gap-4 flex-1 justify-between">
                 <div className="flex flex-col gap-4">
                     
@@ -237,11 +254,11 @@ const AddVariantForm = ({ product }) => {
                     </div>
                 </div>
 
-                <button type='submit' className="w-full mt-4 py-2.5 bg-black hover:bg-black/90 duration-300 ease-in-out text-white text-sm font-bold rounded-sm transition-colors cursor-pointer">
+                <button type='submit' onClick={handleSubmit} className="w-full mt-4 py-2.5 bg-black hover:bg-black/90 duration-300 ease-in-out text-white text-sm font-bold rounded-sm transition-colors cursor-pointer">
                     Add Variant
                 </button>
             </div>
-        </div>
+        </form>
     );
 };
 
