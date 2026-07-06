@@ -104,31 +104,20 @@ export const getProductDetails = async(req, res) => {
 }
 
 export const addProductVariant = async(req, res) => {
-    const files = req.file;
-    const images = [];
+    const files = req.files;
+    let images = [];
+    const productId = req.params.productId;
+    const { stock, priceAmount } = req.body;
+    const attributes = JSON.parse(req.body.attributes);
 
     try {
-        if(files && files.length > 0) {
-            (await Promise.all(files.map(async(file) => {
-                return await uploadFile({
-                    buffer: file.buffer, 
-                    fileName: file.originalname 
-                });
-            })))
-            .map(image => images.push(image));
-        }
-
-        const { stock, priceAmount } = req.body;
-        const attributes = JSON.parse(req.body.attributes || "{}");
-        const productId = req.params.productId;
-
-        const product = await Product.findOne({
-            _id: productId,
-            seller: req.user.id
-        });
-
-        console.log("product:", product);
-
+        images = await Promise.all(files.map(async(file) => {
+            return await uploadFile({
+                buffer: file.buffer,
+                fileName: file.originalname
+            });
+        }));
+        
     } catch(err) {
         return res.status(500).json({
             success: false,

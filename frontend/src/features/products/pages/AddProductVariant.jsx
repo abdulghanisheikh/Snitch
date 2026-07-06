@@ -7,7 +7,7 @@ import AddVariantForm from "../components/AddVariantForm";
 
 // Main Page
 const AddProductVariant = () => {
-    const [ product, setProduct ] = useState(null);
+    const [product, setProduct] = useState(null);
     const { handleGetProductDetails } = useProduct();
     const { productId } = useParams();
 
