@@ -1,9 +1,11 @@
+import { AttributeChip } from './VariantCard';
+
 const DetailsCard = ({ product, images, activeImage, setActiveImage }) => {
 
-    return <main className="flex flex-col items-start justify-center">
+    return <main className="flex flex-col items-start justify-center self-center">
         <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d]">Details</p>
 
-        <section className="flex lg:flex-row flex-col items-center justify-center px-5 lg:px-20 shadow-md shadow-black/10 rounded-md border border-black/10 lg:w-[80vw] w-full">
+        <section className="flex lg:flex-row flex-col items-start justify-center px-5 lg:px-20 shadow-md shadow-black/10 rounded-md lg:w-[80vw] w-full bg-white">
 
             {/* Image panel */}
             <div className="lg:basis-1/2 w-full flex flex-col lg:gap-4 gap-1 justify-center">
@@ -31,7 +33,7 @@ const DetailsCard = ({ product, images, activeImage, setActiveImage }) => {
                                         ? 'border-stone-900 scale-105'
                                         : 'border-stone-300 hover:border-stone-500 opacity-70 hover:opacity-100'
                                     }
-                                                `}
+                                `}
                             >
                                 <img
                                     src={img.url}
@@ -55,12 +57,45 @@ const DetailsCard = ({ product, images, activeImage, setActiveImage }) => {
                 </p>
 
                 <p className="text-black mb-5 font-semibold">
-                    {product?.price.currency} {product?.price.amount}
+                    {product?.price.amount} {product?.price.currency}
                 </p>
 
                 <hr className="border-zinc-400 rounded-full mb-5 border" />
 
-                <div className="flex flex-col items-center gap-3 mt-5">
+                {/* Variants list */}
+                {product?.variants && product.variants.length > 0 && (
+                    <div className="w-full flex lg:flex-row flex-wrap gap-8 flex-col items-start justify-start mt-4">
+                        {
+                            product.variants.map((variant, index) => {
+                                return (
+                                <div className='flex flex-col gap-2 items-center justify-center' key={index}>
+                                    {/* Image */}
+                                    <div className='h-10 w-10 overflow-hidden rounded-full'>
+                                        <img src={variant.images[0].url} className='h-full object-contain' alt="" />
+                                    </div>
+
+                                    {/* Price */}
+                                    <p className='text-xs'>{variant?.price?.amount} {variant?.price?.currency}</p>
+
+                                    {/* Attributes */}
+                                    <div className='flex flex-col items-start justify-center gap-1'>
+                                        {
+                                            Object.keys(variant.attributes).map((attribute, index) => {
+                                                return <AttributeChip 
+                                                key={index}
+                                                attribute={attribute}
+                                                value={variant.attributes[attribute]}
+                                                />
+                                            })
+                                        }
+                                    </div>
+                                </div>)
+                            })
+                        }
+                    </div>
+                )}
+
+                <div className="flex flex-col items-center gap-3 mt-10">
                     <button
                         type="button"
                         className="lg:w-2/3 w-full bg-stone-900 rounded-xs cursor-pointer text-white lg:text-sm text-xs tracking-widest uppercase py-1.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90"

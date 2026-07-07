@@ -1,6 +1,6 @@
 import { MdDeleteOutline } from "react-icons/md";
 
-const AttributeChip = ({index, attribute, value}) => {
+export const AttributeChip = ({index, attribute, value}) => {
     return <span
     key={index}
     className="flex items-center gap-1 text-xs rounded-full border border-gray-300 bg-gray-100 px-3 py-1 text-black">
@@ -27,7 +27,6 @@ const VariantCard = ({ image, attributes = {}, price, currency = "INR", stock = 
                             <div className="flex flex-wrap gap-2 mb-4">
                                 {
                                     Object.keys(attributes).map((attribute, index) => {
-                                        console.log(attribute);
                                         return <AttributeChip 
                                         key={index}
                                         attribute={attribute}
@@ -39,7 +38,7 @@ const VariantCard = ({ image, attributes = {}, price, currency = "INR", stock = 
                         )
                     }
 
-                    <p><span className="text-sm">Price : </span>{currency} {price ? price : '0'}</p>
+                    <p>{price} {currency}</p>
                 </div>
 
                 <button className="bg-red-100 border border-red-500/30 rounded-sm mt-2 mr-3 cursor-pointer text-xs px-3 py-0.5 active:scale-90 duration-300 ease-in-out tracking-wide">

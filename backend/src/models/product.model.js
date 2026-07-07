@@ -19,7 +19,7 @@ const variantSchema = new mongoose.Schema({
     },
     price: {
         amount: {
-            type: String,
+            type: Number,
             required: true
         },
         currency: {
@@ -46,7 +46,7 @@ const productSchema = new mongoose.Schema({
     },
     price: {
         amount: {
-            type: String,
+            type: Number,
             required: true
         },
         currency: {

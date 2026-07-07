@@ -106,7 +106,7 @@ const AddProductVariant = () => {
 
                         <button 
                         onClick={() => setIsOpen(!isOpen)}
-                        className="rounded-xs bg-black text-white lg:px-3 px-2 lg:py-1 cursor-pointer active:scale-90 duration-300 ease-in-out lg:text-sm text-xs">
+                        className="rounded-xs bg-black text-white lg:px-3 px-2 lg:py-1 cursor-pointer active:scale-90 duration-300 ease-in-out lg:text-sm text-xs hover:bg-black/80">
                             {
                                 isOpen ? "Cancel" : "Add New Variant"
                             }
@@ -123,7 +123,7 @@ const AddProductVariant = () => {
                                 product.variants.map((variant, index) => {
                                     return <VariantCard
                                     key={index}
-                                    image={variant.images[0].url} 
+                                    image={variant.images[0]?.url || ''}
                                     attributes={variant.attributes}
                                     price={variant.price.amount}
                                     currency={variant.price.currency}
@@ -131,7 +131,7 @@ const AddProductVariant = () => {
                                     />
                                 })
                             ) : (
-                                <p className="text-sm self-start mt-5">No Variants Added</p>
+                                <p className="text-sm self-start mt-5">No Variant Added</p>
                             )
                         }
                     </div>

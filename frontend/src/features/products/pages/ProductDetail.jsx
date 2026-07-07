@@ -43,7 +43,11 @@ const ProductDetail = () => {
                         <p className="text-xl">Loading Details...</p>
                     ) : 
                     (
-                        <DetailsCard product={product} images={images} activeImage={activeImage} setActiveImage={setActiveImage} />
+                        <DetailsCard 
+                        product={product}
+                        images={images} 
+                        activeImage={activeImage} 
+                        setActiveImage={setActiveImage} />
                     )
                 }
             </main>

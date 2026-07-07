@@ -121,16 +121,46 @@ export const addProductVariant = async(req, res) => {
         const product = await Product.findById(productId);
 
         product.variants.push({
-            stock,
+            stock: Number(stock),
             attributes,
             images,
-            price: { ...product.price, amount: priceAmount }
+            price: { ...product.price, amount: Number(priceAmount) }
         });
         await product.save();
 
         res.status(200).json({
             success: true,
             message: "Product variant added"
+        });
+    } catch(err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+}
+
+export const deleteProduct = async(req, res) => {
+    const productId = req.params.productId;
+    console.log('hello from deleteProduct controller');
+
+    try {
+        const deletedProduct = await Product.findOneAndDelete({
+            _id: productId,
+            seller: req.user.id
+        });
+
+        if(!deleteProduct) {
+            return res.status(400).json({
+                success: false,
+                message: "No product to delete"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Product deleted",
+            product: deletedProduct
         });
     } catch(err) {
         return res.status(500).json({
