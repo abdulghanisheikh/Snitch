@@ -4,10 +4,12 @@ import Navbar from "../../../shared/components/Navbar";
 import { useProduct } from "../hooks/useProduct";
 import { ToastContainer } from "react-toastify";
 import AddVariantForm from "../components/AddVariantForm";
+import VariantCard from "../components/VariantCard";
 
 // Main Page
 const AddProductVariant = () => {
     const [product, setProduct] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
     const [activeImage, setActiveImage] = useState(null);
     const { handleGetProductDetails } = useProduct();
     const { productId } = useParams();
@@ -23,7 +25,7 @@ const AddProductVariant = () => {
         }
 
         fetchProductDetails();
-    }, [productId]);
+    }, [productId, isOpen]);
 
     const images = product?.images ?? [];
 
@@ -43,7 +45,7 @@ const AddProductVariant = () => {
                         <div className="flex-1 flex flex-col lg:gap-4 gap-1">
                             {/* Main image */}
                             <img
-                                src={activeImage ?? ''}
+                                src={activeImage !== '' ? activeImage : ''}
                                 alt="Product"
                                 className="object-contain h-100 w-full transition-opacity duration-300"
                             />
@@ -57,11 +59,11 @@ const AddProductVariant = () => {
                                             type="button"
                                             onClick={() => setActiveImage(img.url)}
                                             className={`
-                                                    lg:w-16 lg:h-16 w-12 h-12 rounded border-2 overflow-hidden shrink-0
-                                                    transition-all duration-200 ease-linear cursor-pointer
-                                                    ${activeImage === img.url
-                                                    ? 'border-stone-900 scale-105'
-                                                    : 'border-stone-300 hover:border-stone-500 opacity-70 hover:opacity-100'
+                                                lg:w-16 lg:h-16 w-12 h-12 rounded border-2 overflow-hidden shrink-0
+                                                transition-all duration-200 ease-linear cursor-pointer
+                                                ${activeImage === img.url
+                                                ? 'border-stone-900 scale-105'
+                                                : 'border-stone-300 hover:border-stone-500 opacity-70 hover:opacity-100'
                                                 }
                                             `}
                                         >
@@ -95,17 +97,44 @@ const AddProductVariant = () => {
 
                 <section className="flex flex-col lg:w-1/2 w-full">
                     {/* Header */}
-                    <div className="flex flex-col justify-center items-start">
-                        <h1 className="text-lg">Add a variant to this product</h1>
-
-                        <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d] font-semibold relative flex items-center lg:pl-6 lg:tracking-wide">
-                            <span className="absolute left-0 w-3 h-3 rounded-full bg-[#6F4E37]" />
-                            <span className="absolute left-0 w-3 h-3 rounded-full bg-[#6F4E37] animate-[ping_1s_linear_infinite]" />
-                            Variant & Inventory
+                    <div className="flex items-center justify-between w-full mb-3">
+                        <p className="lg:text-4xl text-lg text-[#4a270d] font-semibold relative flex items-center lg:pl-6">
+                            <span className="absolute left-0 lg:w-3 lg:h-3 w-1.5 h-1.5 rounded-full bg-[#6F4E37]" />
+                            <span className="absolute left-0 lg:w-3 lg:h-3 w-1.5 h-1.5 rounded-full bg-[#6F4E37] animate-[ping_1s_linear_infinite]" />
+                            Variants & Inventory
                         </p>
+
+                        <button 
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="rounded-xs bg-[#311a09] text-white px-2 lg:py-1 cursor-pointer active:scale-90 duration-300 ease-in-out lg:text-sm text-xs">
+                            {
+                                isOpen ? "Cancel" : "Add New Variant"
+                            }
+                        </button>
                     </div>
 
-                    <AddVariantForm product={product} productId={productId} />
+                    {
+                        isOpen && <AddVariantForm product={product} productId={productId} />
+                    }
+
+                    <div className="flex flex-col items-center justify-center gap-1 mt-3">
+                        {
+                            product?.variants.length > 0 ? (
+                                product.variants.map((variant, index) => {
+                                    return <VariantCard
+                                    key={index}
+                                    image={variant.images[0].url} 
+                                    attributes={variant.attributes}
+                                    price={variant.price.amount}
+                                    currency={variant.price.currency}
+                                    stock={variant.stock}
+                                    />
+                                })
+                            ) : (
+                                <p className="text-sm self-start mt-5">No Variants Added</p>
+                            )
+                        }
+                    </div>
                 </section>
             </section>
 
