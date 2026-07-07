@@ -1,3 +1,5 @@
+import { MdDeleteOutline } from "react-icons/md";
+
 const AttributeChip = ({index, attribute, value}) => {
     return <span
     key={index}
@@ -11,7 +13,7 @@ const AttributeChip = ({index, attribute, value}) => {
 const VariantCard = ({ image, attributes = {}, price, currency = "INR", stock = 0 }) => {
     return (
         <main className="w-full border border-black/10 shadow-md rounded-md text-black">
-            <div className="flex items-center justify-center">
+            <div className="flex items-start justify-between">
                 <div className="w-30 h-30 shrink-0 rounded-md overflow-hidden flex items-center justify-center p-2">
                     <img
                         src={image}
@@ -19,7 +21,7 @@ const VariantCard = ({ image, attributes = {}, price, currency = "INR", stock = 
                         className="w-full h-full object-cover" />
                 </div>
 
-                <div className="flex-1 flex flex-col h-full justify-between px-5 gap-1">
+                <div className="flex-1 flex flex-col h-full justify-between px-5 py-2 gap-1">
                     {
                         Object.keys(attributes).length > 0 && (
                             <div className="flex flex-wrap gap-2 mb-4">
@@ -39,6 +41,10 @@ const VariantCard = ({ image, attributes = {}, price, currency = "INR", stock = 
 
                     <p><span className="text-sm">Price : </span>{currency} {price ? price : '0'}</p>
                 </div>
+
+                <button className="bg-red-100 border border-red-500/30 rounded-sm mt-2 mr-3 cursor-pointer text-xs px-3 py-0.5 active:scale-90 duration-300 ease-in-out tracking-wide">
+                    <MdDeleteOutline size={21} fontWeight='normal' color="red" />
+                </button>
             </div>
 
             <div className="flex items-center justify-between px-4 py-1.5 bg-[#fffceb]">

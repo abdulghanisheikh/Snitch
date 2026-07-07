@@ -95,9 +95,9 @@ const AddProductVariant = () => {
                     </div>
                 </section>
 
-                <section className="flex flex-col lg:w-1/2 w-full">
+                <section className="flex flex-col lg:w-1/2 w-full gap-3">
                     {/* Header */}
-                    <div className="flex items-center justify-between w-full mb-3">
+                    <div className="flex items-center justify-between w-full">
                         <p className="lg:text-4xl text-lg text-[#4a270d] font-semibold relative flex items-center lg:pl-6">
                             <span className="absolute left-0 lg:w-3 lg:h-3 w-1.5 h-1.5 rounded-full bg-[#6F4E37]" />
                             <span className="absolute left-0 lg:w-3 lg:h-3 w-1.5 h-1.5 rounded-full bg-[#6F4E37] animate-[ping_1s_linear_infinite]" />
@@ -106,7 +106,7 @@ const AddProductVariant = () => {
 
                         <button 
                         onClick={() => setIsOpen(!isOpen)}
-                        className="rounded-xs bg-[#311a09] text-white px-2 lg:py-1 cursor-pointer active:scale-90 duration-300 ease-in-out lg:text-sm text-xs">
+                        className="rounded-xs bg-black text-white lg:px-3 px-2 lg:py-1 cursor-pointer active:scale-90 duration-300 ease-in-out lg:text-sm text-xs">
                             {
                                 isOpen ? "Cancel" : "Add New Variant"
                             }
@@ -117,7 +117,7 @@ const AddProductVariant = () => {
                         isOpen && <AddVariantForm product={product} productId={productId} />
                     }
 
-                    <div className="flex flex-col items-center justify-center gap-1 mt-3">
+                    <div className="flex flex-col items-center justify-center gap-2 mt-3">
                         {
                             product?.variants.length > 0 ? (
                                 product.variants.map((variant, index) => {

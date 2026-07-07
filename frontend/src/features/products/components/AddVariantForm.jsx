@@ -43,7 +43,7 @@ const ImageUploadZone = ({ imageInputRef, handleImageFileUpload }) => (
             </p>
 
             <p className="text-[clamp(9px,1.2vw,11px)] text-black/50">
-                PNG, JPG, WEBP — multiple allowed
+                PNG, JPG - Max 7 allowed
             </p>
             <p className="text-[clamp(9px,1.2vw,11px)] text-black/50">
                 Max Size 5 MB
@@ -146,8 +146,8 @@ const AddVariantForm = ({ product, productId }) => {
         >
             <div className="p-4 flex flex-col gap-4 flex-1 justify-between">
                 <div className="flex flex-col gap-4">
-                    <p className="tracking-wide text-sm">
-                        Product - <span className="italic text-xl">{product?.title}</span>
+                    <p className="tracking-wide text-2xl">
+                        Add a Variant to this Product
                     </p>
 
                     {/* Price Box */}
@@ -186,37 +186,25 @@ const AddVariantForm = ({ product, productId }) => {
                         </p>
 
                         <div className="flex items-center gap-3">
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    if (variant.stock === 0) return;
-                                    setVariant({ ...variant, stock: variant.stock - 1 });
-                                }}
-                                className="w-8 h-8 cursor-pointer rounded-lg border border-black/20 text-base flex items-center justify-center hover:border-black/50 transition-colors"
-                            >
-                                -
-                            </button>
-
-                            <span className="w-7 text-center font-bold text-sm">
-                                {variant.stock}
-                            </span>
-
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    setVariant({ ...variant, stock: variant.stock + 1 })
-                                }
-                                className="w-8 h-8 cursor-pointer rounded-lg border border-black/20 text-base flex items-center justify-center hover:border-black/50 transition-colors"
-                            >
-                                +
-                            </button>
+                            <label className="relative block">
+                                <input
+                                    value={variant.stock}
+                                    onChange={e => setVariant({ ...variant, stock: e.target.value })}
+                                    type="number"
+                                    placeholder=""
+                                    className="peer w-full pt-5 pr-2 pb-1.5 pl-2.5 outline-none rounded-[10px] text-[clamp(11px,1.6vw,13px)] border border-black/20 focus:border-black transition-colors"
+                                />
+                                <span className="absolute left-2.5 top-3.5 text-[clamp(10px,1.4vw,12px)] cursor-text transition-all duration-250 ease-out pointer-events-none peer-focus:top-1 peer-focus:text-[10px] peer-focus:font-semibold peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:font-semibold">
+                                    Stock
+                                </span>
+                            </label>
                         </div>
                     </div>
 
                     {/* Variant Images Upload Box */}
                     <div>
                         <p className="text-[9px] font-bold tracking-widest text-black/40 mb-1.5 uppercase">
-                            Variant Images
+                            Variant Images (Optional)
                         </p>
                         <ImageUploadZone
                             imageInputRef={imageInputRef}
@@ -311,6 +299,7 @@ const AddVariantForm = ({ product, productId }) => {
                     type="submit"
                     onClick={handleSubmit}
                     className="border-none outline-none px-3 py-2.5 text-[clamp(12px,1.8vw,14px)] bg-black text-white font-semibold tracking-wider active:scale-90 cursor-pointer duration-300 ease-in-out mt-1 items-center justify-center flex"
+                    disabled={loading === 'variant'}
                 >
                     {
                         loading === 'variant' ?
