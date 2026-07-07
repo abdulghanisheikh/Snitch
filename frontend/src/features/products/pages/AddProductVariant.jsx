@@ -37,7 +37,7 @@ const AddProductVariant = () => {
             <section className="flex flex-col w-full gap-15 p-6 items-center justify-center text-black">
 
                 <section className="flex flex-col justify-center items-start lg:w-1/2">
-                    <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d]">Details</p>
+                    <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d] font-semibold">Details</p>
 
                     <div className="flex lg:flex-row w-full flex-col shadow-sm items-start border border-black/10 rounded-sm">
 

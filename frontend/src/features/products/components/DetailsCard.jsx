@@ -1,9 +1,16 @@
 import { AttributeChip } from './VariantCard';
 
-const DetailsCard = ({ product, images, activeImage, setActiveImage }) => {
+const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant, images, activeImage, setActiveImage }) => {
+
+    const displayTitle = selectedVariant
+        ? `${baseProduct?.title} - ${Object.values(selectedVariant.attributes || {}).join(' / ')}`
+        : product?.title;
+
+    const displayPrice = product?.price;
+    const variantLabel = selectedVariant ? 'Selected variant' : 'Base product';
 
     return <main className="flex flex-col items-start justify-center self-center">
-        <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d]">Details</p>
+        <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d] font-semibold">Details</p>
 
         <section className="flex lg:flex-row flex-col items-start justify-center px-5 lg:px-20 shadow-md shadow-black/10 rounded-md lg:w-[80vw] w-full bg-white">
 
@@ -48,50 +55,72 @@ const DetailsCard = ({ product, images, activeImage, setActiveImage }) => {
 
             {/* Info panel */}
             <div className="lg:basis-1/2 flex flex-col justify-center lg:px-13 px-2 py-10 h-full w-full">
-                <h1 className="text-4xl text-stone-900 mb-2">
-                    {product?.title}
-                </h1>
+                <div className="flex items-center gap-3 mb-3">
+                    <h1 className="text-4xl text-stone-900">
+                        {displayTitle}
+                    </h1>
+                    {selectedVariant && (
+                        <span className="text-xs text-stone-600 uppercase tracking-[0.3em]">
+                            variant
+                        </span>
+                    )}
+                </div>
 
                 <p className="lg:text-sm text-xs text-stone-600 leading-relaxed max-w-sm mb-6">
                     {product?.description}
                 </p>
 
                 <p className="text-black mb-5 font-semibold">
-                    {product?.price.amount} {product?.price.currency}
+                    {displayPrice?.amount} {displayPrice?.currency}
                 </p>
 
                 <hr className="border-zinc-400 rounded-full mb-5 border" />
 
                 {/* Variants list */}
                 {product?.variants && product.variants.length > 0 && (
-                    <div className="w-full flex lg:flex-row flex-wrap gap-8 flex-col items-start justify-start mt-4">
-                        {
-                            product.variants.map((variant, index) => {
-                                return (
-                                <div className='flex flex-col gap-2 items-center justify-center' key={index}>
-                                    {/* Image */}
-                                    <div className='h-10 w-10 overflow-hidden rounded-full'>
-                                        <img src={variant.images[0].url} className='h-full object-contain' alt="" />
+                    <div className="w-full flex lg:flex-row flex-wrap gap-4 mt-4">
+                        {product.variants.map((variant, index) => {
+                            const isSelected = selectedVariant === variant;
+                            return (
+                                <button
+                                    key={index}
+                                    type="button"
+                                    onClick={() => setSelectedVariant(isSelected ? null : variant)}
+                                    className={`flex flex-col gap-2 items-center justify-center rounded-xl border p-3 text-left transition-all duration-200 ease-linear ${isSelected ? 'border-stone-900 bg-stone-100' : 'border-gray-200 bg-white hover:border-stone-400'}`}
+                                >
+                                    <div className='h-12 w-12 overflow-hidden rounded-full bg-gray-100 flex items-center justify-center'>
+                                        <img src={variant.images[0]?.url} className='h-full w-full object-contain' alt="" />
                                     </div>
 
-                                    {/* Price */}
-                                    <p className='text-xs'>{variant?.price?.amount} {variant?.price?.currency}</p>
+                                    <p className='text-xs text-stone-900 font-semibold'>
+                                        {variant?.price?.amount} {variant?.price?.currency}
+                                    </p>
 
-                                    {/* Attributes */}
                                     <div className='flex flex-col items-start justify-center gap-1'>
-                                        {
-                                            Object.keys(variant.attributes).map((attribute, index) => {
-                                                return <AttributeChip 
-                                                key={index}
+                                        {Object.keys(variant.attributes || {}).map((attribute, attrIndex) => (
+                                            <AttributeChip 
+                                                key={attrIndex}
                                                 attribute={attribute}
                                                 value={variant.attributes[attribute]}
-                                                />
-                                            })
-                                        }
+                                            />
+                                        ))}
                                     </div>
-                                </div>)
-                            })
-                        }
+                                </button>
+                            )
+                        })}
+                    </div>
+                )}
+
+                {selectedVariant && (
+                    <div className="flex items-center gap-3 mt-4">
+                        <span className="text-sm text-stone-600">Viewing selected variant</span>
+                        <button
+                            type="button"
+                            onClick={() => setSelectedVariant(null)}
+                            className="rounded border border-stone-900 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] hover:bg-stone-100"
+                        >
+                            Clear selection
+                        </button>
                     </div>
                 )}
 

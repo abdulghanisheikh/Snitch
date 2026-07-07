@@ -8,6 +8,7 @@ import DetailsCard from "../components/DetailsCard";
 const ProductDetail = () => {
     const [product, setProduct] = useState(null);
     const [activeImage, setActiveImage] = useState(null);
+    const [selectedVariant, setSelectedVariant] = useState(null);
     const loading = useSelector(state => state.product.loading);
 
     const { handleGetProductDetails } = useProduct();
@@ -17,7 +18,8 @@ const ProductDetail = () => {
         const fetchProductDetail = async () => {
             const detail = await handleGetProductDetails(productId);
             setProduct(detail);
-            
+            setSelectedVariant(null);
+
             if (detail?.images?.length > 0) {
                 setActiveImage(detail.images[0].url);
             }
@@ -26,7 +28,24 @@ const ProductDetail = () => {
         fetchProductDetail();
     }, [productId]);
 
-    const images = product?.images ?? [];
+    useEffect(() => {
+        if (selectedVariant?.images?.length > 0) {
+            setActiveImage(selectedVariant.images[0].url);
+        } else if (product?.images?.length > 0) {
+            setActiveImage(product.images[0].url);
+        }
+    }, [selectedVariant, product]);
+
+    const displayProduct = selectedVariant ? {
+        ...product,
+        title: `${product?.title} - ${selectedVariant?.attributes ? Object.values(selectedVariant.attributes).join(' / ') : 'Variant'}`,
+        description: product?.description,
+        price: selectedVariant?.price || product?.price,
+        images: selectedVariant?.images?.length > 0 ? selectedVariant.images : product?.images,
+        stock: selectedVariant?.stock ?? product?.stock,
+    } : product;
+
+    const images = displayProduct?.images ?? [];
 
     return <main className="min-h-screen w-screen flex flex-col items-center lg:gap-10 bg-[#111111]/5">
                 <nav className="flex items-center w-full justify-between py-5 lg:px-10 px-5">
@@ -44,10 +63,13 @@ const ProductDetail = () => {
                     ) : 
                     (
                         <DetailsCard 
-                        product={product}
-                        images={images} 
-                        activeImage={activeImage} 
-                        setActiveImage={setActiveImage} />
+                            product={displayProduct}
+                            baseProduct={product}
+                            selectedVariant={selectedVariant}
+                            setSelectedVariant={setSelectedVariant}
+                            images={images}
+                            activeImage={activeImage}
+                            setActiveImage={setActiveImage} />
                     )
                 }
             </main>
