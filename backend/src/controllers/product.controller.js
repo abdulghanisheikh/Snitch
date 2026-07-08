@@ -142,7 +142,6 @@ export const addProductVariant = async(req, res) => {
 
 export const deleteProduct = async(req, res) => {
     const productId = req.params.productId;
-    console.log('hello from deleteProduct controller');
 
     try {
         const deletedProduct = await Product.findOneAndDelete({
@@ -159,8 +158,7 @@ export const deleteProduct = async(req, res) => {
 
         res.status(200).json({
             success: true,
-            message: "Product deleted",
-            product: deletedProduct
+            message: "Product deleted"
         });
     } catch(err) {
         return res.status(500).json({

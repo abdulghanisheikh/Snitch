@@ -6,7 +6,7 @@ import SellerProduct from '../../products/components/SellerProduct.jsx';
 import Loader from '../../products/components/Loader.jsx';
 
 const AccountPage = () => {
-    const { handleGetSellerProducts } = useProduct();
+    const { handleGetSellerProducts, handleDeleteProduct } = useProduct();
 
     const sellerProducts = useSelector(state => state.product.sellerProducts);
     const loading = useSelector(state => state.product.loading);
@@ -35,7 +35,13 @@ const AccountPage = () => {
                         {
                             sellerProducts.length === 0 ?
                                 <p className='font-semibold text-lg'>No Products Listed</p> :
-                                sellerProducts.map((product, index) => <SellerProduct key={index} product={product} />)
+                                sellerProducts.map((product, index) => 
+                                <SellerProduct 
+                                key={index} 
+                                product={product}
+                                loading={loading}
+                                handleDeleteClick={() => handleDeleteProduct(product._id)} />
+                            )
                         }
                     </div>
                 </section>

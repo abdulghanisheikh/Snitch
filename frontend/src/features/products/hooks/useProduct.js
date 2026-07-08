@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { createProduct, getAllProducts, getSellerProducts, getProductDetails, addProductVariant } from "../services/products.api.js";
+import { createProduct, getAllProducts, getSellerProducts, getProductDetails, addProductVariant, deleteProduct } from "../services/products.api.js";
 import { toast } from "react-toastify";
 import { setLoading, setSellerProducts, setProducts } from "../states/products.slice.js";
 
@@ -97,5 +97,23 @@ export const useProduct = () => {
         }
     }
 
-    return { handleCreateProduct, handleGetSellerProducts, handleGetAllProducts, handleGetProductDetails, handleAddProductVariant };
+    const handleDeleteProduct = async(productId) => {
+        try {
+            dispatch(setLoading(productId));
+
+            const { data } = await deleteProduct(productId);
+
+            const { success, message } = data;
+            if(success) {
+                toast.success(message);
+                await handleGetSellerProducts();
+            }
+        } catch(err) {
+            toast.error(err.response?.data?.message || "Error in deleting the product");
+        } finally {
+            dispatch(setLoading(''));
+        }
+    }
+
+    return { handleCreateProduct, handleGetSellerProducts, handleGetAllProducts, handleGetProductDetails, handleAddProductVariant, handleDeleteProduct };
 }

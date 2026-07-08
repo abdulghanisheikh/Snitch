@@ -44,3 +44,8 @@ export const addProductVariant = async({ productId, images, stock, attributes, p
     const response = await productApiInstance.post(`/${productId}/variants`, formData);
     return response;
 }
+
+export const deleteProduct = async(productId) => {
+    const response = await productApiInstance.delete(`/${productId}`);
+    return response;
+}

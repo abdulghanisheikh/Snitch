@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 
-const SellerProduct = ({product}) => {
+const SellerProduct = ({ product, handleDeleteClick, loading }) => {
 	const getPrice = () => {
 		const { currency, amount } = product.price;
 
@@ -42,8 +42,10 @@ const SellerProduct = ({product}) => {
 
 			<div className="flex items-center justify-between gap-2">
 				<button
+				onClick={handleDeleteClick}
+				disabled={loading === product._id}
 				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide transition-all duration-300 rounded-xs bg-black text-white">
-					Remove
+					{loading === product._id ? 'Removing...' : 'Remove'}
 				</button>
 
 				<button

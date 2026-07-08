@@ -65,6 +65,16 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant
 
                 <hr className="border-zinc-400 rounded-full mb-5 border" />
 
+                {selectedVariant && (
+                    <button
+                        type="button"
+                        onClick={() => setSelectedVariant(null)}
+                        className="rounded-sm border w-fit border-black/10 px-3 py-1 text-xs font-semibold uppercase hover:bg-white duration-300 ease-in-out cursor-pointer"
+                    >
+                        Clear selection
+                    </button>
+                )}
+
                 {/* Variants list */}
                 {product?.variants && product.variants.length > 0 && (
                     <div className="w-full flex lg:flex-row flex-wrap gap-4 mt-4">
@@ -97,18 +107,6 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant
                                 </button>
                             )
                         })}
-                    </div>
-                )}
-
-                {selectedVariant && (
-                    <div className="flex items-center gap-3 mt-5">
-                        <button
-                            type="button"
-                            onClick={() => setSelectedVariant(null)}
-                            className="rounded border border-black/10 px-3 py-1 text-xs font-semibold uppercase hover:bg-stone-100 cursor-pointer"
-                        >
-                            Clear selection
-                        </button>
                     </div>
                 )}
 
