@@ -30,10 +30,16 @@ const ProductDetail = () => {
 
     useEffect(() => {
         const check = () => {
-            if (selectedVariant?.images?.length > 0) {
-                setActiveImage(selectedVariant.images[0].url);
+            if (selectedVariant) {
+                if (selectedVariant?.images?.length > 0) {
+                    setActiveImage(selectedVariant.images[0].url);
+                } else {
+                    setActiveImage(null);
+                }
             } else if (product?.images?.length > 0) {
                 setActiveImage(product.images[0].url);
+            } else {
+                setActiveImage(null);
             }
         }
 
@@ -66,7 +72,10 @@ const ProductDetail = () => {
                         <p className="text-xl">Loading Details...</p>
                     ) : 
                     (
-                        <DetailsCard 
+                        <div className="flex flex-col items-start gap-3">
+                            <p className="lg:text-5xl text-xl text-[#4a270d] lg:pl-20">Details</p>
+
+                            <DetailsCard 
                             product={displayProduct}
                             baseProduct={product}
                             selectedVariant={selectedVariant}
@@ -74,6 +83,8 @@ const ProductDetail = () => {
                             images={images}
                             activeImage={activeImage}
                             setActiveImage={setActiveImage} />
+                        </div>
+                        
                     )
                 }
             </main>

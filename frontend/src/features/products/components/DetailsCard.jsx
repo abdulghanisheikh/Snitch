@@ -8,10 +8,7 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant
 
     const displayPrice = product?.price;
 
-    return <main className="flex flex-col gap-1">
-        <p className="text-5xl text-[#4a270d] font-semibold lg:pl-20">Details</p>
-
-        <section className="flex lg:flex-row flex-col items-start px-5 lg:px-20 lg:w-[80vw] w-full">
+    return <main className="flex lg:flex-row flex-col items-start px-5 lg:px-20 lg:w-[80vw] w-full">
 
             {/* Image panel */}
             <div className="lg:basis-1/2 w-full flex flex-col lg:gap-4 gap-1 justify-center">
@@ -20,7 +17,7 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant
                     <img
                         src={activeImage ?? ''}
                         alt="Product"
-                        className="object-contain w-full h-full transition-opacity duration-300"
+                        className="object-cover w-full h-full transition-opacity duration-300"
                     />
                 </div>
 
@@ -118,20 +115,19 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant
                 <div className="flex flex-col items-center gap-3 mt-10">
                     <button
                         type="button"
-                        className="lg:w-2/3 w-full bg-stone-900 rounded-xs cursor-pointer text-white lg:text-sm text-xs tracking-widest uppercase py-1.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90"
+                        className="lg:w-2/3 w-full bg-stone-900 rounded-sm cursor-pointer text-white lg:text-sm text-xs tracking-widest uppercase py-1.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90"
                     >
                         Add to Cart
                     </button>
                     <button
                         type="button"
-                        className="lg:w-2/3 w-full rounded-xs border cursor-pointer border-stone-900 text-stone-900 lg:text-sm text-xs tracking-widest uppercase py-1.5 flex items-center active:scale-90 justify-center gap-2 hover:bg-stone-300 duration-300 ease-in-out"
+                        className="lg:w-2/3 w-full rounded-sm border cursor-pointer border-black/30 text-stone-900 lg:text-sm text-xs tracking-widest uppercase py-1.5 flex items-center active:scale-90 justify-center gap-2 hover:bg-stone-300 duration-300 ease-in-out"
                     >
                         Buy Now
                     </button>
                 </div>
             </div>
-        </section>
-    </main>
+        </main>
 }
 
 export default DetailsCard;
