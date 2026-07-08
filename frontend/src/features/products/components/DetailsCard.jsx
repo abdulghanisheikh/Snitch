@@ -3,21 +3,20 @@ import { AttributeChip } from './VariantCard';
 const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant, images, activeImage, setActiveImage }) => {
 
     const displayTitle = selectedVariant
-        ? `${baseProduct?.title} - ${Object.values(selectedVariant.attributes || {}).join(' / ')}`
+        ? baseProduct?.title
         : product?.title;
 
     const displayPrice = product?.price;
-    const variantLabel = selectedVariant ? 'Selected variant' : 'Base product';
 
-    return <main className="flex flex-col items-start justify-center self-center">
-        <p className="text-[clamp(34px,4vw,22px)] text-[#4a270d] font-semibold">Details</p>
+    return <main className="flex flex-col gap-1">
+        <p className="text-5xl text-[#4a270d] font-semibold lg:pl-20">Details</p>
 
-        <section className="flex lg:flex-row flex-col items-start justify-center px-5 lg:px-20 shadow-md shadow-black/10 rounded-md lg:w-[80vw] w-full bg-white">
+        <section className="flex lg:flex-row flex-col items-start px-5 lg:px-20 lg:w-[80vw] w-full">
 
             {/* Image panel */}
             <div className="lg:basis-1/2 w-full flex flex-col lg:gap-4 gap-1 justify-center">
                 {/* Main image container */}
-                <div className="w-full aspect-square max-h-100 flex items-center justify-center overflow-hidden">
+                <div className="w-full aspect-square max-h-100 rounded-xl flex items-center justify-center overflow-hidden">
                     <img
                         src={activeImage ?? ''}
                         alt="Product"
@@ -54,17 +53,10 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant
             </div>
 
             {/* Info panel */}
-            <div className="lg:basis-1/2 flex flex-col justify-center lg:px-13 px-2 py-10 h-full w-full">
-                <div className="flex items-center gap-3 mb-3">
-                    <h1 className="text-4xl text-stone-900">
-                        {displayTitle}
-                    </h1>
-                    {selectedVariant && (
-                        <span className="text-xs text-stone-600 uppercase tracking-[0.3em]">
-                            variant
-                        </span>
-                    )}
-                </div>
+            <div className="lg:basis-1/2 flex flex-col justify-center lg:px-13 px-2 h-full w-full">
+                <h1 className="text-4xl text-stone-900">
+                    {displayTitle}
+                </h1>
 
                 <p className="lg:text-sm text-xs text-stone-600 leading-relaxed max-w-sm mb-6">
                     {product?.description}
@@ -112,12 +104,11 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant
                 )}
 
                 {selectedVariant && (
-                    <div className="flex items-center gap-3 mt-4">
-                        <span className="text-sm text-stone-600">Viewing selected variant</span>
+                    <div className="flex items-center gap-3 mt-5">
                         <button
                             type="button"
                             onClick={() => setSelectedVariant(null)}
-                            className="rounded border border-stone-900 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] hover:bg-stone-100"
+                            className="rounded border border-black/10 px-3 py-1 text-xs font-semibold uppercase hover:bg-stone-100 cursor-pointer"
                         >
                             Clear selection
                         </button>

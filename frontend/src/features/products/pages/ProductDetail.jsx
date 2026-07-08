@@ -29,16 +29,20 @@ const ProductDetail = () => {
     }, [productId]);
 
     useEffect(() => {
-        if (selectedVariant?.images?.length > 0) {
-            setActiveImage(selectedVariant.images[0].url);
-        } else if (product?.images?.length > 0) {
-            setActiveImage(product.images[0].url);
+        const check = () => {
+            if (selectedVariant?.images?.length > 0) {
+                setActiveImage(selectedVariant.images[0].url);
+            } else if (product?.images?.length > 0) {
+                setActiveImage(product.images[0].url);
+            }
         }
+
+        check();
     }, [selectedVariant, product]);
 
     const displayProduct = selectedVariant ? {
         ...product,
-        title: `${product?.title} - ${selectedVariant?.attributes ? Object.values(selectedVariant.attributes).join(' / ') : 'Variant'}`,
+        title: product?.title,
         description: product?.description,
         price: selectedVariant?.price || product?.price,
         images: selectedVariant?.images?.length > 0 ? selectedVariant.images : product?.images,
@@ -47,7 +51,7 @@ const ProductDetail = () => {
 
     const images = displayProduct?.images ?? [];
 
-    return <main className="min-h-screen w-screen flex flex-col items-center lg:gap-10 bg-[#111111]/5">
+    return <main className="min-h-screen w-screen flex flex-col items-center lg:gap-7 bg-[#111111]/5">
                 <nav className="flex items-center w-full justify-between py-5 lg:px-10 px-5">
                     <Link to='/' className="flex items-center justify-center lg:gap-3">
                         <MdArrowBackIos color="black" size={25} className="cursor-pointer active:scale-90 duration-300 ease-linear" />
