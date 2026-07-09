@@ -1,15 +1,4 @@
 const ProductCard = ({product, handleOnClick}) => {
-    
-    const getPrice = () => {
-		const { currency, amount } = product.price;
-
-		if (currency === 'INR') return '₹ ' + amount;
-		if (currency === 'USD') return '$ ' + amount;
-		if (currency === 'GBP') return '£ ' + amount;
-		if (currency === 'JPY') return '¥ ' + amount;
-		if (currency === 'ERU') return '€ ' + amount;
-	}
-
     return <main
     onClick={ handleOnClick }
     className="w-80 h-120 flex flex-col justify-between rounded-md overflow-hidden shadow-md bg-white cursor-pointer hover:scale-105 duration-300 ease-in-out border border-black/20">
@@ -22,12 +11,12 @@ const ProductCard = ({product, handleOnClick}) => {
             />
         </div>
 
-        <div className="flex flex-col flex-1 w-full justify-center">
+        <div className="flex flex-col flex-1 w-full justify-evenly">
             <h1 className="text-xl font-light text-gray-900 tracking-tight px-5">
                 {product.title}
             </h1>
 
-            <p className="text-base text-gray-700 mb-3 font-semibold px-5">{getPrice()}</p>
+            <p className="text-base text-gray-700 font-semibold px-5">{product.price.amount} {product.price.currency}</p>
 
             <hr className="w-full border-1/2 border-black/30"></hr>
 

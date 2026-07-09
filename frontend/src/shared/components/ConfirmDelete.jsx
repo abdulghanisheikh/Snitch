@@ -1,25 +1,34 @@
 import styled from 'styled-components';
 
-const ConfirmDelete = () => {
-    return (
-        <StyledWrapper>
-            <div className="card">
-                <div className="card-content">
-                    <p className="card-heading">Delete file?</p>
-                    <p className="card-description">Lorem ipsum dolor sit amet, consectetur adi</p>
-                </div>
-                <div className="card-button-wrapper">
-                    <button className="card-button secondary">Cancel</button>
-                    <button className="card-button primary">Delete</button>
-                </div>
-                <button className="exit-button">
-                    <svg height="20px" viewBox="0 0 384 512">
-                        <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-                    </svg>
-                </button>
-            </div>
-        </StyledWrapper>
-    );
+const ConfirmDelete = ({ product, handleDeleteProduct, deleteBoxRef, loading, closeDeleteBox }) => {
+	return (
+		<StyledWrapper>
+			<div className="card" ref={deleteBoxRef}>
+				<div className="card-content text-xs">
+					<p className="card-heading">Delete Product ?</p>
+					<p className="card-description"><span className='font-bold'>{product.title}</span> will be permanently removed from your store.</p>
+				</div>
+
+				<div className="card-button-wrapper">
+					<button 
+					className="card-button secondary"
+					onClick={closeDeleteBox}
+					>
+						Cancel
+					</button>
+
+					<button
+						onClick={handleDeleteProduct}
+						disabled={loading === product._id}
+						className="card-button primary">
+						{
+							loading === product._id ? 'Deleting...' : 'Delete'
+						}
+					</button>
+				</div>
+			</div>
+		</StyledWrapper>
+	);
 }
 
 const StyledWrapper = styled.div`
@@ -27,13 +36,13 @@ const StyledWrapper = styled.div`
     width: 300px;
     height: fit-content;
     background: rgb(255, 255, 255);
-    border-radius: 20px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 20px;
-    padding: 30px;
+    padding: 20px;
     position: relative;
     box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.068);
   }
@@ -42,7 +51,7 @@ const StyledWrapper = styled.div`
     height: fit-content;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
   }
   .card-heading {
     font-size: 20px;
@@ -51,7 +60,8 @@ const StyledWrapper = styled.div`
   }
   .card-description {
     font-weight: 100;
-    color: rgb(102, 102, 102);
+    font-size: 14px;
+    color: black;
   }
   .card-button-wrapper {
     width: 100%;
@@ -63,10 +73,11 @@ const StyledWrapper = styled.div`
   .card-button {
     width: 50%;
     height: 35px;
-    border-radius: 10px;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 14px;
   }
   .primary {
     background-color: rgb(255, 114, 109);
@@ -80,23 +91,6 @@ const StyledWrapper = styled.div`
   }
   .secondary:hover {
     background-color: rgb(197, 197, 197);
-  }
-  .exit-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    background-color: transparent;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-  }
-  .exit-button:hover svg {
-    fill: black;
-  }
-  .exit-button svg {
-    fill: rgb(175, 175, 175);
-  }`;
+  }`
 
 export default ConfirmDelete;

@@ -16,10 +16,10 @@ const Home = () => {
         handleGetAllProducts();
     }, []);
 
-    return <main className="flex flex-col min-h-screen w-screen items-center gap-5 justify-between bg-[#111111]/5">
+    return <main className="flex flex-col min-h-screen w-screen items-center justify-between bg-[#111111]/5">
         <Navbar pageName='Shop' />
         
-        <div className="flex flex-col gap-2 items-center justify-center w-full">
+        <div className="flex flex-col gap-2 items-center justify-center w-full mt-2">
             <p className="lg:text-5xl text-2xl opacity-95">Curated Products</p>
             <p className="text-xs lg:text-sm opacity-60">Upgrade your closet with our latest exclusive collection.</p>
         </div>

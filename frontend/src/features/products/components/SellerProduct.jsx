@@ -1,15 +1,6 @@
 import { useNavigate } from "react-router";
 
-const SellerProduct = ({ product, handleDeleteClick, loading }) => {
-	const getPrice = () => {
-		const { currency, amount } = product.price;
-
-		if (currency === 'GBP') return '£ ' + amount;
-		if (currency === 'JPY') return '¥ ' + amount;
-		if (currency === 'EUR') return '€ ' + amount;
-
-		return currency + ' ' + amount;
-	}
+const SellerProduct = ({ product, handleDeleteClick }) => {
 
 	const navigate = useNavigate();
 
@@ -29,7 +20,7 @@ const SellerProduct = ({ product, handleDeleteClick, loading }) => {
 					{product.title}
 				</h1>
 
-				<p className="text-base text-gray-700 mb-3 font-semibold">{getPrice()}</p>
+				<p className="text-base text-gray-700 mb-3 font-semibold">{product.price.amount} {product.price.currency}</p>
 
 				<hr className="border-gray-300 mb-3" />
 
@@ -43,9 +34,8 @@ const SellerProduct = ({ product, handleDeleteClick, loading }) => {
 			<div className="flex items-center justify-between gap-2">
 				<button
 				onClick={handleDeleteClick}
-				disabled={loading === product._id}
 				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide transition-all duration-300 rounded-sm bg-black text-white">
-					{loading === product._id ? 'Removing...' : 'Remove'}
+					Delete
 				</button>
 
 				<button

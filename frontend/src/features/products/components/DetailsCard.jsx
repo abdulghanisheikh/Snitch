@@ -22,7 +22,7 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant
                 </div>
 
                 {/* Thumbnail strip — only renders when there are multiple images */}
-                {images.length > 1 && (
+                {images?.length > 1 && (
                     <div className="flex items-center lg:gap-3 gap-2 flex-wrap justify-center mt-2">
                         {images.map((img, index) => (
                             <button
