@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import SellerProduct from '../../products/components/SellerProduct.jsx';
 import Loader from '../../products/components/Loader.jsx';
+import { ToastContainer } from 'react-toastify';
 
 const AccountPage = () => {
     const { handleGetSellerProducts, handleDeleteProduct } = useProduct();
@@ -34,7 +35,7 @@ const AccountPage = () => {
                     <div className="flex lg:flex-row flex-col h-full w-full justify-start items-center gap-5 py-2">
                         {
                             sellerProducts.length === 0 ?
-                                <p className='font-semibold text-lg'>No Products Listed</p> :
+                                <p className='self-center'>No Products Listed</p> :
                                 sellerProducts.map((product, index) => 
                                 <SellerProduct 
                                 key={index} 
@@ -47,6 +48,7 @@ const AccountPage = () => {
                 </section>
             )
         }
+        <ToastContainer position='top-right' />
     </main>
 }
 

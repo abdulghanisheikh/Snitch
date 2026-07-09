@@ -13,7 +13,7 @@ const SellerProduct = ({ product, handleDeleteClick, loading }) => {
 
 	const navigate = useNavigate();
 
-	return <main className="w-80 h-130 flex flex-col justify-between rounded-sm overflow-hidden shadow-2xl bg-white border border-black/20">
+	return <main className="w-80 h-130 flex flex-col justify-between rounded-xl overflow-hidden shadow-2xl bg-white border border-black/20">
 		<div className="relative">
 			<img
 				src={product.images.length === 0 ? '#' : product.images[0].url}
@@ -44,13 +44,13 @@ const SellerProduct = ({ product, handleDeleteClick, loading }) => {
 				<button
 				onClick={handleDeleteClick}
 				disabled={loading === product._id}
-				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide transition-all duration-300 rounded-xs bg-black text-white">
+				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide transition-all duration-300 rounded-sm bg-black text-white">
 					{loading === product._id ? 'Removing...' : 'Remove'}
 				</button>
 
 				<button
 				onClick={() => navigate(`/seller/product/${product._id}`)}
-				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide transition-all duration-300 rounded-xs bg-black text-white hover:bg-black/90 active:scale-90">
+				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide duration-300 rounded-sm bg-black text-white hover:bg-black/90 active:scale-90">
 					Add Variant
 				</button>
 			</div>

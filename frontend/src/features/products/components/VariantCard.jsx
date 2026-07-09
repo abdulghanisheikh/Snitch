@@ -1,4 +1,5 @@
-import { MdDeleteOutline } from "react-icons/md";
+import DeleteButton from "./DeleteButton";
+import { useState } from "react";
 
 export const AttributeChip = ({index, attribute, value}) => {
     return <span
@@ -11,13 +12,15 @@ export const AttributeChip = ({index, attribute, value}) => {
 }
 
 const VariantCard = ({ image, attributes = {}, price, currency = "INR", stock = 0 }) => {
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+    
     return (
         <main className="w-full border border-black/10 shadow-md rounded-md text-black">
             <div className="flex items-start justify-between">
                 <div className="w-30 h-30 shrink-0 rounded-md overflow-hidden flex items-center justify-center p-2">
                     <img
                         src={image}
-                        alt="Variant"
+                        alt='Variant'
                         className="w-full h-full object-cover" />
                 </div>
 
@@ -41,9 +44,7 @@ const VariantCard = ({ image, attributes = {}, price, currency = "INR", stock = 
                     <p>{price} {currency}</p>
                 </div>
 
-                <button className="bg-red-100 border border-red-500/30 rounded-sm mt-2 mr-3 cursor-pointer text-xs px-3 py-0.5 active:scale-90 duration-300 ease-in-out tracking-wide">
-                    <MdDeleteOutline size={21} fontWeight='normal' color="red" />
-                </button>
+                <DeleteButton />               
             </div>
 
             <div className="flex items-center justify-between px-4 py-1.5 bg-[#fffceb]">

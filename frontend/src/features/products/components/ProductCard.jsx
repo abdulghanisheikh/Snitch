@@ -13,7 +13,8 @@ const ProductCard = ({product, handleOnClick}) => {
     return <main
     onClick={ handleOnClick }
     className="w-80 h-120 flex flex-col justify-between rounded-md overflow-hidden shadow-md bg-white cursor-pointer hover:scale-105 duration-300 ease-in-out border border-black/20">
-        <div className="relative">
+
+        <div className="relative flex-1 w-full">
             <img
                 src={product.images.length === 0 ? '#' : product.images[0].url}
                 alt="No Image"
@@ -21,16 +22,16 @@ const ProductCard = ({product, handleOnClick}) => {
             />
         </div>
 
-        <div className="px-5 py-2">
-            <h1 className="text-xl font-light text-gray-900 tracking-tight mb-1">
+        <div className="flex flex-col flex-1 w-full justify-center">
+            <h1 className="text-xl font-light text-gray-900 tracking-tight px-5">
                 {product.title}
             </h1>
 
-            <p className="text-base text-gray-700 mb-3 font-semibold">{getPrice()}</p>
+            <p className="text-base text-gray-700 mb-3 font-semibold px-5">{getPrice()}</p>
 
-            <hr className="border-gray-300 mb-3" />
+            <hr className="w-full border-1/2 border-black/30"></hr>
 
-            <p className="lg:text-sm text-xs text-gray-800 leading-relaxed mb-5 overflow-y-auto" style={{
+            <p className="lg:text-sm lg:mt-4 mt-2 text-xs px-5 text-black/80 leading-relaxed overflow-y-auto" style={{
                 scrollbarWidth: 'none'
             }}>
                 {product.description}
