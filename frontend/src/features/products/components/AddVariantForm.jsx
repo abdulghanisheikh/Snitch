@@ -120,6 +120,8 @@ const AddVariantForm = ({ product, productId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if(variant.stock === 0) return;
+
         const data = await handleAddProductVariant({
             productId,
             stock: variant.stock,
@@ -188,6 +190,7 @@ const AddVariantForm = ({ product, productId }) => {
                         <div className="flex items-center gap-3">
                             <label className="relative block">
                                 <input
+                                    required
                                     value={variant.stock}
                                     onChange={e => setVariant({ ...variant, stock: e.target.value })}
                                     type="number"

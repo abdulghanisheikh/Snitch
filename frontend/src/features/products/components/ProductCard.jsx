@@ -1,7 +1,7 @@
 const ProductCard = ({product, handleOnClick}) => {
     return <main
     onClick={ handleOnClick }
-    className="w-80 h-120 flex flex-col justify-between rounded-md overflow-hidden shadow-md bg-white cursor-pointer hover:scale-105 duration-300 ease-in-out border border-black/20">
+    className="w-80 h-120 flex flex-col justify-between gap-3 rounded-md overflow-hidden shadow-md bg-white cursor-pointer hover:scale-101 duration-300 ease-in-out border border-black/20">
 
         <div className="relative flex-1 w-full">
             <img
@@ -20,9 +20,11 @@ const ProductCard = ({product, handleOnClick}) => {
 
             <hr className="w-full border-1/2 border-black/30"></hr>
 
-            <p className="lg:text-sm lg:mt-4 mt-2 text-xs px-5 text-black/80 leading-relaxed overflow-y-auto" style={{
+            <p className="text-xs px-5 h-20 text-black/80 leading-relaxed overflow-y-auto"
+            style={{
                 scrollbarWidth: 'none'
-            }}>
+            }}
+            >
                 {product.description}
             </p>
         </div>

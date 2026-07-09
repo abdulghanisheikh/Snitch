@@ -4,7 +4,7 @@ const SellerProduct = ({ product, handleDeleteClick }) => {
 
 	const navigate = useNavigate();
 
-	return <main className="w-80 h-130 flex flex-col justify-between rounded-xl overflow-hidden shadow-2xl bg-white border border-black/20">
+	return <main className="w-85 flex flex-col justify-between rounded-xl overflow-hidden shadow-2xl bg-white border border-black/20">
 		<div className="relative">
 			<img
 				src={product.images.length === 0 ? '#' : product.images[0].url}
@@ -24,7 +24,7 @@ const SellerProduct = ({ product, handleDeleteClick }) => {
 
 				<hr className="border-gray-300 mb-3" />
 
-				<p className="text-xs text-gray-800 leading-relaxed mb-5 overflow-y-auto" style={{
+				<p className="text-xs text-gray-800 h-20 overflow-hidden leading-relaxed mb-5 overflow-y-auto" style={{
 					scrollbarWidth: "none"
 				}}>
 					{product.description}
@@ -34,13 +34,13 @@ const SellerProduct = ({ product, handleDeleteClick }) => {
 			<div className="flex items-center justify-between gap-2">
 				<button
 				onClick={handleDeleteClick}
-				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide transition-all duration-300 rounded-sm bg-black text-white">
+				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide duration-300 ease-in-out rounded-sm bg-black text-white active:scale-90 hover:bg-black/90">
 					Delete
 				</button>
 
 				<button
 				onClick={() => navigate(`/seller/product/${product._id}`)}
-				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide duration-300 rounded-sm bg-black text-white hover:bg-black/90 active:scale-90">
+				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide duration-300 ease-in-out rounded-sm bg-black text-white hover:bg-black/90 active:scale-90">
 					Add Variant
 				</button>
 			</div>
