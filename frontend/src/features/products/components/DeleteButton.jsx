@@ -21,8 +21,6 @@ const DeleteButton = () => {
 const StyledWrapper = styled.div`
   .delete-button {
     position: relative;
-    padding: 0.5em;
-    margin-right: 0.8em;
     border: none;
     background: transparent;
     cursor: pointer;
@@ -31,8 +29,8 @@ const StyledWrapper = styled.div`
   }
 
   .trash-svg {
-    width: 2em;
-    height: 2em;
+    width: 1.5em;
+    height: 1.5em;
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
     overflow: visible;

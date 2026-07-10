@@ -49,3 +49,8 @@ export const deleteProduct = async(productId) => {
     const response = await productApiInstance.delete(`/${productId}`);
     return response;
 }
+
+export const deleteProductVariant = async({ productId, index }) => {
+    const response = await productApiInstance.delete(`/${productId}/variants/${index}`);
+    return response;
+}

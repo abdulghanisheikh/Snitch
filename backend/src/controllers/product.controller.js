@@ -167,3 +167,39 @@ export const deleteProduct = async(req, res) => {
         });
     }
 }
+
+export const deleteProductVariant = async(req, res) => {
+    const productId = req.params.productId;
+    const index = Number(req.params.index);
+
+    try {
+        const product = await Product.findOne({ _id: productId, seller: req.user.id });
+
+        if(!product) {
+            return res.status(403).json({
+                success: false,
+                message: "Product not available"
+            });
+        }
+
+        if(isNaN(index) || index < 0 || index >= product.variants.length) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid variant index"
+            });
+        }
+
+        product.variants.splice(index, 1);
+        await product.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Variant deleted"
+        });
+    } catch(err) {
+        res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+}

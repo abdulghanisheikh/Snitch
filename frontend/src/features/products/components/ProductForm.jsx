@@ -168,7 +168,7 @@ const ProductForm = ({ handleSubmit, product, setProduct, loading }) => {
             disabled={loading === 'product'}
             >
                 {
-                    loading === 'product' ? 
+                    loading === 'product' ?
                     <Loader /> : 
                     "Publish Listing"
                 }

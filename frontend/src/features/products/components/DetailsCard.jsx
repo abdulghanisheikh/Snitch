@@ -55,7 +55,7 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant
                     {displayTitle}
                 </h1>
 
-                <p className="lg:text-sm text-xs text-stone-600 leading-relaxed max-w-sm mb-6">
+                <p className="lg:text-sm text-xs mt-3 text-stone-600 leading-relaxed max-w-sm mb-6">
                     {product?.description}
                 </p>
 

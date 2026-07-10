@@ -1,5 +1,5 @@
 import express from "express";
-import { createProduct, getSellerProducts, getAllProducts, getProductDetails, addProductVariant, deleteProduct } from "../controllers/product.controller.js";
+import { createProduct, getSellerProducts, getAllProducts, getProductDetails, addProductVariant, deleteProduct, deleteProductVariant } from "../controllers/product.controller.js";
 import { authenticateSeller, authenticateUser } from "../middlewares/auth.middleware.js";
 import upload from "../configs/upload.config.js";
 import { createProductValidator } from "../validators/product.validator.js";
@@ -47,5 +47,12 @@ router.post('/:productId/variants', upload.array('photos'), authenticateSeller, 
  * @access private
  */
 router.delete('/:productId', authenticateSeller, deleteProduct);
+
+/**
+ * @route DELETE /api/product/:productId/variants/:index
+ * @description Deletes the variant of a product
+ * @access private
+ */
+router.delete('/:productId/variants/:index', authenticateSeller, deleteProductVariant);
 
 export default router;

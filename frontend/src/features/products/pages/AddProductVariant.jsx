@@ -1,18 +1,33 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
-import Navbar from "../../../shared/components/Navbar";
+import { Link } from "react-router";
+import { MdArrowBackIos } from "react-icons/md";
 import { useProduct } from "../hooks/useProduct";
 import { ToastContainer } from "react-toastify";
 import AddVariantForm from "../components/AddVariantForm";
 import VariantCard from "../components/VariantCard";
+import ConfirmDelete from "../../../shared/components/ConfirmDelete";
 
 // Main Page
 const AddProductVariant = () => {
     const [product, setProduct] = useState(null);
+    const [variantIndex, setVariantIndex] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [activeImage, setActiveImage] = useState(null);
-    const { handleGetProductDetails } = useProduct();
+    const { handleGetProductDetails, handleDeleteProductVariant } = useProduct();
     const { productId } = useParams();
+
+    const deleteBoxRef = useRef(null);
+
+    const handleConfirmDelete = (index) => {
+        setVariantIndex(index);
+    }
+
+    const checkClickOutside = (e) => {
+        if (deleteBoxRef.current && !deleteBoxRef.current.contains(e.target)) {
+            setVariantIndex('');
+        }
+    }
 
     useEffect(() => {
         const fetchProductDetails = async () => {
@@ -24,15 +39,45 @@ const AddProductVariant = () => {
             }
         }
 
+        document.addEventListener('mousedown', checkClickOutside);
+
         fetchProductDetails();
+
+        return () => document.removeEventListener('mousedown', checkClickOutside);
     }, [productId, isOpen]);
 
     const images = product?.images ?? [];
 
     return (
-        <main className="flex flex-col items-center min-h-screen w-screen bg-[#111111]/5">
-            {/* Mock Header navbar space */}
-            <Navbar pageName="Add Variant" backTo='/account' />
+        <main className={`flex flex-col items-center relative ${variantIndex !== '' ? 'h-screen overflow-hidden' : 'min-h-screen'} w-screen bg-[#111111]/5`}>
+            <nav className="flex items-center w-full justify-between py-5 lg:px-10 px-5">
+                <Link to='/account' className="flex items-center justify-center lg:gap-3">
+                    <MdArrowBackIos color="black" size={25} className="cursor-pointer active:scale-90 duration-300 ease-linear" />
+                    <p className="text-black text-xl tracking-wide">Add Variant</p>
+                </Link>
+                <p className="lg:text-3xl text-xl font-bold text-[#6F4E37] tracking-wider">Snitch</p>
+            </nav>
+
+            {
+                variantIndex !== '' && (
+                    <div className="absolute z-5 min-h-screen w-screen backdrop-blur-sm bg-black/20 flex items-center justify-center">
+                        <ConfirmDelete
+                            deleteCallback={async () => {
+                                await handleDeleteProductVariant({
+                                    productId,
+                                    index: variantIndex
+                                });
+
+                                setVariantIndex('');
+                            }}
+                            deleteBoxRef={deleteBoxRef}
+                            closeDeleteBox={() => setVariantIndex('')}
+                            index={variantIndex}
+                            heading='Delete Variant ?'
+                        />
+                    </div>
+                )
+            }
 
             <section className="flex flex-col w-full gap-15 p-6 items-center justify-center text-black">
 
@@ -62,8 +107,8 @@ const AddProductVariant = () => {
                                                 lg:w-16 lg:h-16 w-12 h-12 rounded border-2 overflow-hidden shrink-0
                                                 transition-all duration-200 ease-linear cursor-pointer
                                                 ${activeImage === img.url
-                                                ? 'border-stone-900 scale-105'
-                                                : 'border-stone-300 hover:border-stone-500 opacity-70 hover:opacity-100'
+                                                    ? 'border-stone-900 scale-105'
+                                                    : 'border-stone-300 hover:border-stone-500 opacity-70 hover:opacity-100'
                                                 }
                                             `}
                                         >
@@ -84,12 +129,12 @@ const AddProductVariant = () => {
                                 {product?.title}
                             </h1>
 
-                            <p className="lg:text-sm text-xs text-stone-600 leading-relaxed max-w-sm mb-4">
+                            <p className="lg:text-sm text-xs mt-2 text-stone-600 leading-relaxed max-w-sm mb-4">
                                 {product?.description}
                             </p>
 
                             <p className="text-black mb-5 font-semibold">
-                                {product?.price.currency} {product?.price.amount}
+                                {product?.price.amount} {product?.price.currency}
                             </p>
                         </div>
                     </div>
@@ -104,9 +149,9 @@ const AddProductVariant = () => {
                             Variants & Inventory
                         </p>
 
-                        <button 
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="rounded-xs bg-black text-white lg:px-3 px-2 lg:py-1 cursor-pointer active:scale-90 duration-300 ease-in-out lg:text-sm text-xs hover:bg-black/80">
+                        <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="rounded-xs bg-black text-white lg:px-3 px-2 lg:py-1 cursor-pointer active:scale-90 duration-300 ease-in-out lg:text-sm text-xs hover:bg-black/80">
                             {
                                 isOpen ? "Cancel" : "Add New Variant"
                             }
@@ -122,12 +167,14 @@ const AddProductVariant = () => {
                             product?.variants.length > 0 ? (
                                 product.variants.map((variant, index) => {
                                     return <VariantCard
-                                    key={index}
-                                    image={variant.images[0]?.url || ''}
-                                    attributes={variant.attributes}
-                                    price={variant.price.amount}
-                                    currency={variant.price.currency}
-                                    stock={variant.stock}
+                                        handleConfirmDelete={() => handleConfirmDelete(index)}
+                                        deleteBoxRef={deleteBoxRef}
+                                        key={index}
+                                        image={variant.images[0]?.url || ''}
+                                        attributes={variant.attributes}
+                                        price={variant.price.amount}
+                                        currency={variant.price.currency}
+                                        stock={variant.stock}
                                     />
                                 })
                             ) : (

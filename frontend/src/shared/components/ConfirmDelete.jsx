@@ -1,28 +1,30 @@
 import styled from 'styled-components';
 
-const ConfirmDelete = ({ product, handleDeleteProduct, deleteBoxRef, loading, closeDeleteBox }) => {
+const ConfirmDelete = ({ product, heading, deleteCallback, deleteBoxRef, loading, closeDeleteBox }) => {
 	return (
 		<StyledWrapper>
 			<div className="card" ref={deleteBoxRef}>
 				<div className="card-content text-xs">
-					<p className="card-heading">Delete Product ?</p>
-					<p className="card-description"><span className='font-bold'>{product.title}</span> will be permanently removed from your store.</p>
+					<p className="card-heading">{heading}</p>
+					<p className="card-description"><span className='font-bold'>{
+						product?.title || 'This variant'
+					}</span> will be permanently removed from your store.</p>
 				</div>
 
 				<div className="card-button-wrapper">
-					<button 
-					className="card-button secondary"
-					onClick={closeDeleteBox}
+					<button
+						className="card-button secondary"
+						onClick={closeDeleteBox}
 					>
 						Cancel
 					</button>
 
 					<button
-						onClick={handleDeleteProduct}
-						disabled={loading === product._id}
+						onClick={deleteCallback}
+						disabled={loading === product?._id || 'delete variant'}
 						className="card-button primary">
 						{
-							loading === product._id ? 'Deleting...' : 'Delete'
+							(loading === 'delete') || (loading === 'delete variant') ? 'Deleting...' : 'Delete' 
 						}
 					</button>
 				</div>

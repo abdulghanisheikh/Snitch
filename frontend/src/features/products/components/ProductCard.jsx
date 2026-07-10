@@ -1,7 +1,7 @@
 const ProductCard = ({product, handleOnClick}) => {
     return <main
     onClick={ handleOnClick }
-    className="w-80 h-120 flex flex-col justify-between gap-3 rounded-md overflow-hidden shadow-md bg-white cursor-pointer hover:scale-101 duration-300 ease-in-out border border-black/20">
+    className="w-80 h-120 flex flex-col justify-between gap-3 rounded-xl overflow-hidden shadow-md bg-white cursor-pointer hover:scale-101 duration-300 ease-in-out border border-black/20">
 
         <div className="relative flex-1 w-full">
             <img

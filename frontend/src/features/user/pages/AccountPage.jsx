@@ -9,7 +9,6 @@ import ConfirmDelete from "../../../shared/components/ConfirmDelete.jsx";
 
 const AccountPage = () => {
     const { handleGetSellerProducts, handleDeleteProduct } = useProduct();
-    const [deleteBoxOpen, setDeleteBoxOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
 
     const deleteBoxRef = useRef(null);
@@ -21,18 +20,11 @@ const AccountPage = () => {
     const initSellerProducts = async() => await handleGetSellerProducts();
 
     const handleConfirmDelete = (product) => {
-        setDeleteBoxOpen(true);
         setProductToDelete(product);
-    }
-
-    const closeDeleteBox = () => {
-        setDeleteBoxOpen(false);
-        setProductToDelete(null);
     }
 
     const checkClickOutside = (e) => {
         if(deleteBoxRef.current && !deleteBoxRef.current.contains(e.target)) {
-            setDeleteBoxOpen(false);
             setProductToDelete('');
         }
     }
@@ -48,17 +40,16 @@ const AccountPage = () => {
         <Navbar pageName="Account" backTo='/' />
 
         {
-            deleteBoxOpen && (
+            productToDelete && (
                 <div className='backdrop-blur-sm bg-black/20 absolute z-5 h-screen w-screen flex items-center justify-center'>
-                    <ConfirmDelete 
+                    <ConfirmDelete
                     loading={loading}
+                    heading='Delete Product ?'
                     deleteBoxRef={deleteBoxRef} 
                     product={productToDelete}
-                    closeDeleteBox={closeDeleteBox}
-                    handleDeleteProduct={async() => {
+                    closeDeleteBox={() => setProductToDelete(null)}
+                    deleteCallback={async() => {
                         await handleDeleteProduct(productToDelete._id);
-
-                        setDeleteBoxOpen(false);
                         setProductToDelete(null);
                     }} />
                 </div>

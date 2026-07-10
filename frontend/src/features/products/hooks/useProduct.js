@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { createProduct, getAllProducts, getSellerProducts, getProductDetails, addProductVariant, deleteProduct } from "../services/products.api.js";
+import { createProduct, getAllProducts, getSellerProducts, getProductDetails, addProductVariant, deleteProduct, deleteProductVariant } from "../services/products.api.js";
 import { toast } from "react-toastify";
 import { setLoading, setSellerProducts, setProducts } from "../states/products.slice.js";
 
@@ -99,7 +99,7 @@ export const useProduct = () => {
 
     const handleDeleteProduct = async(productId) => {
         try {
-            dispatch(setLoading(productId));
+            dispatch(setLoading('delete'));
 
             const { data } = await deleteProduct(productId);
 
@@ -115,5 +115,23 @@ export const useProduct = () => {
         }
     }
 
-    return { handleCreateProduct, handleGetSellerProducts, handleGetAllProducts, handleGetProductDetails, handleAddProductVariant, handleDeleteProduct };
+    const handleDeleteProductVariant = async({ productId, index }) => {
+        try {
+            dispatch(setLoading('delete variant'));
+
+            const { data } = await deleteProductVariant({ productId, index });
+
+            const { success, message } = data;
+            if(success) {
+                toast.success(message);
+                await handleGetProductDetails(productId);
+            }
+        } catch(err) {
+            toast.error(err.response?.data?.message || "Error in deleting variant");
+        } finally {
+            dispatch(setLoading(''));
+        }
+    }
+
+    return { handleCreateProduct, handleGetSellerProducts, handleGetAllProducts, handleGetProductDetails, handleAddProductVariant, handleDeleteProduct, handleDeleteProductVariant };
 }
