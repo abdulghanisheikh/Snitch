@@ -16,7 +16,7 @@ const Home = () => {
         handleGetAllProducts();
     }, []);
 
-    return <main className="flex flex-col min-h-screen w-screen items-center justify-between bg-[#111111]/5">
+    return <main className="flex flex-col min-h-screen w-screen items-center justify-start bg-[#111111]/5">
         <Navbar pageName='Shop' />
         
         <div className="flex flex-col gap-2 items-center justify-center w-full mt-2">
@@ -27,7 +27,7 @@ const Home = () => {
         <div className="flex lg:flex-row flex-col items-center lg:flex-wrap lg:justify-start justify-center w-full lg:gap-8 gap-5 mt-5 lg:px-10 py-5">
             {
                 products.length === 0 ? 
-                <p>No products</p> : 
+                <p className="w-full text-center lg:text-sm text-xs">No products Yet.</p> : 
                 products.map((product, index) => {
                     return <ProductCard
                     product={product} 

@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import AddVariantForm from "../components/AddVariantForm";
 import VariantCard from "../components/VariantCard";
 import ConfirmDelete from "../../../shared/components/ConfirmDelete";
+import { useSelector } from "react-redux";
 
 // Main Page
 const AddProductVariant = () => {
@@ -17,11 +18,9 @@ const AddProductVariant = () => {
     const { handleGetProductDetails, handleDeleteProductVariant } = useProduct();
     const { productId } = useParams();
 
-    const deleteBoxRef = useRef(null);
+    const loading = useSelector(state => state.product.loading);
 
-    const handleConfirmDelete = (index) => {
-        setVariantIndex(index);
-    }
+    const deleteBoxRef = useRef(null);
 
     const checkClickOutside = (e) => {
         if (deleteBoxRef.current && !deleteBoxRef.current.contains(e.target)) {
@@ -40,7 +39,6 @@ const AddProductVariant = () => {
         }
 
         document.addEventListener('mousedown', checkClickOutside);
-
         fetchProductDetails();
 
         return () => document.removeEventListener('mousedown', checkClickOutside);
@@ -72,8 +70,8 @@ const AddProductVariant = () => {
                             }}
                             deleteBoxRef={deleteBoxRef}
                             closeDeleteBox={() => setVariantIndex('')}
-                            index={variantIndex}
                             heading='Delete Variant ?'
+                            loading={loading}
                         />
                     </div>
                 )
@@ -167,7 +165,7 @@ const AddProductVariant = () => {
                             product?.variants.length > 0 ? (
                                 product.variants.map((variant, index) => {
                                     return <VariantCard
-                                        handleConfirmDelete={() => handleConfirmDelete(index)}
+                                        handleConfirmDelete={() => setVariantIndex(index)}
                                         deleteBoxRef={deleteBoxRef}
                                         key={index}
                                         image={variant.images[0]?.url || ''}
@@ -178,7 +176,7 @@ const AddProductVariant = () => {
                                     />
                                 })
                             ) : (
-                                <p className="text-sm self-start mt-5">No Variant Added</p>
+                                <p className="lg:text-sm text-xs w-full text-center mt-5">No Variant Added Yet.</p>
                             )
                         }
                     </div>

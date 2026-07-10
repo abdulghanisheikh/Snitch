@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const ConfirmDelete = ({ product, heading, deleteCallback, deleteBoxRef, loading, closeDeleteBox }) => {
+	console.log("loading:", loading);
 	return (
 		<StyledWrapper>
 			<div className="card" ref={deleteBoxRef}>
@@ -21,10 +22,10 @@ const ConfirmDelete = ({ product, heading, deleteCallback, deleteBoxRef, loading
 
 					<button
 						onClick={deleteCallback}
-						disabled={loading === product?._id || 'delete variant'}
+						disabled={loading !== ''}
 						className="card-button primary">
 						{
-							(loading === 'delete') || (loading === 'delete variant') ? 'Deleting...' : 'Delete' 
+							loading === '' ? 'Delete' : 'Deleting...'
 						}
 					</button>
 				</div>

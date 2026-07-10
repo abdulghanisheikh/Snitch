@@ -69,7 +69,7 @@ const AccountPage = () => {
                     <div className="flex lg:flex-row flex-col h-full w-full justify-start items-center gap-5 py-2">
                         {
                             sellerProducts.length === 0 ?
-                                <p className='self-center'>No Products Listed</p> :
+                                <p className='w-full lg:text-sm text-xs lg:mt-5 text-center'>No Products Yet.</p> :
                                 sellerProducts.map((product, index) => 
                                 <SellerProduct 
                                 key={index} 
