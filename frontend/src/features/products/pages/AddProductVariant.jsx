@@ -66,7 +66,7 @@ const AddProductVariant = () => {
                                     index: variantIndex
                                 });
 
-                                if(success) {
+                                if (success) {
                                     setProduct(prev => ({
                                         ...prev,
                                         variants: prev.variants.filter((_, i) => i !== Number(variantIndex))
