@@ -9,6 +9,7 @@ const itemSchema = new mongoose.Schema({
     },
     variant: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'variant',
         required: true
     },
     quantity: {
@@ -19,7 +20,7 @@ const itemSchema = new mongoose.Schema({
         type: priceSchema,
         required: true
     }
-});
+}, { _id: false, _v: false });
 
 const cartSchema = new mongoose.Schema({
     userId: {
