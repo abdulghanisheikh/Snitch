@@ -42,7 +42,7 @@ const AddProductVariant = () => {
         fetchProductDetails();
 
         return () => document.removeEventListener('mousedown', checkClickOutside);
-    }, [productId, isOpen]);
+    }, [productId, isOpen, variantIndex]);
 
     const images = product?.images ?? [];
 
@@ -61,12 +61,19 @@ const AddProductVariant = () => {
                     <div className="absolute z-5 min-h-screen w-screen backdrop-blur-sm bg-black/20 flex items-center justify-center">
                         <ConfirmDelete
                             deleteCallback={async () => {
-                                await handleDeleteProductVariant({
+                                const { success } = await handleDeleteProductVariant({
                                     productId,
                                     index: variantIndex
                                 });
 
-                                setVariantIndex('');
+                                if(success) {
+                                    setProduct(prev => ({
+                                        ...prev,
+                                        variants: prev.variants.filter((_, i) => i !== Number(variantIndex))
+                                    }));
+
+                                    setVariantIndex('');
+                                }
                             }}
                             deleteBoxRef={deleteBoxRef}
                             closeDeleteBox={() => setVariantIndex('')}

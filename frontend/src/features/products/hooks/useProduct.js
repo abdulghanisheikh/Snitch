@@ -122,12 +122,12 @@ export const useProduct = () => {
             const { data } = await deleteProductVariant({ productId, index });
 
             const { success, message } = data;
-            if(success) {
-                toast.success(message);
-                await handleGetProductDetails(productId);
-            }
+            if(success) toast.success(message);
+
+            return data;
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in deleting variant");
+            return { success: false };
         } finally {
             dispatch(setLoading(''));
         }
