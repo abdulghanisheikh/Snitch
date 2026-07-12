@@ -13,7 +13,7 @@ export const addToCart = async(req, res) => {
         });
 
         if(!product) {
-            return res.status(401).json({
+            return res.status(404).json({
                 success: false,
                 message: "Product or Variant not available."
             });
@@ -73,6 +73,30 @@ export const addToCart = async(req, res) => {
         res.status(200).json({
             success: true,
             message: "Product added to cart."
+        });
+    } catch(err) {
+        res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+}
+
+export const getCart = async(req, res) => {
+    try {
+        const cart = await Cart.findById(req.user.id);
+
+        if(!cart) {
+            return res.status(404).json({
+                success: false,
+                message: "Cart is empty."
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Cart products are fetched.",
+            cart
         });
     } catch(err) {
         res.status(500).json({

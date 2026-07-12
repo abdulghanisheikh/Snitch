@@ -67,7 +67,7 @@ const AddVariantForm = ({ product, productId }) => {
 
     const [variant, setVariant] = useState({
         price: product?.price?.amount || 0,
-        stock: 0,
+        stock: 1,
         images: [],
         attributes: {},
     });

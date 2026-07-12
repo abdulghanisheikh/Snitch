@@ -50,7 +50,24 @@ const ProductForm = ({ handleSubmit, product, setProduct, loading }) => {
                         className="peer w-full pt-5 pr-2 pb-1.5 pl-2.5 outline-none rounded-col rounded-[10px] text-[clamp(11px,1.6vw,13px)] border border-black"
                     />
                     <span className="absolute left-2.5 top-3.5 text-[clamp(10px,1.4vw,12px)] cursor-text transition-all duration-250 ease-out pointer-events-none peer-focus:text-black peer-focus:top-1 peer-focus:text-[clamp(9px,1.1vw,10px)] peer-focus:font-semibold peer-[:not(:placeholder-shown)]:text-black peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-[clamp(9px,1.1vw,10px)] peer-[:not(:placeholder-shown)]:font-semibold">
-                        Product Name
+                        Name
+                    </span>
+                </label>
+            </div>
+
+            <div className="flex gap-2 w-full">
+                <label className="relative block flex-1">
+                    <input
+                        value={product.stock}
+                        type="number"
+                        placeholder=""
+                        required
+                        name="stock"
+                        onChange={handleChange}
+                        className="peer w-full pt-5 pr-2 pb-1.5 pl-2.5 outline-none rounded-col rounded-[10px] text-[clamp(11px,1.6vw,13px)] border border-black"
+                    />
+                    <span className="absolute left-2.5 top-3.5 text-[clamp(10px,1.4vw,12px)] cursor-text transition-all duration-250 ease-out pointer-events-none peer-focus:text-black peer-focus:top-1 peer-focus:text-[clamp(9px,1.1vw,10px)] peer-focus:font-semibold peer-[:not(:placeholder-shown)]:text-black peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-[clamp(9px,1.1vw,10px)] peer-[:not(:placeholder-shown)]:font-semibold">
+                        Quantity
                     </span>
                 </label>
             </div>

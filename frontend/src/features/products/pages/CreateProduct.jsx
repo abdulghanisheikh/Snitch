@@ -9,6 +9,7 @@ const CreateProductPage = () => {
 	const [product, setProduct] = useState({
 		title: "",
 		description: "",
+		stock: 1,
 		price: {
 			amount: "",
 			currency: "INR"
@@ -29,6 +30,7 @@ const CreateProductPage = () => {
 		formData.append("description", product.description);
 		formData.append("priceAmount", product.price.amount);
 		formData.append("priceCurrency", product.price.currency);
+		formData.append('stock', product.stock);
 
 		for (let i = 0; i < product.images.length; i++) {
 			formData.append("photo", product.images[i].file);
@@ -42,6 +44,7 @@ const CreateProductPage = () => {
 			setProduct({
 				title: "",
 				description: "",
+				stock: 1,
 				price: {
 					amount: "",
 					currency: "INR"
