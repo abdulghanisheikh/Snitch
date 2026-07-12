@@ -12,13 +12,13 @@ const validateRequest = (req, res, next) => {
 
 export const validateCart = [
     param('productId')
-    .notEmpty().withMessage('Product ID is required.')
-    .isMongoId().withMessage('Invalid product ID.'),
+        .notEmpty().withMessage('Product ID is required.')
+        .isMongoId().withMessage('Invalid product ID.'),
     param('variantId')
-    .optional()
-    .isMongoId().withMessage('Invalid variant ID.'),
+        .optional()
+        .isMongoId().withMessage('Invalid variant ID.'),
     body('quantity')
-    .optional()
-    .isInt({ min: 1 }).withMessage('Quantity must be atleast 1.'),
-    validateRequest()
+        .optional()
+        .isInt({ min: 1 }).withMessage('Quantity must be atleast 1.'),
+    validateRequest
 ];

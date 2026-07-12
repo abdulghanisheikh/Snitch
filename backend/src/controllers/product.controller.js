@@ -2,7 +2,7 @@ import Product from "../models/product.model.js";
 import { uploadFile } from "../services/storage.service.js";
 
 export const createProduct = async(req, res) => {
-    const {title, description, priceAmount, priceCurrency} = req.body;
+    const { title, description, priceAmount, priceCurrency, stock = 1 } = req.body;
     const seller = req.user;
 
     try {
@@ -17,6 +17,7 @@ export const createProduct = async(req, res) => {
         const product = await Product.create({
             title,
             description,
+            stock,
             price: {
                 amount: priceAmount,
                 currency: priceCurrency || "INR"
@@ -31,8 +32,6 @@ export const createProduct = async(req, res) => {
             product
         });
     } catch(err) {
-        console.log("Create product error:", err);
-
         return res.status(500).json({
             success: false,
             error: err.message
@@ -189,8 +188,10 @@ export const deleteProductVariant = async(req, res) => {
             });
         }
 
-        product.variants.splice(index, 1);
-        await product.save();
+        await Product.findOneAndUpdate(
+            { _id: productId, seller: req.user.id }, 
+            { $pull: { variants: { _id: variantId }}}
+        );
 
         res.status(200).json({
             success: true,
