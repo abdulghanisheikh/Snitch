@@ -1,6 +1,6 @@
 import { AttributeChip } from './VariantCard';
 
-const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant, images, activeImage, setActiveImage }) => {
+const DetailsCard = ({ product, baseProduct, selectedVariant, handleAddToCart, setSelectedVariant, images, activeImage, setActiveImage }) => {
 
     const displayTitle = selectedVariant
         ? baseProduct?.title
@@ -113,6 +113,7 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, setSelectedVariant
                 <div className="flex flex-col items-center gap-3 mt-10">
                     <button
                         type="button"
+                        onClick={handleAddToCart}
                         className="lg:w-2/3 w-full bg-stone-900 rounded-sm cursor-pointer text-white lg:text-sm text-xs tracking-widest uppercase py-1.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90"
                     >
                         Add to Cart

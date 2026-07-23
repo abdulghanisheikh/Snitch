@@ -6,11 +6,11 @@ import { useDispatch } from "react-redux";
 export const useCart = () => {    
     const dispatch = useDispatch();
 
-    const handleAddToCart = async({ quantity, variantId, productId }) => {
+    const handleAddToCart = async({ variantId, productId }) => {
         try {
             dispatch(setLoading('add cart'));
 
-            const { data } = await addToCart({ quantity, variantId, productId });
+            const { data } = await addToCart({ variantId, productId });
             const { success, message } = data;
 
             if(success) toast.success(message);
@@ -29,8 +29,10 @@ export const useCart = () => {
             dispatch(setLoading('cart'));
 
             const { data } = await getCart();
-
             const { success, cart } = data;
+
+            console.log("Cart items:", cart);
+
             if(success) {
                 dispatch(setItems(cart.items));
             }

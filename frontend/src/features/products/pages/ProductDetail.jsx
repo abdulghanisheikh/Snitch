@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router";
 import { useProduct } from "../hooks/useProduct";
 import { useSelector } from "react-redux";
 import DetailsCard from "../components/DetailsCard";
+import { useCart } from "../../cart/hooks/useCart";
 
 const ProductDetail = () => {
     const [product, setProduct] = useState(null);
@@ -12,6 +13,7 @@ const ProductDetail = () => {
     const loading = useSelector(state => state.product.loading);
 
     const { handleGetProductDetails } = useProduct();
+    const { handleAddToCart } = useCart();
     const { productId } = useParams();
 
     useEffect(() => {
@@ -77,6 +79,10 @@ const ProductDetail = () => {
 
                             <DetailsCard 
                             product={displayProduct}
+                            handleAddToCart={() => handleAddToCart({
+                                productId, 
+                                variantId: selectedVariant?._id
+                            })}
                             baseProduct={product}
                             selectedVariant={selectedVariant}
                             setSelectedVariant={setSelectedVariant}
@@ -84,7 +90,6 @@ const ProductDetail = () => {
                             activeImage={activeImage}
                             setActiveImage={setActiveImage} />
                         </div>
-                        
                     )
                 }
             </main>

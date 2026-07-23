@@ -4,8 +4,7 @@ import { stockOfVariant } from "../dao/product.dao.js";
 
 export const addToCart = async(req, res) => {
     const { productId, variantId } = req.params;
-    const { price, currency, quantity = 1 } = req.body;
-
+    const { quantity = 1 } = req.body; 
     try {
         const product = await Product.findOne({
             _id: productId,
