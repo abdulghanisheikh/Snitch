@@ -84,13 +84,12 @@ export const addToCart = async(req, res) => {
 
 export const getCart = async(req, res) => {
     try {
-        const cart = await Cart.findById(req.user.id);
+        const cart = await Cart.findOne({
+            user: req.user.id
+        }).populate("items.product");
 
         if(!cart) {
-            return res.status(404).json({
-                success: false,
-                message: "Cart is empty."
-            });
+            cart = await Cart.create({ user: req.user.id }).populate("items.product");
         }
 
         res.status(200).json({

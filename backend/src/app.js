@@ -6,7 +6,7 @@ import productRouter from "./routes/product.routes.js";
 import cartRouter from "./routes/cart.routes.js";
 import cors from "cors";
 import passport from "passport";
-import {Strategy as GoogleStrategy} from "passport-google-oauth20";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { appConfig } from "./configs/app.config.js";
 
 const app = express();
@@ -30,7 +30,7 @@ app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
 
 app.get("/", (req, res) => {
-    res.status(200).json({message: 'Server is running'});
+    res.status(200).json({ message: 'Server is running' });
 });
 
 export default app;
