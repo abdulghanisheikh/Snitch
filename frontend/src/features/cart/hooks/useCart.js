@@ -13,8 +13,10 @@ export const useCart = () => {
             const { data } = await addToCart({ variantId, productId });
             const { success, message } = data;
 
-            if(success) toast.success(message);
-            
+            if(success) {
+                toast.success(message);
+            }
+
             return data;
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in adding product to cart.");

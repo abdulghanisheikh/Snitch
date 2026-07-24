@@ -5,6 +5,7 @@ import { useProduct } from "../hooks/useProduct";
 import { useSelector } from "react-redux";
 import DetailsCard from "../components/DetailsCard";
 import { useCart } from "../../cart/hooks/useCart";
+import { ToastContainer } from "react-toastify";
 
 const ProductDetail = () => {
     const [product, setProduct] = useState(null);
@@ -74,13 +75,13 @@ const ProductDetail = () => {
                         <p className="text-xl">Loading Details...</p>
                     ) : 
                     (
-                        <div className="flex flex-col items-start gap-3">
-                            <p className="lg:text-5xl text-xl text-[#4a270d] lg:pl-20">Details</p>
+                        <div className="flex flex-col items-start gap-2">
+                            <p className="lg:text-5xl text-xl text-black lg:pl-20 pl-5">Details</p>
 
                             <DetailsCard 
                             product={displayProduct}
-                            handleAddToCart={() => handleAddToCart({
-                                productId, 
+                            handleAddToCart={async() => await handleAddToCart({
+                                productId,
                                 variantId: selectedVariant?._id
                             })}
                             baseProduct={product}
@@ -92,6 +93,8 @@ const ProductDetail = () => {
                         </div>
                     )
                 }
+
+                <ToastContainer position="top-right" />
             </main>
 };
 

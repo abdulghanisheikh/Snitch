@@ -6,6 +6,7 @@ const cartApiInstance = axios.create({
 });
 
 export const addToCart = async ({ productId, variantId }) => {
+    console.log("variant ID:", variantId);
     const response = await cartApiInstance.post(`/add/${productId}/${variantId}`, { quantity: 1 });
     return response;
 }

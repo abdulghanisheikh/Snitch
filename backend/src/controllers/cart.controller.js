@@ -7,8 +7,10 @@ export const addToCart = async(req, res) => {
     const { quantity = 1 } = req.body; 
     try {
         const product = await Product.findOne({
-            _id: productId,
-            "variants._id": variantId
+            $or: [
+                { _id: productId },
+                { "variants._id": variantId }
+            ]
         });
 
         if(!product) {
@@ -48,6 +50,7 @@ export const addToCart = async(req, res) => {
                 message: "Cart is updated."
             });
         }
+
         if(quantity > stock) {
             return res.status(400).json({
                 success: false,
@@ -56,18 +59,14 @@ export const addToCart = async(req, res) => {
         }
 
         // Adding new product to cart
-        await Cart.findOneAndUpdate({
-            user: req.user.id
-        }, {
-            $push: {
-                items: {
-                    product: productId,
-                    variant: variantId,
-                    quantity,
-                    price: product.variants?.find(v => v._id.toString() === variantId)?.price || product.price
-                }
-            }
+        cart.items.push({
+            product: productId,
+            variant: variantId,
+            quantity,
+            price: variantId !== undefined ? product.variants.find(v => v._id === variantId).price : product.price 
         });
+
+        await cart.save();
 
         res.status(200).json({
             success: true,

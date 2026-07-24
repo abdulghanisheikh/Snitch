@@ -50,8 +50,8 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, handleAddToCart, s
             </div>
 
             {/* Info panel */}
-            <div className="lg:basis-1/2 flex flex-col justify-center lg:px-13 px-2 h-full w-full">
-                <h1 className="text-4xl text-stone-900">
+            <div className="lg:basis-1/2 flex flex-col justify-center lg:px-13 px-2 lg:py-0 py-5 h-full w-full">
+                <h1 className="text-4xl text-stone-900s">
                     {displayTitle}
                 </h1>
 

@@ -15,6 +15,7 @@ export const validateCart = [
         .notEmpty().withMessage('Product ID is required.')
         .isMongoId().withMessage('Invalid product ID.'),
     param('variantId')
+        .customSanitizer(value => value === 'undefined' ? undefined : value)
         .optional()
         .isMongoId().withMessage('Invalid variant ID.'),
     body('quantity')

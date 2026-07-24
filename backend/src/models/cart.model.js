@@ -9,8 +9,7 @@ const itemSchema = new mongoose.Schema({
     },
     variant: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'product.variants',
-        required: true
+        ref: 'product.variants'
     },
     quantity: {
         type: Number,
