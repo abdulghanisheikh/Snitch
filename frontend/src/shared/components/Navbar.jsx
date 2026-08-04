@@ -7,6 +7,7 @@ import { VscAccount } from "react-icons/vsc";
 import { CgLogOut } from "react-icons/cg";
 import { useAuth } from "../../features/auth/hooks/useAuth.js";
 import { IoIosLogIn } from "react-icons/io";
+import { BsCart } from "react-icons/bs";
 
 const Navbar = ({ pageName, backTo }) => {
     const user = useSelector(state => state.auth.user);
@@ -37,6 +38,13 @@ const Navbar = ({ pageName, backTo }) => {
                 user && <Link to='/account' className="flex flex-col items-center justify-center gap-1 cursor-pointer">
                     <VscAccount size={21} />
                     <p className="text-xs">Account</p>
+                </Link>
+            }
+
+            {
+                user && <Link to='/cart' className="flex flex-col items-center justify-center gap-1 cursor-pointer">
+                    <BsCart size={21} />
+                    <p className="text-xs">Cart</p>
                 </Link>
             }
             

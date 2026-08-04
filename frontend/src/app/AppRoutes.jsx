@@ -8,6 +8,7 @@ import AccountPage from "../features/user/pages/AccountPage";
 import Home from "../features/products/pages/Home";
 import ProductDetail from "../features/products/pages/ProductDetail";
 import AddProductVariant from "../features/products/pages/AddProductVariant";
+import Cart from "../features/cart/pages/Cart";
 
 const AppRoutes = () => {
 	return <Routes>
@@ -34,6 +35,12 @@ const AppRoutes = () => {
 		<Route path="/account" element={
 			<Protected>
 				<AccountPage />
+			</Protected>
+		}></Route>
+
+		<Route path="/cart" element={
+			<Protected>
+				<Cart />
 			</Protected>
 		}></Route>
 	</Routes>

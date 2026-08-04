@@ -1,4 +1,4 @@
-import { addToCart, getCart } from "../services/cart.api";
+import { addToCart, getCart } from "../services/cart.api.js";
 import { setLoading, setItems } from "../states/cart.slice.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -16,11 +16,8 @@ export const useCart = () => {
             if(success) {
                 toast.success(message);
             }
-
-            return data;
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in adding product to cart.");
-            return { success: false };
         } finally {
             dispatch(setLoading(''));
         }
@@ -32,8 +29,6 @@ export const useCart = () => {
 
             const { data } = await getCart();
             const { success, cart } = data;
-
-            console.log("Cart items:", cart);
 
             if(success) {
                 dispatch(setItems(cart.items));

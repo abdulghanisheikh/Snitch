@@ -87,7 +87,7 @@ export const getCart = async(req, res) => {
         }).populate("items.product");
 
         if(!cart) {
-            cart = await Cart.create({ user: req.user.id }).populate("items.product");
+            cart = await Cart.create({ user: req.user.id });
         }
 
         res.status(200).json({

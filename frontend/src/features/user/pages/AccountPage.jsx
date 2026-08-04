@@ -63,8 +63,8 @@ const AccountPage = () => {
                     <p className="text-lg">Loading Products</p>
                 </section>
             ) : (
-                <section className="flex flex-col px-15 py-2">
-                    <p className="text-lg tracking-wide self-start">Your Listed Products</p>
+                <section className="flex flex-col px-15 py-2 lg:gap-3">
+                    <p className="text-3xl tracking-wide self-center lg:mt-3">Your Listed Products</p>
         
                     <div className="flex lg:flex-row flex-col h-full w-full justify-start items-center gap-5 py-2">
                         {

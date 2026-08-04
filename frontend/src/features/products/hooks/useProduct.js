@@ -37,7 +37,7 @@ export const useProduct = () => {
 
             return data;
         } catch(err) {
-            toast.error(err.response?.data?.message || "Error in creating product");
+            toast.error(err.response?.data?.message || "Error in fetching seller products.");
         } finally {
             dispatch(setLoading(''));
         }

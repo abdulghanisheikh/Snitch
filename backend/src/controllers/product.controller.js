@@ -51,8 +51,6 @@ export const getSellerProducts = async(req, res) => {
             products
         });
     } catch(err) {
-        console.log("Get products error:", err.message);
-
         return res.status(500).json({
             success: false,
             error: err.message
