@@ -4,7 +4,7 @@ import { priceSchema } from "./price.schema.js";
 const itemSchema = new mongoose.Schema({
     product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'produt',
+        ref: 'product',
         required: true
     },
     variant: {

@@ -1,5 +1,5 @@
 import { addToCart, getCart } from "../services/cart.api.js";
-import { setLoading, setItems } from "../states/cart.slice.js";
+import { setLoading, setCartItems } from "../states/cart.slice.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
@@ -31,7 +31,7 @@ export const useCart = () => {
             const { success, cart } = data;
 
             if(success) {
-                dispatch(setItems(cart.items));
+                dispatch(setCartItems(cart.items));
             }
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in fetching cart.");
