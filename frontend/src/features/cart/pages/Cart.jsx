@@ -15,7 +15,7 @@ const Cart = () => {
 	}, []);
 
 	return <main className="min-h-screen w-screen flex flex-col bg-[#111111]/5">
-		<Navbar pageName="Cart" />
+		<Navbar pageName="Cart" backTo="/" />
 
 		<div className="flex flex-col w-full lg:gap-5 px-10">
 			<h1 className="text-3xl self-center lg:mt-3">Cart</h1>

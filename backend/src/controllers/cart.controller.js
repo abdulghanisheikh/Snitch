@@ -1,6 +1,5 @@
 import Cart from "../models/cart.model.js";
 import Product from "../models/product.model.js";
-import { stockOfVariant } from "../dao/product.dao.js";
 
 export const addToCart = async(req, res) => {
     const { productId, variantId } = req.params;
@@ -24,7 +23,7 @@ export const addToCart = async(req, res) => {
 
         const isProductAlreadyInCart = cart.items.find(i => i.product.toString() === productId && i.variant?.toString() === variantId);
         
-        const stock = variantId === undefined ? product?.stock : stockOfVariant({ product, variantId });
+        const stock = variantId === undefined ? product?.stock : product.variants.find(v => v._id.toString() === variantId);
 
         // Updating the product's quantity in cart
         if(isProductAlreadyInCart) {
