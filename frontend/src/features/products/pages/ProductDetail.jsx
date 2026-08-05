@@ -84,14 +84,14 @@ const ProductDetail = () => {
             <div 
             ref={loginBoxRef}
             className="bg-white w-80 h-50 rounded-md flex flex-col items-center p-5 justify-between">
-                <p className="lg:text-xl text-sm">You are not logged-in</p>
+                <p className="lg:text-xl text-sm">You are not Logged-In.<br /><span className="lg:text-sm text-black/80 text-xs">Please Login to continue.</span></p>
 
                 <div className="flex items-center w-full justify-around">
-                    <Link to='/login' className="lg:text-sm cursor-pointer text-xs px-5 py-0.5 rounded-sm bg-black text-white">Login</Link>
+                    <Link to='/login' className="lg:text-sm cursor-pointer text-xs px-5 py-0.5 rounded-sm bg-black text-white hover:bg-black/80 duration-300 ease-in-out">Login</Link>
                     
                     <button
                     onClick={() => setHide(true)}
-                    className="lg:text-sm cursor-pointer text-xs px-5 py-0.5 rounded-sm bg-black text-white">Cancel</button>
+                    className="lg:text-sm cursor-pointer hover:bg-black/80 duration-300 ease-in-out text-xs px-5 py-0.5 rounded-sm bg-black text-white">Cancel</button>
                 </div>
             </div>
         </div>
