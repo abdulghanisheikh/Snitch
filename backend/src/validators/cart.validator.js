@@ -10,16 +10,27 @@ const validateRequest = (req, res, next) => {
     next();
 }
 
-export const validateCart = [
+const commonParamsValidator = [
     param('productId')
         .notEmpty().withMessage('Product ID is required.')
         .isMongoId().withMessage('Invalid product ID.'),
     param('variantId')
         .customSanitizer(value => value === 'undefined' ? undefined : value)
         .optional()
-        .isMongoId().withMessage('Invalid variant ID.'),
-    body('quantity')
-        .optional()
-        .isInt({ min: 1 }).withMessage('Quantity must be atleast 1.'),
+        .isMongoId().withMessage('Invalid variant ID.')
+];
+
+export const validateAddToCart = [
+    ...commonParamsValidator,
+    validateRequest
+];
+
+export const validateUpdateCart = [
+    ...commonParamsValidator,
+    body('action')
+        .notEmpty().withMessage("action is required.")
+        .isString().withMessage("action should be in string form.")
+        .trim()
+        .isIn(["inc", "dec"]).withMessage("action must be either 'inc' or 'dec'."),
     validateRequest
 ];

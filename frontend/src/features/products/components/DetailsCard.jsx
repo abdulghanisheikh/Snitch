@@ -1,5 +1,5 @@
 import { AttributeChip } from './VariantCard';
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 
 const DetailsCard = ({ product, baseProduct, selectedVariant, handleAddToCartClick, setSelectedVariant, images, activeImage, setActiveImage }) => {
 
@@ -8,7 +8,6 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, handleAddToCartCli
         : product?.title;
 
     const displayPrice = product?.price;
-
     const loading = useSelector(state => state.cart.loading);
 
     return <main className="flex lg:flex-row flex-col items-start px-5 lg:px-20 lg:w-[80vw] w-full">
@@ -115,10 +114,10 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, handleAddToCartCli
 
                 <div className="flex flex-col items-center gap-3 mt-10">
                     <button
-                        disabled={loading === 'add cart'}
-                        type="button"
-                        onClick={handleAddToCartClick}
-                        className="lg:w-2/3 w-full bg-stone-900 rounded-sm cursor-pointer text-white lg:text-sm text-xs tracking-widest uppercase py-1.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90"
+                    disabled={loading === 'add cart'}
+                    type="button"
+                    onClick={handleAddToCartClick}
+                    className="lg:w-2/3 w-full bg-stone-900 rounded-sm cursor-pointer text-white lg:text-sm text-xs tracking-widest py-1.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90"
                     >
                         {
                             loading === 'add cart' ? "Adding..." : "Add to Cart"
@@ -126,7 +125,7 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, handleAddToCartCli
                     </button>
                     <button
                         type="button"
-                        className="lg:w-2/3 w-full rounded-sm border cursor-pointer border-black/30 text-stone-900 lg:text-sm text-xs tracking-widest uppercase py-1.5 flex items-center active:scale-90 justify-center gap-2 hover:bg-stone-300 duration-300 ease-in-out"
+                        className="lg:w-2/3 w-full rounded-sm border cursor-pointer border-black/30 text-stone-900 lg:text-sm text-xs tracking-widest py-1.5 flex items-center active:scale-90 justify-center gap-2 hover:bg-stone-300 duration-300 ease-in-out"
                     >
                         Buy Now
                     </button>

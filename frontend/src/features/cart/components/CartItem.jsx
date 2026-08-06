@@ -1,8 +1,8 @@
-const ProductCard = ({ cartItem }) => {
+const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
 	const { product, price, quantity } = cartItem;
 
 	return <main
-    className="w-80 h-120 flex flex-col justify-between gap-3 rounded-xl overflow-hidden shadow-md bg-white cursor-pointer border border-black/20">
+    className="w-80 h-120 flex flex-col justify-between gap-3 rounded-xl overflow-hidden shadow-md bg-white border border-black/20">
 
         <div className="relative flex-1 w-full">
             <img
@@ -21,21 +21,23 @@ const ProductCard = ({ cartItem }) => {
 
             <hr className="w-full border-1/2 border-black/30"></hr>
 
-            <p className="text-xs px-5 pb-5 text-black/80 leading-relaxed overflow-y-auto"
-            style={{
-                scrollbarWidth: 'none'
-            }}
-            >
-                {product.description}
-            </p>
-
 			<div className="flex items-center self-center gap-5">
-				<button className="px-3 cursor-pointer rounded-full bg-orange-200 hover:bg-orange-300 duration-300 ease-in-out lg:text-lg">+</button>
-				{quantity}
-				<button className="px-3 cursor-pointer rounded-full bg-orange-200 hover:bg-orange-300 duration-300 ease-in-out lg:text-lg">-</button>
+				<button
+				onClick={handleIncQty}
+				className="px-3 cursor-pointer rounded-full bg-orange-200 hover:bg-orange-300 duration-300 ease-in-out lg:text-lg">
+                    +
+                </button>
+
+				<p>{quantity}</p>
+				
+                <button 
+                onClick={handleDecQty}
+                className="px-3 cursor-pointer rounded-full bg-orange-200 hover:bg-orange-300 duration-300 ease-in-out lg:text-lg">
+                    -
+                </button>
 			</div>
         </div>
     </main>
 }
 
-export default ProductCard;
+export default CartItem;
