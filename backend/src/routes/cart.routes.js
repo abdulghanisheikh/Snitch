@@ -13,8 +13,8 @@ const router = Router();
 router.post('/add/:productId/:variantId', authenticateUser, validateAddToCart, addToCart);
 
 /**
- * @route PATCH /api/cart/inc/:productId/:variantId
- * @description Increase quantity of product in cart
+ * @route PATCH /api/cart/update/:productId/:variantId
+ * @description Update quantity of product in cart
  * @access private
  */
 router.patch('/update/:productId/:variantId', authenticateUser, validateUpdateCart, updateItemInCart);

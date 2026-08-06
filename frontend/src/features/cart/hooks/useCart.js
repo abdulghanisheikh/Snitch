@@ -1,4 +1,4 @@
-import { addToCart, getCart } from "../services/cart.api.js";
+import { addToCart, getCart, updateCart } from "../services/cart.api.js";
 import { setLoading, setCartItems } from "../states/cart.slice.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -40,5 +40,19 @@ export const useCart = () => {
         }
     }
 
-    return { handleAddToCart, handleGetCart };
+    const handleUpdateCart = async({ productId, variantId, action }) => {
+        try {
+            dispatch(setLoading("update cart"));
+
+            const { data } = await updateCart({productId, variantId, action});
+
+            console.log(data);
+        } catch(err) {
+            toast.error(err.response?.data?.message || "Error in updating item's quantity.");
+        } finally {
+            dispatch(setLoading(""));
+        }
+    }
+
+    return { handleAddToCart, handleGetCart, handleUpdateCart };
 }

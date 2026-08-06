@@ -10,6 +10,11 @@ export const addToCart = async ({ productId, variantId }) => {
     return response;
 }
 
+export const updateCart = async({ productId, variantId, action }) => {
+    const response = await cartApiInstance.patch(`/update/${productId}/${variantId}`, { action });
+    return response;
+}
+
 export const getCart = async () => {
     const response = await cartApiInstance.get('/');
     return response;
