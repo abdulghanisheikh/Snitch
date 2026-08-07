@@ -1,5 +1,9 @@
+import { useSelector } from "react-redux";
+
 const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
 	const { product, price, quantity } = cartItem;
+
+    const loading = useSelector(state => state.cart.loading);
 
 	return <main
     className="w-80 h-120 flex flex-col justify-between gap-3 rounded-xl overflow-hidden shadow-md bg-white border border-black/20">
@@ -23,6 +27,7 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
 
 			<div className="flex items-center self-center gap-5">
 				<button
+                disabled={loading === 'update cart'}
 				onClick={handleIncQty}
 				className="px-3 cursor-pointer rounded-full bg-orange-200 hover:bg-orange-300 duration-300 ease-in-out lg:text-lg">
                     +
@@ -31,6 +36,7 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
 				<p>{quantity}</p>
 				
                 <button 
+                disabled={loading === 'update cart'}
                 onClick={handleDecQty}
                 className="px-3 cursor-pointer rounded-full bg-orange-200 hover:bg-orange-300 duration-300 ease-in-out lg:text-lg">
                     -

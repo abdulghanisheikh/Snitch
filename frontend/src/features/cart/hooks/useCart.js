@@ -44,11 +44,14 @@ export const useCart = () => {
         try {
             dispatch(setLoading("update cart"));
 
-            const { data } = await updateCart({productId, variantId, action});
+            const { data } = await updateCart({ productId, variantId, action });
+            const { success } = data;
 
-            console.log(data);
+            if(success) {
+                await handleGetCart();
+            }
         } catch(err) {
-            toast.error(err.response?.data?.message || "Error in updating item's quantity.");
+            toast.error(err.response?.data?.message || "Error in updating item's quantity in cart.");
         } finally {
             dispatch(setLoading(""));
         }

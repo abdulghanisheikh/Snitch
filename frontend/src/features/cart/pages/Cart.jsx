@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import CartItem from "../components/CartItem";
 
 const Cart = () => {
-	const { handleGetCart } = useCart();
+	const { handleGetCart, handleUpdateCart } = useCart();
 	const cartItems = useSelector(state => state.cart.cartItems);
 
 	const initCart = async() => await handleGetCart();
@@ -28,12 +28,20 @@ const Cart = () => {
 					<div className="flex items-center gap-3">
 						{
 							cartItems.map((item, index) => {
-								return <CartItem 
+								return <CartItem
 								handleDecQty={async() => {
-									console.log("descreasing quantity in cart");
+									await handleUpdateCart({
+										productId: item.product._id,
+										variantId: item.variant,
+										action: "dec"
+									});
 								}}
 								handleIncQty={async() => {
-									console.log("increasing quantity in cart");
+									await handleUpdateCart({
+										productId: item.product._id,
+										variantId: item.variant,
+										action: "inc"
+									});
 								}}
 								cartItem={item} 
 								key={index} 
