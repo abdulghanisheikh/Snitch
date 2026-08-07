@@ -29,7 +29,7 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
 				<button
                 disabled={loading === 'update cart'}
 				onClick={handleIncQty}
-				className="px-3 cursor-pointer rounded-full bg-orange-200 hover:bg-orange-300 duration-300 ease-in-out lg:text-lg">
+				className="px-3 cursor-pointer rounded-full bg-orange-200 hover:bg-orange-300 duration-300 ease-in-out lg:text-lg active:scale-95">
                     +
                 </button>
 
@@ -38,7 +38,7 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
                 <button 
                 disabled={loading === 'update cart'}
                 onClick={handleDecQty}
-                className="px-3 cursor-pointer rounded-full bg-orange-200 hover:bg-orange-300 duration-300 ease-in-out lg:text-lg">
+                className="px-3 cursor-pointer rounded-full bg-orange-200 hover:bg-orange-300 duration-300 ease-in-out lg:text-lg active:scale-95">
                     -
                 </button>
 			</div>

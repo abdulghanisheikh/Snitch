@@ -15,6 +15,7 @@ export const useCart = () => {
 
             if(success) {
                 toast.success(message);
+                await handleGetCart();
             }
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in adding product to cart.");

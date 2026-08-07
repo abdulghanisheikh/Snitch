@@ -23,7 +23,7 @@ const ProductDetail = () => {
     const { productId } = useParams();
 
     useEffect(() => {
-        const fetchProductDetail = async () => {
+        async function fetchProductDetail() {
             const detail = await handleGetProductDetails(productId);
             setProduct(detail);
             setSelectedVariant(null);
@@ -55,7 +55,7 @@ const ProductDetail = () => {
     }, [selectedVariant, product]);
 
     useEffect(() => {
-        const checkClick = (e) => {
+        function checkClick(e) {
             if(loginBoxRef.current && !loginBoxRef.current.contains(e.target)) {
                 setHide(true);
             }
@@ -111,7 +111,7 @@ const ProductDetail = () => {
                 ) :
                 (
                     <div className="flex flex-col items-start gap-2">
-                        <p className="lg:text-5xl text-xl text-black lg:pl-20 pl-5">Details</p>
+                        <p className="lg:text-3xl text-xl text-black lg:pl-20 pl-5">Details</p>
 
                         <DetailsCard
                             product={displayProduct}
