@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 export const useCart = () => {    
     const dispatch = useDispatch();
 
-    const handleAddToCart = async({ variantId, productId }) => {
+    async function handleAddToCart({ variantId, productId }) {
         try {
             dispatch(setLoading('add cart'));
 
@@ -24,7 +24,7 @@ export const useCart = () => {
         }
     }
 
-    const handleGetCart = async() => {
+    async function handleGetCart() {
         try {
             dispatch(setLoading('cart'));
 
@@ -41,7 +41,7 @@ export const useCart = () => {
         }
     }
 
-    const handleUpdateCart = async({ productId, variantId, action }) => {
+    async function handleUpdateCart({ productId, variantId, action }) {
         try {
             dispatch(setLoading("update cart"));
 

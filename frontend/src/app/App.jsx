@@ -19,7 +19,7 @@ const App = () => {
 		}
 	}, [user]);
 	
-	return <AppRoutes></AppRoutes>;
+	return <AppRoutes />;
 }
 
 export default App;
