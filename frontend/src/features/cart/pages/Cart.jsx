@@ -15,7 +15,7 @@ const Cart = () => {
 			<h1 className="text-4xl self-center lg:mt-3">Your Cart</h1>
 
 			<div className="w-full flex lg:flex-row flex-col items-start">
-				<div className="min-h-full lg:w-[70%] lg:px-5 flex lg:flex-row flex-col items-center flex-wrap">
+				<div className="min-h-full lg:w-[70%] lg:px-5 flex gap-3 lg:flex-row flex-col items-center flex-wrap">
 					{
 						cartItems.length === 0 ?
 						<p className="text-center text-sm">Your cart is currently empty.</p> :
@@ -43,19 +43,19 @@ const Cart = () => {
 				</div>
 
 				<div
-				className="lg:w-[30%] h-100 p-2 rounded-lg shadow-xs shadow-black/50 tracking-tight flex flex-col items-center" >
+				className="lg:w-[30%] h-100 p-2 rounded-lg shadow-xs shadow-black/50 tracking-tight flex flex-col items-center relative bg-white">
 					<p className="font-semibold text-xl">Order Summary</p>
 
 					<div
 					style={{
-						scrollbarWidth: 'none'	
+						scrollbarWidth: 'none'
 					}} 
-					className="flex flex-col w-full px-8 py-5 overflow-y-auto">
+					className="flex flex-col w-full px-10 py-5 overflow-y-auto">
 						{
 							cartItems.map((item, index) => {
 								return <div
 								key={index}
-								className="flex w-full justify-around items-center">
+								className="flex w-full justify-between items-center">
 									<p>{item.product.title}</p>
 									<p className="text-xs tracking-wide">{item.price.currency} <span className="text-lg">{item.price.amount}</span></p>
 								</div>
@@ -63,8 +63,16 @@ const Cart = () => {
 						}
 					</div>
 
-					<div className="w-full">
-						{}
+					<div className="w-full flex items-center gap-2 justify-center py-3 bg-amber-100 tracking-wide absolute bottom-0">
+						<p>Total Bill:</p>
+						<p>
+							<span className="text-sm">INR </span>
+							{cartItems.reduce((acc, item) => {
+								const priceAmount = Number(item.price.amount);
+
+								return acc + priceAmount;
+							}, 0)}
+						</p>
 					</div>
 				</div>
 			</div>

@@ -6,26 +6,26 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
     const loading = useSelector(state => state.cart.loading);
 
 	return <main
-    className="w-80 h-120 flex flex-col justify-between gap-3 rounded-xl overflow-hidden shadow-md bg-white border border-black/20">
+    className="w-full flex h-40 relative items-start rounded-xl overflow-hidden shadow-md bg-white border border-black/20">
 
-        <div className="relative flex-1 w-full">
+        <div className="relative w-[30%] h-full">
             <img
                 src={product.images?.length === 0 ? '#' : product.images[0].url}
                 alt="No Image"
-                className="w-full h-72 object-cover"
+                className="w-full h-full object-contain"
             />
         </div>
 
-        <div className="flex flex-col flex-1 w-full justify-evenly">
-            <h1 className="text-xl font-light text-gray-900 tracking-tight px-5">
-                {product.title}
-            </h1>
+        <div className="flex flex-col justify-between pb-3 w-[70%] h-full">
+            <div className="flex flex-col px-8 py-3 gap-2">
+                <h1 className="lg:text-xl text-gray-900 tracking-tight">
+                    {product.title}
+                </h1>
 
-            <p className="text-base text-gray-700 font-semibold px-5">{price.amount} {price.currency}</p>
+                <p className="text-sm text-gray-700 font-semibold">{price.amount} {price.currency}</p>
+            </div>
 
-            <hr className="w-full border-1/2 border-black/30"></hr>
-
-			<div className="flex items-center self-center gap-5">
+			<div className="flex items-center justify-center gap-3">
 				<button
                 disabled={loading === 'update cart'}
 				onClick={handleIncQty}
