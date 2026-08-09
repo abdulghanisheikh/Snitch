@@ -8,6 +8,13 @@ const Cart = () => {
 	const { handleUpdateCart } = useCart();
 	const cartItems = useSelector(state => state.cart.cartItems);
 
+	const totalBillAmount = cartItems.reduce((acc, item) => {
+		const amount = item.price.amount;
+		const quantity = item.quantity;
+
+		return (amount * quantity) + acc;
+	}, 0);
+
 	return <main className="min-h-screen w-screen flex flex-col bg-[#111111]/5">
 		<Navbar pageName="Cart" backTo="/" />
 
@@ -52,27 +59,28 @@ const Cart = () => {
 					}} 
 					className="flex flex-col w-full px-10 py-5 overflow-y-auto">
 						{
+							cartItems.length === 0 ? 
+							<p className="text-xs w-full text-center opacity-70">Add product to cart to generate the order summary.</p> :
 							cartItems.map((item, index) => {
 								return <div
 								key={index}
-								className="flex w-full justify-between items-center">
+								className="flex w-full bg-zinc-100 px-2 rounded-md justify-between items-center">
 									<p>{item.product.title}</p>
-									<p className="text-xs tracking-wide">{item.price.currency} <span className="text-lg">{item.price.amount}</span></p>
+									<p className="text-xs tracking-wide">{item.price.currency} <span className="text-lg">{item.price.amount}</span> x <span className="text-lg">{item.quantity}</span></p>
 								</div>
 							})
 						}
 					</div>
 
-					<div className="w-full flex items-center gap-2 justify-center py-3 bg-amber-100 tracking-wide absolute bottom-0">
-						<p>Total Bill:</p>
-						<p>
-							<span className="text-sm">INR </span>
-							{cartItems.reduce((acc, item) => {
-								const priceAmount = Number(item.price.amount);
+					<div className="w-full flex flex-col items-center gap-3 justify-between py-3 tracking-wide absolute bottom-0 px-5">
+						<div className="flex w-full items-center justify-between">
+							<p className="text-sm uppercase">Total</p>
+							<p className="text-lg font-semibold"><span className="uppercase text-xs font-normal">Inr</span> {totalBillAmount}</p>
+						</div>
 
-								return acc + priceAmount;
-							}, 0)}
-						</p>
+						<button
+						disabled={cartItems.length === 0}
+						className="bg-stone-900 self-end rounded-sm cursor-pointer text-white lg:text-sm text-xs py-0.5 px-2.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90">Checkout</button>
 					</div>
 				</div>
 			</div>

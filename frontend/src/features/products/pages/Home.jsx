@@ -24,7 +24,7 @@ const Home = () => {
             <p className="text-xs lg:text-sm opacity-60">Upgrade your closet with our latest exclusive collection.</p>
         </div>
 
-        <div className="flex lg:flex-row flex-col items-center lg:flex-wrap lg:justify-start justify-center w-full lg:gap-8 gap-5 mt-3 lg:px-10 py-5">
+        <div className="flex lg:flex-row flex-col items-center lg:flex-wrap lg:justify-start justify-center w-full gap-5 mt-3 lg:px-10 py-5">
             {
                 products.length === 0 ? 
                 <p className="w-full text-center lg:text-sm text-xs">No products Yet.</p> : 

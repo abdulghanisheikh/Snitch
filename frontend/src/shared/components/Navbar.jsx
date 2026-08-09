@@ -1,13 +1,13 @@
 import { MdArrowBackIos } from "react-icons/md";
 import { Link } from "react-router";
 import { useSelector } from "react-redux";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { IoMdCreate } from "react-icons/io";
 import { VscAccount } from "react-icons/vsc";
 import { CgLogOut } from "react-icons/cg";
 import { useAuth } from "../../features/auth/hooks/useAuth.js";
 import { IoIosLogIn } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
+import { AiTwotoneShop } from "react-icons/ai";
 
 const Navbar = ({ pageName, backTo }) => {
     const user = useSelector(state => state.auth.user);
@@ -23,7 +23,7 @@ const Navbar = ({ pageName, backTo }) => {
 
         <div className="lg:flex items-center lg:gap-8 hidden">
             <Link to='/' className="flex flex-col items-center cursor-pointer justify-center gap-1">
-                <MdOutlineSpaceDashboard size={21} />
+                <AiTwotoneShop size={21} />
                 <p className="text-xs">Shop</p>
             </Link>
 

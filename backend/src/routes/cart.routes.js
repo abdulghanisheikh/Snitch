@@ -14,7 +14,7 @@ router.post('/add/:productId/:variantId', authenticateUser, validateAddToCart, a
 
 /**
  * @route PATCH /api/cart/update/:productId/:variantId
- * @description Update quantity of product in cart
+ * @description Update item quantity in cart
  * @access private
  */
 router.patch('/update/:productId/:variantId', authenticateUser, validateUpdateCart, updateItemInCart);
