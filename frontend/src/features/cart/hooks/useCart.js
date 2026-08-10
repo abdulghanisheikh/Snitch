@@ -50,9 +50,9 @@ export const useCart = () => {
 
             if(success) {
                 if(action === "inc") {
-                    incrementItemQty({ productId, variantId });
+                    dispatch(incrementItemQty({ productId, variantId }));
                 } else if(action === "dec") {
-                    decrementItemQty({ productId, variantId });
+                    dispatch(decrementItemQty({ productId, variantId }));
                 }
             }
         } catch(err) {
