@@ -45,11 +45,11 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
                 <p className="text-sm text-gray-700 font-semibold">{selectedItem.price.amount} {selectedItem.price.currency}</p>
             </div>
 
-			<div className="flex items-center justify-center gap-3">
+			<div className="flex items-center text-white justify-center bg-stone-900 rounded-sm w-fit self-center gap-2">
 				<button
                 disabled={loading === 'update cart'}
 				onClick={handleIncQty}
-				className="px-3 cursor-pointer rounded-full bg-orange-200 hover:bg-orange-300 duration-300 ease-in-out lg:text-lg active:scale-95">
+				className="px-3 cursor-pointer hover:bg-stone-800 duration-300 ease-in-out lg:text-lg active:scale-95">
                     +
                 </button>
 
@@ -58,7 +58,7 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
                 <button 
                 disabled={loading === 'update cart'}
                 onClick={handleDecQty}
-                className="px-3 cursor-pointer rounded-full bg-orange-200 hover:bg-orange-300 duration-300 ease-in-out lg:text-lg active:scale-95">
+                className="px-3 cursor-pointer hover:bg-stone-800 duration-300 ease-in-out lg:text-lg active:scale-95">
                     -
                 </button>
 			</div>

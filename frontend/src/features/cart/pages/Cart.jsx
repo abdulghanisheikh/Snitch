@@ -3,6 +3,7 @@ import { useCart } from "../hooks/useCart";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import CartItem from "../components/CartItem";
+import { Link } from "react-router";
 
 const Cart = () => {
 	const { handleUpdateCart } = useCart();
@@ -27,7 +28,7 @@ const Cart = () => {
 				<div className="min-h-full lg:w-[70%] lg:px-5 flex gap-3 lg:flex-row flex-col items-center flex-wrap">
 					{
 						cartItems.length === 0 && loading === "cart" ?
-						<p className="text-center text-sm">
+						<p className="text-center text-sm tracking-wide">
 							Loading Cart...
 						</p> :
 						cartItems.length === 0 && loading !== "cart" ? 
@@ -68,7 +69,7 @@ const Cart = () => {
 					className="flex flex-col w-full lg:px-10 lg:py-5 px-2 py-1 gap-1.5 overflow-y-auto">
 						{
 							cartItems.length === 0 && loading === "cart" ? 
-							<p className="text-xs w-full text-center">
+							<p className="text-xs w-full text-center tracking-wide">
 								Loading order summary...
 							</p> :
 							cartItems.length === 0 && loading !== "cart" ?
@@ -92,12 +93,18 @@ const Cart = () => {
 							<p className="lg:text-lg text-sm font-semibold"><span className="uppercase text-sm font-normal">Inr</span> {totalBillAmount}</p>
 						</div>
 
-						<button
-						disabled={cartItems.length === 0}
-						onClick={() => console.log("Checkout button clicked")}
-						className={`self-end rounded-sm text-white lg:text-sm text-xs py-0.5 px-2.5 ${cartItems.length > 0 ? 'hover:bg-stone-700 duration-300 ease-in-out active:scale-90 cursor-pointer bg-stone-900' : 'bg-stone-700'}`}>
-							Checkout
-						</button>
+						<div className="flex justify-between items-center w-full">
+							<Link to='/' className="rounded-sm text-white lg:text-sm text-xs py-0.5 px-2.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90 cursor-pointer bg-stone-900">
+								Continue Shopping
+							</Link>
+
+							<button
+							disabled={cartItems.length === 0}
+							onClick={() => console.log("Checkout button clicked")}
+							className={`rounded-sm text-white lg:text-sm text-xs py-0.5 px-2.5 ${cartItems.length > 0 ? 'hover:bg-stone-700 duration-300 ease-in-out active:scale-90 cursor-pointer bg-stone-900' : 'bg-stone-700'}`}>
+								Proceed to Checkout
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
