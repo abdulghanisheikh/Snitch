@@ -15,9 +15,31 @@ export const cartSlice = createSlice({
         },
         setLoading: (state, action) => {
             state.loading = action.payload;
+        },
+        incrementItemQty: (state, action) => {
+            const { productId, variantId } = action.payload;
+
+            state.cartItems = state.cartItems.map(item => {
+                if(item.product._id === productId || item.variant === variantId) {
+                    return { ...item, quantity: item.quantity + 1 };
+                } else {
+                    return item;
+                }
+            });
+        },
+        decrementItemQty: (state, action) => {
+            const { productId, variantId } = action.payload;
+
+            state.cartItems = state.cartItems.map(item => {
+                if(item.product._id === productId || item.variant === variantId) {
+                    return { ...item, quantity: item.quantity - 1 };
+                } else {
+                    return item;
+                }
+            });
         }
     }
 });
 
-export const { setCartItems, addCartItem, setLoading } = cartSlice.actions;
+export const { setCartItems, addCartItem, setLoading, incrementItemQty, decrementItemQty } = cartSlice.actions;
 export default cartSlice.reducer;

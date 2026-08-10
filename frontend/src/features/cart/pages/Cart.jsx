@@ -6,6 +6,8 @@ import CartItem from "../components/CartItem";
 
 const Cart = () => {
 	const { handleUpdateCart } = useCart();
+
+	const loading = useSelector(state => state.cart.loading);
 	const cartItems = useSelector(state => state.cart.cartItems);
 
 	const totalBillAmount = cartItems.reduce((acc, item) => {
@@ -24,8 +26,14 @@ const Cart = () => {
 			<div className="w-full flex lg:flex-row flex-col lg:items-start items-center gap-5">
 				<div className="min-h-full lg:w-[70%] lg:px-5 flex gap-3 lg:flex-row flex-col items-center flex-wrap">
 					{
-						cartItems.length === 0 ?
-						<p className="text-center text-sm">Your cart is currently empty.</p> :
+						cartItems.length === 0 && loading === "cart" ?
+						<p className="text-center text-sm">
+							Loading Cart...
+						</p> :
+						cartItems.length === 0 && loading !== "cart" ? 
+						<p className="text-center text-sm opacity-70">
+							Your cart is currently empty.
+						</p> :
 						cartItems.map((item) => {
 							return <CartItem 
 							key={item.product._id}
@@ -57,10 +65,16 @@ const Cart = () => {
 					style={{
 						scrollbarWidth: 'none'
 					}}
-					className="flex flex-col w-full lg:px-10 lg:py-5 px-2 py-1 overflow-y-auto">
+					className="flex flex-col w-full lg:px-10 lg:py-5 px-2 py-1 gap-1.5 overflow-y-auto">
 						{
-							cartItems.length === 0 ? 
-							<p className="text-xs w-full text-center opacity-70">Add product to cart to generate the order summary.</p> :
+							cartItems.length === 0 && loading === "cart" ? 
+							<p className="text-xs w-full text-center">
+								Loading order summary...
+							</p> :
+							cartItems.length === 0 && loading !== "cart" ?
+							<p className="text-xs w-full text-center opacity-70">
+								Add product to cart to generate the order summary.
+							</p> :
 							cartItems.map((item) => {
 								return <div
 								key={item.product._id}
@@ -80,6 +94,7 @@ const Cart = () => {
 
 						<button
 						disabled={cartItems.length === 0}
+						onClick={() => console.log("Checkout button clicked")}
 						className={`self-end rounded-sm text-white lg:text-sm text-xs py-0.5 px-2.5 ${cartItems.length > 0 ? 'hover:bg-stone-700 duration-300 ease-in-out active:scale-90 cursor-pointer bg-stone-900' : 'bg-stone-700'}`}>
 							Checkout
 						</button>

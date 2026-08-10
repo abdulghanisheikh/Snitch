@@ -1,5 +1,5 @@
 import { addToCart, getCart, updateCart } from "../services/cart.api.js";
-import { setLoading, setCartItems } from "../states/cart.slice.js";
+import { setLoading, setCartItems, incrementItemQty, decrementItemQty } from "../states/cart.slice.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
@@ -49,7 +49,11 @@ export const useCart = () => {
             const { success } = data;
 
             if(success) {
-                await handleGetCart();
+                if(action === "inc") {
+                    incrementItemQty({ productId, variantId });
+                } else if(action === "dec") {
+                    decrementItemQty({ productId, variantId });
+                }
             }
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in updating item's quantity in cart.");
