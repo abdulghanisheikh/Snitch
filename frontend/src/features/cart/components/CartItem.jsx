@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
-    const {product, quantity} = cartItem;
+    const { product, quantity } = cartItem;
     const variant = product.variants.find(v => v._id === cartItem.variant);
 
     let selectedItem = {

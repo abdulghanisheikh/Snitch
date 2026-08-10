@@ -26,9 +26,9 @@ const Cart = () => {
 					{
 						cartItems.length === 0 ?
 						<p className="text-center text-sm">Your cart is currently empty.</p> :
-						cartItems.map((item, index) => {
+						cartItems.map((item) => {
 							return <CartItem 
-							key={index}
+							key={item.product._id}
 							cartItem={item}
 							handleIncQty={async() => {
 								await handleUpdateCart({
@@ -61,9 +61,9 @@ const Cart = () => {
 						{
 							cartItems.length === 0 ? 
 							<p className="text-xs w-full text-center opacity-70">Add product to cart to generate the order summary.</p> :
-							cartItems.map((item, index) => {
+							cartItems.map((item) => {
 								return <div
-								key={index}
+								key={item.product._id}
 								className="flex w-full lg:tracking-wide bg-zinc-100 lg:px-2 rounded-md justify-between items-center">
 									<p className="text-sm lg:text-md">{item.product.title}</p>
 									<p className="text-xs lg:tracking-wide tracking-tighter">{item.price.currency} <span className="lg:text-md text-xs">{item.price.amount}</span> x <span className="lg:text-md">{item.quantity}</span></p>
