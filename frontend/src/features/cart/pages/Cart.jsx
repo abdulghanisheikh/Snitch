@@ -56,7 +56,7 @@ const Cart = () => {
 					<div
 					style={{
 						scrollbarWidth: 'none'
-					}} 
+					}}
 					className="flex flex-col w-full lg:px-10 lg:py-5 px-2 py-1 overflow-y-auto">
 						{
 							cartItems.length === 0 ? 
@@ -80,7 +80,9 @@ const Cart = () => {
 
 						<button
 						disabled={cartItems.length === 0}
-						className="bg-stone-900 self-end rounded-sm cursor-pointer text-white lg:text-sm text-xs py-0.5 px-2.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90">Checkout</button>
+						className={`self-end rounded-sm text-white lg:text-sm text-xs py-0.5 px-2.5 ${cartItems.length > 0 ? 'hover:bg-stone-700 duration-300 ease-in-out active:scale-90 cursor-pointer bg-stone-900' : 'bg-stone-700'}`}>
+							Checkout
+						</button>
 					</div>
 				</div>
 			</div>
