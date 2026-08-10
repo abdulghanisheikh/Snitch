@@ -4,6 +4,8 @@ import Product from "../models/product.model.js";
 
 export const addToCart = async(req, res) => {
     const { productId, variantId } = req.params;
+    console.log("variant ID:", variantId);
+    
     try {
         const product = await Product.findOne({
             $or: [
@@ -121,7 +123,14 @@ export const updateItemInCart = async(req, res) => {
             });
         }
 
-        const cart = (await Cart.findOne({ user: req.user.id }) || await Cart.create({ user: req.user.id }));
+        const cart = await Cart.findOne({ user: req.user.id });
+
+        if(!cart) {
+            return res.status(400).json({
+                success: false,
+                message: "Cart not found."
+            });
+        }
 
         const stock = variantId === undefined ? 
             product.stock : 
