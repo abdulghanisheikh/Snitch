@@ -18,6 +18,10 @@ const Cart = () => {
 		return (amount * quantity) + acc;
 	}, 0);
 
+	const totalNumberOfItems = cartItems.reduce((acc, item) => {
+		return acc + item.quantity;
+	}, 0);
+
 	return <main className="min-h-screen w-screen flex flex-col bg-[#111111]/5">
 		<Navbar pageName="Cart" backTo="/" />
 
@@ -59,13 +63,13 @@ const Cart = () => {
 				</div>
 
 				<div
-				className="lg:w-[30%] w-full h-100 p-2 gap-2.5 rounded-lg shadow-xs shadow-black/50 tracking-tight flex flex-col items-center relative bg-white">
-					<p className="font-semibold lg:text-xl text-lg">Order Summary</p>
+				className="lg:w-[30%] w-full h-100 px-5 py-3 gap-2.5 rounded-lg shadow-xs shadow-black/50 tracking-tight flex flex-col items-center relative bg-white">
+					<p className="font-semibold lg:text-xl text-lg self-start">Order Summary</p>
 
 					<hr className="border border-black/10 w-full rounded-full" />
 
 					<div
-					className="flex flex-col opacity-70 tracking-wide lg:text-sm text-xs w-full lg:px-7 lg:py-5 px-2 py-1 gap-1.5 overflow-y-auto">
+					className="flex flex-col opacity-70 tracking-wide lg:text-sm text-xs w-full lg:px-7 lg:py-5 px-2 py-1 gap-1.5">
 						{
 							cartItems.length === 0 && loading === "cart" ? 
 							<p className="text-xs w-full text-center tracking-wide">
@@ -78,7 +82,7 @@ const Cart = () => {
 							<>
 								<div className="flex items-center justify-between">
 									<p>Items</p>
-									<p>{cartItems.length}</p>
+									<p>{totalNumberOfItems}</p>
 								</div>
 
 								<div className="flex items-center justify-between">
@@ -102,7 +106,7 @@ const Cart = () => {
 					<div className="w-full flex flex-col items-center gap-3 justify-between py-3 tracking-wide absolute bottom-0 px-5">
 						<div className="flex w-full items-center justify-between">
 							<p className="text-sm uppercase">Total</p>
-							<p className="lg:text-lg text-sm font-semibold"><span className="uppercase text-sm font-normal">Inr</span> {totalBillAmount}</p>
+							<p className="lg:text-lg text-sm font-semibold"><span className="uppercase lg:text-sm font-normal text-xs">Inr</span> {totalBillAmount}</p>
 						</div>
 
 						<div className="flex justify-between items-center w-full">
