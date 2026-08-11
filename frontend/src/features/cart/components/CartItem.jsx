@@ -58,23 +58,29 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
                 <p className="text-sm text-gray-700 font-semibold">{selectedItem.price.amount} {selectedItem.price.currency}</p>
             </div>
 
-			<div className="flex items-center text-white justify-center bg-stone-900 rounded-sm w-fit self-center gap-2">
-				<button
-                disabled={loading === 'update cart'}
-				onClick={handleIncQty}
-				className="px-3 cursor-pointer hover:bg-stone-800 duration-300 ease-in-out lg:text-lg active:scale-95">
-                    +
-                </button>
+			<div className="flex items-center justify-between px-8">
+                <div className="flex items-center text-white justify-center bg-stone-900 rounded-sm w-fit self-center gap-2">
+                    <button
+                    disabled={loading === 'update cart'}
+                    onClick={handleIncQty}
+                    className="px-3 cursor-pointer hover:bg-stone-800 duration-300 ease-in-out lg:text-lg active:scale-95">
+                        +
+                    </button>
 
-				<p>{selectedItem.quantity}</p>
-				
+                    <p>{selectedItem.quantity}</p>
+                    
+                    <button 
+                    disabled={loading === 'update cart'}
+                    onClick={handleDecQty}
+                    className="px-3 cursor-pointer hover:bg-stone-800 duration-300 ease-in-out lg:text-lg active:scale-95">
+                        -
+                    </button>
+                </div>
+
                 <button 
-                disabled={loading === 'update cart'}
-                onClick={handleDecQty}
-                className="px-3 cursor-pointer hover:bg-stone-800 duration-300 ease-in-out lg:text-lg active:scale-95">
-                    -
-                </button>
-			</div>
+                onClick={() => console.log("Item removed")}
+                className="opacity-80 cursor-pointer uppercase tracking-wide text-red-500 text-xs">Remove</button>
+            </div>
         </div>
     </main>
 }

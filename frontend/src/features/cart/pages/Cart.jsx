@@ -11,16 +11,15 @@ const Cart = () => {
 	const loading = useSelector(state => state.cart.loading);
 	const cartItems = useSelector(state => state.cart.cartItems);
 
-	const totalBillAmount = cartItems.reduce((acc, item) => {
+	const { totalBillAmount, totalNumberOfItems } = cartItems.reduce((acc, item) => {
 		const amount = item.price.amount;
 		const quantity = item.quantity;
 
-		return (amount * quantity) + acc;
-	}, 0);
+		acc.totalBillAmount += (amount * quantity);
+		acc.totalNumberOfItems += quantity;
 
-	const totalNumberOfItems = cartItems.reduce((acc, item) => {
-		return acc + item.quantity;
-	}, 0);
+		return acc;
+	}, { totalBillAmount: 0, totalNumberOfItems: 0 });
 
 	return <main className="min-h-screen w-screen flex flex-col bg-[#111111]/5">
 		<Navbar pageName="Cart" backTo="/" />
@@ -69,7 +68,7 @@ const Cart = () => {
 					<hr className="border border-black/10 w-full rounded-full" />
 
 					<div
-					className="flex flex-col opacity-70 tracking-wide lg:text-sm text-xs w-full lg:px-7 lg:py-5 px-2 py-1 gap-1.5">
+					className="flex flex-col tracking-wide lg:text-sm text-xs w-full lg:px-7 lg:py-5 px-2 py-1 gap-1.5">
 						{
 							cartItems.length === 0 && loading === "cart" ? 
 							<p className="text-xs w-full text-center tracking-wide">
@@ -80,22 +79,22 @@ const Cart = () => {
 								Add product to cart to generate the order summary.
 							</p> :
 							<>
-								<div className="flex items-center justify-between">
+								<div className="flex opacity-70 items-center justify-between">
 									<p>Items</p>
 									<p>{totalNumberOfItems}</p>
 								</div>
 
 								<div className="flex items-center justify-between">
-									<p>Subtotals</p>
-									<p className="font-semibold"><span className="font-normal uppercase text-xs">Inr</span> {totalBillAmount}</p>
+									<p className="opacity-70">Subtotals</p>
+									<p className="font-semibold"><span className="uppercase text-xs">Inr</span> {totalBillAmount}</p>
 								</div>
 
-								<div className="flex items-center justify-between">
+								<div className="flex opacity-70 items-center justify-between">
 									<p>Shipping</p>
 									<p className="font-semibold"><span className="font-normal uppercase text-xs">Inr</span> 0</p>
 								</div>
 
-								<div className="flex items-center justify-between">
+								<div className="flex opacity-70 items-center justify-between">
 									<p>Taxes</p>
 									<p className="font-semibold"><span className="font-normal uppercase text-xs">Inr</span> 0</p>
 								</div>
