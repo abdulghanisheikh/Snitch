@@ -59,14 +59,13 @@ const Cart = () => {
 				</div>
 
 				<div
-				className="lg:w-[30%] w-full h-100 p-2 gap-2.5 lg:gap-0 rounded-lg shadow-xs shadow-black/50 tracking-tight flex flex-col items-center relative bg-white">
-					<p className="font-semibold text-xl">Order Summary</p>
+				className="lg:w-[30%] w-full h-100 p-2 gap-2.5 rounded-lg shadow-xs shadow-black/50 tracking-tight flex flex-col items-center relative bg-white">
+					<p className="font-semibold lg:text-xl text-lg">Order Summary</p>
+
+					<hr className="border border-black/10 w-full rounded-full" />
 
 					<div
-					style={{
-						scrollbarWidth: 'none'
-					}}
-					className="flex flex-col w-full lg:px-10 lg:py-5 px-2 py-1 gap-1.5 overflow-y-auto">
+					className="flex flex-col opacity-70 tracking-wide lg:text-sm text-xs w-full lg:px-7 lg:py-5 px-2 py-1 gap-1.5 overflow-y-auto">
 						{
 							cartItems.length === 0 && loading === "cart" ? 
 							<p className="text-xs w-full text-center tracking-wide">
@@ -76,14 +75,27 @@ const Cart = () => {
 							<p className="text-xs w-full text-center opacity-70">
 								Add product to cart to generate the order summary.
 							</p> :
-							cartItems.map((item) => {
-								return <div
-								key={item.product._id}
-								className="flex w-full lg:tracking-wide bg-zinc-100 lg:px-2 rounded-md justify-between items-center">
-									<p className="text-sm lg:text-md">{item.product.title}</p>
-									<p className="text-xs lg:tracking-wide tracking-tighter">{item.price.currency} <span className="lg:text-md text-xs">{item.price.amount}</span> x <span className="lg:text-md">{item.quantity}</span></p>
+							<>
+								<div className="flex items-center justify-between">
+									<p>Items</p>
+									<p>{cartItems.length}</p>
 								</div>
-							})
+
+								<div className="flex items-center justify-between">
+									<p>Subtotals</p>
+									<p className="font-semibold"><span className="font-normal uppercase text-xs">Inr</span> {totalBillAmount}</p>
+								</div>
+
+								<div className="flex items-center justify-between">
+									<p>Shipping</p>
+									<p className="font-semibold"><span className="font-normal uppercase text-xs">Inr</span> 0</p>
+								</div>
+
+								<div className="flex items-center justify-between">
+									<p>Taxes</p>
+									<p className="font-semibold"><span className="font-normal uppercase text-xs">Inr</span> 0</p>
+								</div>
+							</>
 						}
 					</div>
 

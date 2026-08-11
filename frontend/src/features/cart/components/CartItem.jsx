@@ -1,4 +1,6 @@
 import { useSelector } from "react-redux";
+import { useCart } from "../hooks/useCart";
+import { useEffect } from "react";
 
 const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
     const { product, quantity } = cartItem;
@@ -24,6 +26,17 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
     }
 
     const loading = useSelector(state => state.cart.loading);
+
+    const { handleGetCart } = useCart();
+    async function getCart() {
+        await handleGetCart();
+    }
+
+    useEffect(() => {
+        if(selectedItem.quantity === 0) {
+            getCart();
+        }
+    }, [selectedItem]);
 
 	return <main
     className="w-full flex h-40 relative items-start rounded-xl overflow-hidden shadow-md bg-white border border-black/20">
