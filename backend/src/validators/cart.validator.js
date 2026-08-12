@@ -34,3 +34,5 @@ export const validateUpdateCart = [
         .isIn(["inc", "dec"]).withMessage("action must be either 'inc' or 'dec'."),
     validateRequest
 ];
+
+export const validateDeleteItemFromCart = [...commonParamsValidator];

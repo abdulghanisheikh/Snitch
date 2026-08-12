@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authenticateUser } from "../middlewares/auth.middleware.js";
-import { validateAddToCart, validateUpdateCart } from "../validators/cart.validator.js";
+import { validateAddToCart, validateUpdateCart, validateDeleteItemFromCart } from "../validators/cart.validator.js";
 import { addToCart, getCart, updateItemInCart } from "../controllers/cart.controller.js";
 
 const router = Router();
@@ -10,14 +10,21 @@ const router = Router();
  * @description Add product to cart
  * @access private
  */
-router.post('/add/:productId/:variantId', authenticateUser, validateAddToCart, addToCart);
+router.post("/add/:productId/:variantId", authenticateUser, validateAddToCart, addToCart);
 
 /**
  * @route PATCH /api/cart/update/:productId/:variantId
  * @description Update item quantity in cart
  * @access private
  */
-router.patch('/update/:productId/:variantId', authenticateUser, validateUpdateCart, updateItemInCart);
+router.patch("/update/:productId/:variantId", authenticateUser, validateUpdateCart, updateItemInCart);
+
+/**
+ * @route DELETE /api/cart/delete/:productId/:variantId
+ * @description Delete item from cart
+ * @access private
+ */
+router.delete("/delete/:productId/:variantId", authenticateUser, validateDeleteItemFromCart, deleteItemFromCart);
 
 /**
  * @route GET /api/cart/

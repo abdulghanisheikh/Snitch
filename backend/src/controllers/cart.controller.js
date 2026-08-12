@@ -4,15 +4,10 @@ import Product from "../models/product.model.js";
 
 export const addToCart = async(req, res) => {
     const { productId, variantId } = req.params;
-    console.log("variant ID:", variantId);
-    
     try {
-        const product = await Product.findOne({
-            $or: [
-                { _id: productId },
-                { "variants._id": variantId }
-            ]
-        });
+        const product = variantId
+        ? await Product.findOne({ _id: productId, "variants._id": variantId })
+        : await Product.findOne({ _id: productId });
 
         if(!product) {
             return res.status(404).json({
@@ -109,12 +104,9 @@ export const updateItemInCart = async(req, res) => {
     const { productId, variantId } = req.params;
     const { action } = req.body;
     try {
-        const product = await Product.findOne({
-            $or: [
-                { _id: productId },
-                { "variants._id": variantId }
-            ]
-        });
+        const product = variantId
+        ? await Product.findOne({ _id: productId, "variants._id": variantId })
+        : await Product.findOne({ _id: productId });
 
         if(!product) {
             return res.status(400).json({
@@ -144,10 +136,9 @@ export const updateItemInCart = async(req, res) => {
                     user: req.user.id
                 }, {
                     $pull: {
-                        items: {
-                            product: productId,
-                            variant: variantId
-                        }
+                        items: variantId
+                        ? { product: productId, variant: variantId }
+                        : { product: productId, variant: null }
                     }
                 });
 
@@ -190,6 +181,50 @@ export const updateItemInCart = async(req, res) => {
                 message: "Cart updated"
             });
         }
+    } catch(err) {
+        res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+}
+
+export async function deleteItemFromCart(req, res) {
+    const { productId, variantId } = req.params;
+    try {
+        const product = variantId
+        ? await Product.findOne({ _id: productId, "variants._id": variantId })
+        : await Product.findOne({ _id: productId });
+
+        if(!product) {
+            return res.status(400).json({
+                success: false,
+                message: "Product or variant not available."
+            });
+        }
+
+        const cart = await Cart.findOne({ user: req.user.id });
+        if(!cart) {
+            return res.status(400).json({
+                success: false,
+                message: "Cart not found."
+            });
+        }
+
+        await Cart.findOneAndUpdate({
+            user: req.user.id
+        }, {
+            $pull: {
+                items: variantId
+                ? { product: productId, variant: variantId }
+                : { product: productId, variant: null }
+            }
+        });
+
+        res.status(200).json({
+            success: true,
+            message: "Item removed from cart."
+        });
     } catch(err) {
         res.status(500).json({
             success: false,
