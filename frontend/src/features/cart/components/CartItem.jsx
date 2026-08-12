@@ -55,7 +55,9 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
                     {selectedItem.title}
                 </h1>
 
-                <p className="text-sm text-gray-700 font-semibold">{selectedItem.price.amount} {selectedItem.price.currency}</p>
+                <p className="lg:text-sm text-xs text-gray-700 font-semibold">{selectedItem.price.amount} {selectedItem.price.currency}</p>
+
+                <p className="opacity-50 text-xs">{selectedItem.quantity} in Stock</p>
             </div>
 
 			<div className="flex items-center justify-between px-8">

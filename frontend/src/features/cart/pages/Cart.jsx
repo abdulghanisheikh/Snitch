@@ -85,7 +85,7 @@ const Cart = () => {
 								</div>
 
 								<div className="flex items-center justify-between">
-									<p className="opacity-70">Subtotals</p>
+									<p className="opacity-70">Subtotal</p>
 									<p className="font-semibold"><span className="uppercase text-xs">Inr</span> {totalBillAmount}</p>
 								</div>
 
@@ -103,6 +103,8 @@ const Cart = () => {
 					</div>
 
 					<div className="w-full flex flex-col items-center gap-3 justify-between py-3 tracking-wide absolute bottom-0 px-5">
+						<hr className="border border-black/10 w-full rounded-full mb-2" />
+						
 						<div className="flex w-full items-center justify-between">
 							<p className="text-sm uppercase">Total</p>
 							<p className="lg:text-lg text-sm font-semibold"><span className="uppercase lg:text-sm font-normal text-xs">Inr</span> {totalBillAmount}</p>
