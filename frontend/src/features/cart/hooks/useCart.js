@@ -1,5 +1,5 @@
 import { addToCart, getCart, updateCart, deleteItemFromCart } from "../services/cart.api.js";
-import { setLoading, setCartItems, incrementItemQty, decrementItemQty } from "../states/cart.slice.js";
+import { setLoading, setCartItems, incrementItemQty, decrementItemQty, removeCartItem } from "../states/cart.slice.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
@@ -66,11 +66,12 @@ export const useCart = () => {
         try {
             dispatch(setLoading("delete cart"));
 
-            const { data } = await handleDeleteItemFromCart({ productId, variantId });
+            const { data } = await deleteItemFromCart({ productId, variantId });
             const { success, message } = data;
 
             if(success) {
                 toast.success(message);
+                dispatch(removeCartItem({ productId, variantId }));
             }
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in removing item from the cart.");

@@ -6,7 +6,7 @@ import CartItem from "../components/CartItem";
 import { Link } from "react-router";
 
 const Cart = () => {
-	const { handleUpdateCart } = useCart();
+	const { handleUpdateCart, handleDeleteItemFromCart } = useCart();
 
 	const loading = useSelector(state => state.cart.loading);
 	const cartItems = useSelector(state => state.cart.cartItems);
@@ -20,6 +20,10 @@ const Cart = () => {
 
 		return acc;
 	}, { totalBillAmount: 0, totalNumberOfItems: 0 });
+
+	async function handleRemoveClick({ productId, variantId }) {
+		await handleDeleteItemFromCart({productId, variantId});
+	}
 
 	return <main className="min-h-screen w-screen flex flex-col bg-[#111111]/5">
 		<Navbar pageName="Cart" backTo="/" />
@@ -56,6 +60,10 @@ const Cart = () => {
 									action: "dec"
 								});
 							}}
+							handleRemoveClick={() => handleRemoveClick({
+								productId: item.product._id,
+								variantId: item.variant
+							})}
 							/>
 						})
 					}

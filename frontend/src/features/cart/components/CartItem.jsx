@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useCart } from "../hooks/useCart";
 import { useEffect } from "react";
 
-const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
+const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) => {
     const { product, quantity } = cartItem;
     const variant = product.variants.find(v => v._id === cartItem.variant);
 
@@ -80,8 +80,11 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty }) => {
                 </div>
 
                 <button 
-                onClick={() => console.log("Item removed")}
-                className="opacity-80 cursor-pointer uppercase tracking-wide text-red-500 text-xs">Remove</button>
+                onClick={handleRemoveClick}
+                disabled={loading === "delete cart"}
+                className="opacity-80 hover:opacity-100 duration-300 ease-in-out cursor-pointer uppercase tracking-wide text-red-500 text-xs">
+                    Remove
+                </button>
             </div>
         </div>
     </main>
