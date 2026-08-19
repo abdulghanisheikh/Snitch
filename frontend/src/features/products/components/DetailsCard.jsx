@@ -3,7 +3,6 @@ import { AttributeChip } from './VariantCard';
 import { useSelector } from 'react-redux'
 
 const DetailsCard = ({ product, baseProduct, selectedVariant, handleAddToCartClick, setSelectedVariant, images, activeImage, setActiveImage }) => {
-
     const displayTitle = selectedVariant
         ? baseProduct?.title
         : product?.title;

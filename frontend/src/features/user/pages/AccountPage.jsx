@@ -30,7 +30,9 @@ const AccountPage = () => {
     }
 
     useEffect(() => {
-        initSellerProducts();
+        if(user.role === "seller") {
+            initSellerProducts();
+        }
 
         document.addEventListener('mousedown', checkClickOutside);
         return () => document.removeEventListener('mousedown', checkClickOutside);

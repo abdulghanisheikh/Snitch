@@ -71,7 +71,10 @@ export const useCart = () => {
 
             if(success) {
                 toast.success(message);
-                dispatch(removeCartItem({ productId, variantId }));
+                
+                setTimeout(() => {
+                    dispatch(removeCartItem({ productId, variantId }));
+                }, 1000);
             }
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in removing item from the cart.");

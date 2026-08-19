@@ -42,6 +42,7 @@ const Cart = () => {
 						<p className="text-center text-sm opacity-70">
 							Your cart is currently empty.
 						</p> :
+						
 						cartItems.map((item) => {
 							return <CartItem 
 							key={item.product._id}

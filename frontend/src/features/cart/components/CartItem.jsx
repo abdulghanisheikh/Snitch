@@ -3,25 +3,24 @@ import { useCart } from "../hooks/useCart";
 import { useEffect } from "react";
 
 const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) => {
-    const { product, quantity } = cartItem;
-    const variant = product.variants.find(v => v._id === cartItem.variant);
+    const { product, quantity, price } = cartItem;
+    const variant = product.variants?.find(v => v._id === cartItem.variant);
 
     let selectedItem = {
         title: product.title,
-        quantity
+        quantity,
+        price
     };
 
     if(variant) {
         selectedItem = {
             ...selectedItem,
-            images: variant.images,
-            price: variant.price,
+            images: variant.images
         }
     } else {
         selectedItem = {
             ...selectedItem,
-            images: product.images,
-            price: product.price
+            images: product.images
         }
     }
 
@@ -50,12 +49,12 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) =
         </div>
 
         <div className="flex flex-col justify-between pb-3 w-[70%] h-full">
-            <div className="flex flex-col px-8 py-3 gap-2">
+            <div className="flex flex-col tracking-wide px-8 py-3 gap-2">
                 <h1 className="lg:text-xl text-gray-900 tracking-tight">
                     {selectedItem.title}
                 </h1>
 
-                <p className="lg:text-sm text-xs text-gray-700 font-semibold">{selectedItem.price.amount} {selectedItem.price.currency}</p>
+                <p className="lg:text-sm text-xs text-gray-700 font-semibold">{selectedItem.price.currency} <span className="text-base">{selectedItem.price.amount}</span></p>
 
                 <p className="opacity-50 text-xs">{selectedItem.quantity} in Stock</p>
             </div>
