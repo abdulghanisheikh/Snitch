@@ -25,6 +25,8 @@ const Cart = () => {
 		await handleDeleteItemFromCart({productId, variantId});
 	}
 
+	const currency = "INR";
+
 	return <main className="min-h-screen w-screen flex flex-col bg-[#111111]/5">
 		<Navbar pageName="Cart" backTo="/" />
 
@@ -70,6 +72,7 @@ const Cart = () => {
 					}
 				</div>
 
+				{/* Order Summary of Cart */}
 				<div
 				className="lg:w-[30%] w-full h-100 px-5 py-3 gap-2.5 rounded-lg shadow-xs shadow-black/50 tracking-tight flex flex-col items-center relative bg-white">
 					<p className="font-semibold lg:text-xl text-lg self-start">Order Summary</p>
@@ -95,7 +98,7 @@ const Cart = () => {
 
 								<div className="flex items-center justify-between">
 									<p className="opacity-70">Subtotal</p>
-									<p className="font-semibold"><span className="uppercase text-xs">Inr</span> {totalBillAmount}</p>
+									<p className="font-semibold"><span className="uppercase text-xs">{currency}</span> {totalBillAmount}</p>
 								</div>
 
 								<div className="flex opacity-70 items-center justify-between">
@@ -116,9 +119,10 @@ const Cart = () => {
 						
 						<div className="flex w-full items-center justify-between">
 							<p className="text-sm uppercase">Total</p>
-							<p className="lg:text-lg text-sm font-semibold"><span className="uppercase lg:text-sm font-normal text-xs">Inr</span> {totalBillAmount}</p>
+							<p className="lg:text-lg text-sm font-semibold"><span className="uppercase lg:text-sm font-normal text-xs">{currency}</span> {totalBillAmount}</p>
 						</div>
 
+						{/* CTA Buttons */}
 						<div className="flex justify-between items-center w-full">
 							<Link to='/' className="rounded-sm text-white lg:text-sm text-xs py-0.5 px-2.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90 cursor-pointer bg-stone-900">
 								Continue Shopping

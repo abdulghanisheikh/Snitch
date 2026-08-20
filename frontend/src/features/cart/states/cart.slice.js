@@ -4,6 +4,8 @@ export const cartSlice = createSlice({
     name: "cart",
     initialState: {
         cartItems: [],
+        totalPrice: 0,
+        currency: "INR",
         loading: ''
     },
     reducers: {
@@ -12,6 +14,9 @@ export const cartSlice = createSlice({
         },
         addCartItem: (state, action) => {
             state.cartItems.push(action.payload);
+        },
+        setTotalPrice: (state, action) => {
+            state.totalPrice = action.payload;
         },
         removeCartItem: (state, action) => {
             const { productId, variantId } = action.payload;

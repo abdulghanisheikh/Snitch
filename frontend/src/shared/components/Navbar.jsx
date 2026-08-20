@@ -67,7 +67,10 @@ const Navbar = ({ pageName, backTo }) => {
             }
         </div>
 
-        <p className="lg:text-3xl text-lg font-bold text-[#6F4E37] tracking-wider">Snitch</p>
+        <div className="flex items-center lg:gap-5">
+            <p className="tracking-wider font-semibold text-xs uppercase">{user?.fullname}</p>
+            <p className="lg:text-3xl text-lg font-bold text-[#6F4E37] tracking-wider">Snitch</p>
+        </div>
     </nav>
 }
 

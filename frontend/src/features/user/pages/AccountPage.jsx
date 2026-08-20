@@ -25,7 +25,7 @@ const AccountPage = () => {
 
     const checkClickOutside = (e) => {
         if(deleteBoxRef.current && !deleteBoxRef.current.contains(e.target)) {
-            setProductToDelete('');
+            setProductToDelete("");
         }
     }
 
