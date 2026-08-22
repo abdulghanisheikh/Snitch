@@ -1,5 +1,5 @@
 import { addToCart, getCart, updateCart, deleteItemFromCart } from "../services/cart.api.js";
-import { setLoading, setCartItems, incrementItemQty, decrementItemQty, removeCartItem } from "../states/cart.slice.js";
+import { setLoading, incrementItemQty, decrementItemQty, removeCartItem, setCart } from "../states/cart.slice.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
@@ -31,8 +31,13 @@ export const useCart = () => {
             const { data } = await getCart();
             const { success, cart } = data;
 
+            const { items, totalPrice, currency } = cart;
+            console.log("Items:", items);
+            console.log("total price:", totalPrice);
+            console.log("currency:", currency);
+
             if(success) {
-                dispatch(setCartItems(cart.items));
+                console.log();
             }
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in fetching cart.");

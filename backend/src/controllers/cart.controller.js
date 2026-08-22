@@ -3,7 +3,7 @@ import Cart from "../models/cart.model.js";
 import Product from "../models/product.model.js";
 import mongoose from "mongoose";
 
-export const addToCart = async (req, res) => {
+export async function addToCart(req, res) {
     const { productId, variantId } = req.params;
     try {
         const product = variantId
@@ -78,33 +78,51 @@ export const addToCart = async (req, res) => {
     }
 }
 
-export const getCart = async (req, res) => {
+export async function getCart(req, res) {
     try {
-        const cart = await Cart.aggregate([
+        const cart = (await Cart.aggregate([
             {
                 $match: {
-                    user: new mongoose.Types.ObjectId(req.user.id)
+                    user: ObjectId("6a229f2b9dd1044b4478c437")
                 }
             },
-            { $unwind: { path: '$items' } },
+            {
+                $unwind: {
+                    path: "$items"
+                }
+            },
             {
                 $lookup: {
-                    from: 'products',
-                    localField: 'items.product',
-                    foreignField: '_id',
-                    as: 'items.product'
+                    from: "products",
+                    localField: "items.product",
+                    foreignField: "_id",
+                    as: "items.product"
                 }
             },
-            { $unwind: { path: '$items.product' } },
             {
-                $unwind: { path: '$items.product.variants' }
+                $unwind: {
+                    path: "$items.product"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$items.product.variants",
+                    preserveNullAndEmptyArrays: true
+                }
             },
             {
                 $match: {
                     $expr: {
-                        $eq: [
-                            '$items.variant',
-                            '$items.product.variants._id'
+                        $or: [
+                            {
+                                $eq: [
+                                    "$items.product.variants._id",
+                                    "$items.variant"
+                                ]
+                            },
+                            {
+                                $eq: ["$items.variant", null]
+                            }
                         ]
                     }
                 }
@@ -112,42 +130,55 @@ export const getCart = async (req, res) => {
             {
                 $addFields: {
                     itemPrice: {
-                        price: {
+                        amount: {
                             $multiply: [
-                                '$items.quantity',
+                                "$items.quantity",
                                 {
-                                    $toInt:
-                                        '$items.product.variants.price.amount'
+                                    $toInt: {
+                                        $ifNull: [
+                                            "$items.product.variants.price.amount",
+                                            "$items.product.price.amount"
+                                        ]
+                                    }
                                 }
                             ]
                         },
-                        currency:
-                            '$items.product.variants.price.currency'
+                        currency: {
+                            $ifNull: [
+                                "$items.product.variants.price.currency",
+                                "$items.product.price.currency"
+                            ]
+                        }
                     }
                 }
             },
             {
                 $group: {
-                    _id: '$_id',
-                    totalPrice: { $sum: '$itemPrice.price' },
-                    currency: {
-                        $first: '$itemPrice.currency'
+                    _id: "_id",
+                    totalCartPrice: {
+                        $sum: "$itemPrice.amount"
                     },
-                    items: { $push: '$items' }
+                    currency: {
+                        $first: "$itemPrice.currency"
+                    },
+                    items: {
+                        $push: "$items"
+                    }
                 }
             }
-        ]);
+        ]))[0];
 
-        if (!cart) {
+        if(!cart) {
             cart = await Cart.create({ user: req.user.id });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
-            message: "Cart products are fetched.",
+            message: "Cart details fetched.",
             cart
         });
-    } catch (err) {
+    }
+    catch (err) {
         res.status(500).json({
             success: false,
             error: err.message
@@ -155,7 +186,7 @@ export const getCart = async (req, res) => {
     }
 }
 
-export const updateItemInCart = async (req, res) => {
+export async function updateItemInCart(req, res) {
     const { productId, variantId } = req.params;
     const { action } = req.body;
     try {

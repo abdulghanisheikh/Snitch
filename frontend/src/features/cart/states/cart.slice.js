@@ -9,14 +9,17 @@ export const cartSlice = createSlice({
         loading: ''
     },
     reducers: {
-        setCartItems: (state, action) => {
-            state.cartItems = action.payload;
+        setCart: (state, action) => {
+            const cartItems = action.payload.items;
+            const totalPrice = action.payload.totalPrice;
+            const currency = action.payload.currency;
+
+            state.cartItems = cartItems;
+            state.totalPrice = totalPrice;
+            state.currency = currency;
         },
         addCartItem: (state, action) => {
             state.cartItems.push(action.payload);
-        },
-        setTotalPrice: (state, action) => {
-            state.totalPrice = action.payload;
         },
         removeCartItem: (state, action) => {
             const { productId, variantId } = action.payload;
@@ -56,5 +59,5 @@ export const cartSlice = createSlice({
     }
 });
 
-export const { setCartItems, addCartItem, setLoading, incrementItemQty, decrementItemQty, removeCartItem } = cartSlice.actions;
+export const { setCart, addCartItem, setLoading, incrementItemQty, decrementItemQty, removeCartItem } = cartSlice.actions;
 export default cartSlice.reducer;
