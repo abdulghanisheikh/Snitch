@@ -61,7 +61,9 @@ export async function addToCart(req, res) {
             product: productId,
             variant: variantId,
             quantity: 1,
-            price: variantId !== undefined ? product.variants.find(v => v._id.toString() === variantId).price : product.price
+            price: variantId !== undefined ? 
+            product.variants.find(v => v._id.toString() === variantId).price : 
+            product.price
         });
 
         await cart.save();
@@ -80,10 +82,10 @@ export async function addToCart(req, res) {
 
 export async function getCart(req, res) {
     try {
-        const cart = (await Cart.aggregate([
+        const cart = await Cart.aggregate([
             {
                 $match: {
-                    user: ObjectId("6a229f2b9dd1044b4478c437")
+                    user: new mongoose.Types.ObjectId(req.user.id)
                 }
             },
             {
@@ -166,20 +168,25 @@ export async function getCart(req, res) {
                     }
                 }
             }
-        ]))[0];
+        ]);
 
-        if(!cart) {
-            cart = await Cart.create({ user: req.user.id });
+        if(!cart?.length) {
+            await Cart.create({user: req.user.id});
+            cart = {
+                items: [],
+                totalCartPrice: 0,
+                currency: "INR"
+            }
         }
 
         return res.status(200).json({
             success: true,
             message: "Cart details fetched.",
-            cart
+            cart: cart[0]
         });
     }
     catch (err) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             error: err.message
         });

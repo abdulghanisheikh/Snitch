@@ -10,14 +10,14 @@ const Cart = () => {
 
 	const loading = useSelector(state => state.cart.loading);
 	const cartItems = useSelector(state => state.cart.cartItems);
-	const totalBillAmount = useSelector(state => state.cart.totalPrice);
+	const totalBillAmount = useSelector(state => state.cart.totalCartPrice);
 	const currency = useSelector(state => state.cart.currency);
 
-	async function handleRemoveClick({ productId, variantId }) {
+	async function handleRemoveClick({productId, variantId}) {
 		await handleDeleteItemFromCart({productId, variantId});
 	}
 
-	const totalNumberOfItems = 0; // dummy data
+	const totalNumberOfItems = cartItems?.length || 0;
 
 	return <main className="min-h-screen w-screen flex flex-col bg-[#111111]/5">
 		<Navbar pageName="Cart" backTo="/" />

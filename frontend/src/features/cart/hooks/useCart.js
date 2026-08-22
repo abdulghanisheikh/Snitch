@@ -31,9 +31,10 @@ export const useCart = () => {
             const { data } = await getCart();
             const { success, cart } = data;
 
-            const { items, totalPrice, currency } = cart;
-            console.log("Items:", items);
-            console.log("total price:", totalPrice);
+            const {items, totalCartPrice, currency} = cart;
+
+            console.log("cart items:", items);
+            console.log("total cart price:", totalCartPrice);
             console.log("currency:", currency);
 
             if(success) {
