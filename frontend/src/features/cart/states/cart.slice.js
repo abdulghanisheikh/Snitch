@@ -6,7 +6,7 @@ export const cartSlice = createSlice({
         cartItems: [],
         totalCartPrice: 0,
         currency: "INR",
-        loading: ''
+        loading: ""
     },
     reducers: {
         setCart: (state, action) => {

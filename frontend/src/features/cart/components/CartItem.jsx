@@ -3,8 +3,8 @@ import { useCart } from "../hooks/useCart";
 import { useEffect } from "react";
 
 const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) => {
-    const { product, quantity, price } = cartItem;
-    const variant = product.variants?.find(v => v._id === cartItem.variant);
+    const variant = null;
+    const {product, price, quantity} = cartItem;
 
     let selectedItem = {
         title: product.title,

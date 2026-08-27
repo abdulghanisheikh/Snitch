@@ -61,9 +61,9 @@ export async function addToCart(req, res) {
             product: productId,
             variant: variantId,
             quantity: 1,
-            price: variantId !== undefined ? 
-            product.variants.find(v => v._id.toString() === variantId).price : 
-            product.price
+            price: variantId !== undefined ?
+                product.variants.find(v => v._id.toString() === variantId).price :
+                product.price
         });
 
         await cart.save();
@@ -81,97 +81,92 @@ export async function addToCart(req, res) {
 }
 
 export async function getCart(req, res) {
+    const userId = req.user?.id;
     try {
         const cart = await Cart.aggregate([
             {
-                $match: {
-                    user: new mongoose.Types.ObjectId(req.user.id)
+                '$match': {
+                    'user': new mongoose.Types.ObjectId(userId)
                 }
-            },
-            {
-                $unwind: {
-                    path: "$items"
+            }, {
+                '$unwind': {
+                    'path': '$items'
                 }
-            },
-            {
-                $lookup: {
-                    from: "products",
-                    localField: "items.product",
-                    foreignField: "_id",
-                    as: "items.product"
+            }, {
+                '$lookup': {
+                    'from': 'products',
+                    'localField': 'items.product',
+                    'foreignField': '_id',
+                    'as': 'items.product'
                 }
-            },
-            {
-                $unwind: {
-                    path: "$items.product"
+            }, {
+                '$unwind': {
+                    'path': '$items.product'
                 }
-            },
-            {
-                $unwind: {
-                    path: "$items.product.variants",
-                    preserveNullAndEmptyArrays: true
+            }, {
+                '$unwind': {
+                    'path': '$items.product.variants',
+                    'preserveNullAndEmptyArrays': true
                 }
-            },
-            {
-                $match: {
-                    $expr: {
-                        $or: [
+            }, {
+                '$match': {
+                    '$expr': {
+                        '$or': [
                             {
-                                $eq: [
-                                    "$items.product.variants._id",
-                                    "$items.variant"
+                                '$eq': [
+                                    {
+                                        '$ifNull': [
+                                            '$items.variant', null
+                                        ]
+                                    }, null
                                 ]
-                            },
-                            {
-                                $eq: ["$items.variant", null]
+                            }, {
+                                '$eq': [
+                                    '$items.variant', '$items.product.variants._id'
+                                ]
                             }
                         ]
                     }
                 }
-            },
-            {
-                $addFields: {
-                    itemPrice: {
-                        amount: {
-                            $multiply: [
-                                "$items.quantity",
-                                {
-                                    $toInt: {
-                                        $ifNull: [
-                                            "$items.product.variants.price.amount",
-                                            "$items.product.price.amount"
+            }, {
+                '$addFields': {
+                    'itemPrice': {
+                        'amount': {
+                            '$multiply': [
+                                '$items.quantity', {
+                                    '$toInt': {
+                                        '$ifNull': [
+                                            '$items.product.variants.price.amount', '$items.product.price.amount'
                                         ]
                                     }
                                 }
                             ]
                         },
-                        currency: {
-                            $ifNull: [
-                                "$items.product.variants.price.currency",
-                                "$items.product.price.currency"
+                        'currency': {
+                            '$ifNull': [
+                                '$items.product.variants.price.currency', '$items.product.price.currency'
                             ]
                         }
                     }
                 }
-            },
-            {
-                $group: {
-                    _id: "_id",
-                    totalCartPrice: {
-                        $sum: "$itemPrice.amount"
+            }, {
+                '$group': {
+                    '_id': '_id',
+                    'totalCartPrice': {
+                        '$sum': '$itemPrice.amount'
                     },
-                    currency: {
-                        $first: "$itemPrice.currency"
+                    'currency': {
+                        '$first': '$itemPrice.currency'
                     },
-                    items: {
-                        $push: "$items"
+                    'items': {
+                        '$push': '$items'
                     }
                 }
             }
         ]);
 
-        if(!cart?.length) {
-            await Cart.create({user: req.user.id});
+        if (!cart?.length) {
+            await Cart.create({ user: userId });
             cart = {
                 items: [],
                 totalCartPrice: 0,

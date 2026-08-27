@@ -29,21 +29,16 @@ export const useCart = () => {
             dispatch(setLoading('cart'));
 
             const { data } = await getCart();
-            const { success, cart } = data;
-
-            const {items, totalCartPrice, currency} = cart;
-
-            console.log("cart items:", items);
-            console.log("total cart price:", totalCartPrice);
-            console.log("currency:", currency);
+            const { cart, success } = data;
 
             if(success) {
-                console.log();
+                const {items, totalCartPrice, currency} = cart;
+                dispatch(setCart({items, totalCartPrice, currency}));
             }
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in fetching cart.");
         } finally {
-            dispatch(setLoading(''));
+            dispatch(setLoading(""));
         }
     }
 
