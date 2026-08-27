@@ -83,7 +83,7 @@ export async function addToCart(req, res) {
 export async function getCart(req, res) {
     const userId = req.user?.id;
     try {
-        const cart = await Cart.aggregate([
+        let cart = await Cart.aggregate([
             {
                 '$match': {
                     'user': new mongoose.Types.ObjectId(userId)
@@ -165,13 +165,18 @@ export async function getCart(req, res) {
             }
         ]);
 
-        if (!cart?.length) {
-            await Cart.create({ user: userId });
-            cart = {
-                items: [],
-                totalCartPrice: 0,
-                currency: "INR"
-            }
+        if(!cart) {
+            await Cart.create({user: userId});
+        }
+
+        if(cart?.length === 0) {
+            cart = [
+                {
+                    items: [],
+                    totalCartPrice: 0,
+                    currency: "INR"
+                }
+            ];
         }
 
         return res.status(200).json({

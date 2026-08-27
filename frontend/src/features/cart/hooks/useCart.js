@@ -3,7 +3,7 @@ import { setLoading, incrementItemQty, decrementItemQty, removeCartItem, setCart
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
-export const useCart = () => {    
+export const useCart = () => {
     const dispatch = useDispatch();
 
     async function handleAddToCart({ variantId, productId }) {
@@ -26,7 +26,7 @@ export const useCart = () => {
 
     async function handleGetCart() {
         try {
-            dispatch(setLoading('cart'));
+            dispatch(setLoading("cart"));
 
             const { data } = await getCart();
             const { cart, success } = data;
