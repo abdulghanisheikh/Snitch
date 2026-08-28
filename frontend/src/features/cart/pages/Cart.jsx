@@ -17,7 +17,10 @@ const Cart = () => {
 		await handleDeleteItemFromCart({productId, variantId});
 	}
 
-	const totalNumberOfItems = cartItems?.length || 0;
+	const totalNumberOfItems = cartItems.reduce((acc, item) => {
+		acc += item.quantity;
+		return acc;
+	}, 0);
 
 	return <main className="min-h-screen w-screen flex flex-col bg-[#111111]/5">
 		<Navbar pageName="Cart" backTo="/" />
@@ -44,14 +47,14 @@ const Cart = () => {
 							handleIncQty={async() => {
 								await handleUpdateCart({
 									productId: item.product._id,
-									variantId: item.variant,
+									variantId: item.variant._id,
 									action: "inc"
 								});
 							}}
 							handleDecQty={async() => {
 								await handleUpdateCart({
 									productId: item.product._id,
-									variantId: item.variant,
+									variantId: item.variant._id,
 									action: "dec"
 								});
 							}}
@@ -123,7 +126,7 @@ const Cart = () => {
 							<button
 							disabled={cartItems.length === 0}
 							onClick={() => console.log("Checkout button clicked")}
-							className={`rounded-sm text-white lg:text-sm text-xs py-0.5 px-2.5 ${cartItems.length > 0 ? 'hover:bg-stone-700 duration-300 ease-in-out active:scale-90 cursor-pointer bg-stone-900' : 'bg-stone-700'}`}>
+							className={`rounded-sm text-white lg:text-sm text-xs py-0.5 px-2.5 ${cartItems.length > 0 ? 'hover:bg-stone-700 duration-300 ease-in-out active:scale-90 cursor-pointer bg-stone-900' : 'bg-stone-900/90'}`}>
 								Proceed to Checkout
 							</button>
 						</div>

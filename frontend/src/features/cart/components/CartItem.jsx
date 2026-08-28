@@ -13,7 +13,6 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) =
     };
 
     if(variant) {
-        variant = product.variants?.find(v => v?._id.toString() === cartItem.variant);
         selectedItem = {
             ...selectedItem,
             images: variant.images

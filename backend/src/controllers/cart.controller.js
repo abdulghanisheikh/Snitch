@@ -70,7 +70,8 @@ export async function addToCart(req, res) {
 
         res.status(200).json({
             success: true,
-            message: "Product added to cart."
+            message: "Product added to cart.",
+            cart
         });
     } catch (err) {
         res.status(500).json({
@@ -84,63 +85,80 @@ export async function getCart(req, res) {
     const userId = req.user?.id;
     try {
         let cart = await Cart.aggregate([
+            // 1. Get this user's cart document
             {
                 '$match': {
                     'user': new mongoose.Types.ObjectId(userId)
                 }
-            }, {
-                '$unwind': {
-                    'path': '$items'
-                }
-            }, {
+            },
+
+            // 2. Break the items array into one document per cart item
+            {
+                '$unwind': '$items'
+            },
+
+            // 3. Fetch the live product for this item
+            {
                 '$lookup': {
                     'from': 'products',
                     'localField': 'items.product',
                     'foreignField': '_id',
-                    'as': 'items.product'
+                    'as': 'productData'
                 }
-            }, {
-                '$unwind': {
-                    'path': '$items.product'
+            },
+
+            // 4. Drop items whose product no longer exists (e.g. deleted by seller)
+            {
+                '$match': {
+                    'productData.0': { '$exists': true }
                 }
-            }, {
+            },
+
+            // 5. Unwind productData -> a single product object per item
+            {
+                '$unwind': '$productData'
+            },
+
+            // 6. Find the matching variant (if any) directly, without fanning out
+            {
                 '$addFields': {
-                    'items.product.originalVariants': '$items.product.variants'
+                    'matchedVariant': {
+                        '$first': {
+                            '$filter': {
+                                'input': '$productData.variants',
+                                'as': 'v',
+                                'cond': { '$eq': ['$$v._id', '$items.variant'] }
+                            }
+                        }
+                    }
                 }
-            }, {
-                '$unwind': {
-                    'path': '$items.product.variants',
-                    'preserveNullAndEmptyArrays': true
-                }
-            }, {
+            },
+
+            // 7. If a variant WAS selected on the cart item, it must still exist on the product.
+            //    If no variant was selected, always pass.
+            {
                 '$match': {
                     '$expr': {
                         '$or': [
-                            {
-                                '$eq': [
-                                    {
-                                        '$ifNull': [
-                                            '$items.variant', null
-                                        ]
-                                    }, null
-                                ]
-                            }, {
-                                '$eq': [
-                                    '$items.variant', '$items.product.variants._id'
-                                ]
-                            }
+                            { '$eq': [{ '$ifNull': ['$items.variant', null] }, null] },
+                            { '$ne': ['$matchedVariant', null] }
                         ]
                     }
                 }
-            }, {
+            },
+
+            // 8. Compute this item's live price = quantity * (variant price, or base product price)
+            {
                 '$addFields': {
                     'itemPrice': {
                         'amount': {
                             '$multiply': [
-                                '$items.quantity', {
-                                    '$toInt': {
+                                '$items.quantity',
+                                {
+                                    '$toDouble': {
                                         '$ifNull': [
-                                            '$items.product.variants.price.amount', '$items.product.price.amount'
+                                            '$matchedVariant.price.amount',
+                                            '$productData.price.amount'
                                         ]
                                     }
                                 }
@@ -148,31 +166,46 @@ export async function getCart(req, res) {
                         },
                         'currency': {
                             '$ifNull': [
-                                '$items.product.variants.price.currency', '$items.product.price.currency'
+                                '$matchedVariant.price.currency',
+                                '$productData.price.currency'
                             ]
                         }
                     }
                 }
-            }, {
+            },
+
+            // 9. Shape the final item object for the frontend:
+            //    live product info, resolved variant (or null), quantity, live unit price
+            {
                 '$addFields': {
-                    'items.product.variants': '$items.product.originalVariants'
-                }
-            }, {
-                '$project': {
-                    'items.product.originalVariants': 0
-                }
-            }, {
-                '$group': {
-                    '_id': '_id',
-                    'totalCartPrice': {
-                        '$sum': '$itemPrice.amount'
-                    },
-                    'currency': {
-                        '$first': '$itemPrice.currency'
-                    },
-                    'items': {
-                        '$push': '$items'
+                    'items.product': '$productData',
+                    'items.variant': '$matchedVariant',
+                    'items.price': {
+                        'amount': {
+                            '$ifNull': ['$matchedVariant.price.amount', '$productData.price.amount']
+                        },
+                        'currency': {
+                            '$ifNull': ['$matchedVariant.price.currency', '$productData.price.currency']
+                        }
                     }
+                }
+            },
+
+            // 10. Drop temp working fields
+            {
+                '$project': {
+                    'productData': 0,
+                    'matchedVariant': 0
+                }
+            },
+
+            // 11. Recombine into one cart document: sum total, keep currency, collect items
+            {
+                '$group': {
+                    '_id': '$_id',
+                    'totalCartPrice': { '$sum': '$itemPrice.amount' },
+                    'currency': { '$first': '$itemPrice.currency' },
+                    'items': { '$push': '$items' }
                 }
             }
         ]);

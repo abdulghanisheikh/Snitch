@@ -11,11 +11,11 @@ export const useCart = () => {
             dispatch(setLoading('add cart'));
 
             const { data } = await addToCart({ variantId, productId });
-            const { success, message } = data;
+            const {success, message} = data;
 
             if(success) {
                 toast.success(message);
-                await handleGetCart();
+                handleGetCart();
             }
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in adding product to cart.");
