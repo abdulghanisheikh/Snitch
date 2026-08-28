@@ -60,7 +60,7 @@ const Cart = () => {
 							}}
 							handleRemoveClick={() => handleRemoveClick({
 								productId: item.product._id,
-								variantId: item.variant
+								variantId: item.variant._id
 							})}
 							/>
 						})
