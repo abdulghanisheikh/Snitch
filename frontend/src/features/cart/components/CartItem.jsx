@@ -3,11 +3,8 @@ import { useCart } from "../hooks/useCart";
 import { useEffect } from "react";
 
 const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) => {
-    const { product, quantity, price } = cartItem;
-
-    const variant = cartItem.variant
-    ? product.variants?.find(v => v._id.toString() === cartItem.variant)
-    : null;
+    const {product, quantity, price} = cartItem;
+    let variant = cartItem.variant || null;
 
     let selectedItem = {
         title: product.title,
@@ -16,6 +13,7 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) =
     };
 
     if(variant) {
+        variant = product.variants?.find(v => v?._id.toString() === cartItem.variant);
         selectedItem = {
             ...selectedItem,
             images: variant.images

@@ -104,6 +104,10 @@ export async function getCart(req, res) {
                     'path': '$items.product'
                 }
             }, {
+                '$addFields': {
+                    'items.product.originalVariants': '$items.product.variants'
+                }
+            }, {
                 '$unwind': {
                     'path': '$items.product.variants',
                     'preserveNullAndEmptyArrays': true
@@ -150,6 +154,14 @@ export async function getCart(req, res) {
                     }
                 }
             }, {
+                '$addFields': {
+                    'items.product.variants': '$items.product.originalVariants'
+                }
+            }, {
+                '$project': {
+                    'items.product.originalVariants': 0
+                }
+            }, {
                 '$group': {
                     '_id': '_id',
                     'totalCartPrice': {
@@ -165,11 +177,11 @@ export async function getCart(req, res) {
             }
         ]);
 
-        if(!cart) {
-            await Cart.create({user: userId});
+        if (!cart) {
+            await Cart.create({ user: userId });
         }
 
-        if(cart?.length === 0) {
+        if (cart?.length === 0) {
             cart = [
                 {
                     items: [],
