@@ -47,20 +47,20 @@ const Cart = () => {
 							handleIncQty={async() => {
 								await handleUpdateCart({
 									productId: item.product._id,
-									variantId: item.variant._id,
+									variantId: item.variant?._id,
 									action: "inc"
 								});
 							}}
 							handleDecQty={async() => {
 								await handleUpdateCart({
 									productId: item.product._id,
-									variantId: item.variant._id,
+									variantId: item.variant?._id,
 									action: "dec"
 								});
 							}}
 							handleRemoveClick={() => handleRemoveClick({
 								productId: item.product._id,
-								variantId: item.variant._id
+								variantId: item.variant?._id
 							})}
 							/>
 						})
