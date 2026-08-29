@@ -32,10 +32,8 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) =
     }
 
     useEffect(() => {
-        if(selectedItem.quantity === 0) {
-            getCart();
-        }
-    }, [selectedItem]);
+        getCart();
+    }, [selectedItem.quantity]);
 
 	return <main
     className="w-full flex h-40 relative items-start rounded-xl overflow-hidden shadow-md bg-white border border-black/20">

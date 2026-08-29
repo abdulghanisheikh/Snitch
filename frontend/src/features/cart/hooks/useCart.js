@@ -15,7 +15,7 @@ export const useCart = () => {
 
             if(success) {
                 toast.success(message);
-                handleGetCart();
+                await handleGetCart();
             }
         } catch(err) {
             toast.error(err.response?.data?.message || "Error in adding product to cart.");
@@ -29,7 +29,7 @@ export const useCart = () => {
             dispatch(setLoading("cart"));
 
             const { data } = await getCart();
-            const { cart, success } = data;
+            const {cart, success} = data;
 
             if(success) {
                 const {items, totalCartPrice, currency} = cart;

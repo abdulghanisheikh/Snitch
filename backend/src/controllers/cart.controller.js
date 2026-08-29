@@ -253,7 +253,7 @@ export async function updateItemInCart(req, res) {
             });
         }
 
-        const cart = await Cart.findOne({ user: req.user.id });
+        let cart = await Cart.findOne({ user: req.user.id });
 
         if (!cart) {
             return res.status(400).json({
@@ -270,7 +270,7 @@ export async function updateItemInCart(req, res) {
 
         if (action === "dec") {
             if (qtyInCart === 1) {
-                await Cart.findOneAndUpdate({
+                cart = await Cart.findOneAndUpdate({
                     user: req.user.id
                 }, {
                     $pull: {
@@ -282,11 +282,12 @@ export async function updateItemInCart(req, res) {
 
                 return res.status(200).json({
                     success: true,
-                    message: "Cart updated"
+                    message: "Cart updated",
+                    cart
                 });
             }
 
-            await Cart.findOneAndUpdate({
+            cart = await Cart.findOneAndUpdate({
                 user: req.user.id,
                 "items.product": productId,
                 "items.variant": variantId
@@ -296,7 +297,8 @@ export async function updateItemInCart(req, res) {
 
             return res.status(200).json({
                 success: true,
-                message: "Cart updated"
+                message: "Cart updated",
+                cart
             });
         } else if (action === "inc") {
             if ((qtyInCart + 1) > stock) {
@@ -306,7 +308,7 @@ export async function updateItemInCart(req, res) {
                 });
             }
 
-            await Cart.findOneAndUpdate({
+            cart = await Cart.findOneAndUpdate({
                 user: req.user.id,
                 "items.product": productId,
                 "items.variant": variantId
@@ -316,7 +318,8 @@ export async function updateItemInCart(req, res) {
 
             res.status(200).json({
                 success: true,
-                message: "Cart updated"
+                message: "Cart updated",
+                cart
             });
         }
     } catch (err) {
