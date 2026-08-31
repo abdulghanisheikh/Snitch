@@ -8,6 +8,7 @@ import AddVariantForm from "../components/AddVariantForm";
 import VariantCard from "../components/VariantCard";
 import ConfirmDelete from "../../../shared/components/ConfirmDelete";
 import { useSelector } from "react-redux";
+import { formatAmount } from "../../../shared/components/utils/priceFormat.util";
 
 // Main Page
 const AddProductVariant = () => {
@@ -139,7 +140,7 @@ const AddProductVariant = () => {
                             </p>
 
                             <p className="text-black mb-5 font-semibold">
-                                {product?.price.amount} {product?.price.currency}
+                                {formatAmount(product?.price?.amount)}
                             </p>
                         </div>
                     </div>

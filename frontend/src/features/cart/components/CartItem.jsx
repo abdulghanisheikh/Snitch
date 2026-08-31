@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useCart } from "../hooks/useCart.js";
 import { useEffect } from "react";
+import { formatAmount } from "../../../shared/components/utils/priceFormat.util.js";
 
 const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) => {
     const {product, quantity, price} = cartItem;
@@ -52,7 +53,7 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) =
                     {selectedItem.title}
                 </h1>
 
-                <p className="lg:text-sm text-xs text-gray-700 font-semibold">{selectedItem.price.currency} <span className="text-base">{selectedItem.price.amount}</span></p>
+                <p className="lg:text-sm text-base text-gray-700 font-semibold">{formatAmount(selectedItem.price.amount)}</p>
 
                 <p className="opacity-50 text-xs">{selectedItem.quantity} in Stock</p>
             </div>

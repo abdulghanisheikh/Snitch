@@ -1,3 +1,5 @@
+import { formatAmount } from "../../../shared/components/utils/priceFormat.util";
+
 const ProductCard = ({product, handleOnClick}) => {
     return <main
     onClick={ handleOnClick }
@@ -16,7 +18,7 @@ const ProductCard = ({product, handleOnClick}) => {
                 {product.title}
             </h1>
 
-            <p className="text-base text-gray-700 font-semibold px-5">{product.price.amount} {product.price.currency}</p>
+            <p className="text-base text-gray-700 font-semibold px-5">{formatAmount(product.price.amount)}</p>
 
             <hr className="w-full border-1/2 border-black/30"></hr>
 

@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { AttributeChip } from './VariantCard';
 import { useSelector } from 'react-redux'
+import { formatAmount } from '../../../shared/components/utils/priceFormat.util';
 
 const DetailsCard = ({ product, baseProduct, selectedVariant, handleAddToCartClick, setSelectedVariant, images, activeImage, setActiveImage }) => {
     const displayTitle = selectedVariant
@@ -65,7 +66,7 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, handleAddToCartCli
             </p>
 
             <p className="text-black mb-5 font-semibold">
-                {displayPrice?.amount} {displayPrice?.currency}
+                {formatAmount(displayPrice?.amount)}
             </p>
 
             <hr className="border-zinc-400 rounded-full mb-5 border" />
@@ -97,7 +98,7 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, handleAddToCartCli
                                 </div>
 
                                 <p className='text-xs text-stone-900 font-semibold'>
-                                    {variant?.price?.amount} {variant?.price?.currency}
+                                    {formatAmount(variant?.price?.amount)}
                                 </p>
 
                                 <div className='flex flex-col items-start justify-center gap-1'>

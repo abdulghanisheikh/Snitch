@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import CartItem from "../components/CartItem";
 import { Link } from "react-router";
 import { useRazorpay } from "react-razorpay";
+import { formatAmount } from "../../../shared/components/utils/priceFormat.util.js";
 
 const Cart = () => {
 	const { handleUpdateCart, handleDeleteItemFromCart, handleCreateCartOrder } = useCart();
@@ -15,16 +16,16 @@ const Cart = () => {
 	const currency = useSelector(state => state.cart.currency);
 	const user = useSelector(state => state.auth.user);
 
-	const { error, isLoading, Razorpay } = useRazorpay();
+	const { Razorpay } = useRazorpay();
 
 	async function handleRemoveClick({ productId, variantId }) {
-		await handleDeleteItemFromCart({productId, variantId});
+		await handleDeleteItemFromCart({ productId, variantId });
 	}
 
 	// Triggering create order event
 	async function handleCheckout() {
-		const order = await handleCreateCartOrder({amount: totalBillAmount, currency});
-		
+		const order = await handleCreateCartOrder({ amount: totalBillAmount, currency });
+
 		const options = {
 			key: "rzp_test_TVthn1fDKKReIZ",
 			amount: order?.amount,
@@ -48,7 +49,6 @@ const Cart = () => {
 
 		const razorpayInstance = new Razorpay(options);
 		razorpayInstance.open();
-		
 	}
 
 	const totalNumberOfItems = cartItems.reduce((acc, item) => {
@@ -127,7 +127,7 @@ const Cart = () => {
 
 										<div className="flex items-center justify-between">
 											<p className="opacity-70">Subtotal</p>
-											<p className="font-semibold"><span className="uppercase text-xs">{currency}</span> {totalBillAmount}</p>
+											<p className="font-semibold">{formatAmount(totalBillAmount)}</p>
 										</div>
 
 										<div className="flex opacity-70 items-center justify-between">
@@ -148,7 +148,7 @@ const Cart = () => {
 
 						<div className="flex w-full items-center justify-between">
 							<p className="text-sm uppercase">Total</p>
-							<p className="lg:text-lg text-sm font-semibold"><span className="uppercase lg:text-sm font-normal text-xs">{currency}</span> {totalBillAmount}</p>
+							<p className="lg:text-lg text-sm font-semibold">{formatAmount(totalBillAmount)}</p>
 						</div>
 
 						{/* CTA Buttons */}

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
+import { formatAmount } from "../../../shared/components/utils/priceFormat.util";
 
 const SellerProduct = ({ product, handleDeleteClick }) => {
-
 	const navigate = useNavigate();
 
 	return <main className="w-85 flex flex-col justify-between rounded-xl overflow-hidden shadow-2xl bg-white border border-black/20">
@@ -20,7 +20,7 @@ const SellerProduct = ({ product, handleDeleteClick }) => {
 					{product.title}
 				</h1>
 
-				<p className="text-base text-gray-700 mb-3 font-semibold">{product.price.amount} {product.price.currency}</p>
+				<p className="text-base text-gray-700 mb-3 font-semibold">{formatAmount(product.price.amount)}</p>
 
 				<hr className="border-gray-300 mb-3" />
 

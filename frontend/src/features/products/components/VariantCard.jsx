@@ -1,3 +1,4 @@
+import { formatAmount } from "../../../shared/components/utils/priceFormat.util";
 import DeleteButton from "./DeleteButton";
 
 export const AttributeChip = ({index, attribute, value}) => {
@@ -10,8 +11,7 @@ export const AttributeChip = ({index, attribute, value}) => {
     </div>
 }
 
-const VariantCard = ({ image, attributes = {}, price, currency = "INR", stock = 0, handleConfirmDelete }) => {
-    
+const VariantCard = ({ image, attributes = {}, price, stock = 0, handleConfirmDelete }) => {
     return (
         <main className="w-full border border-black/10 shadow-md rounded-md text-black">
             <div className="flex items-start justify-between">
@@ -43,7 +43,7 @@ const VariantCard = ({ image, attributes = {}, price, currency = "INR", stock = 
                         )
                     }
 
-                    <p>{price} {currency}</p>
+                    <p>{formatAmount(price)}</p>
                 </div>
 
                 <div onClick={handleConfirmDelete} className="lg:px-3 lg:py-2 p-1">
