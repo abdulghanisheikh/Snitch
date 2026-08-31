@@ -1,10 +1,10 @@
-import { formatAmount } from "../../../shared/components/utils/priceFormat.util";
+import { formatAmount } from "../../../shared/utils/priceFormat.util";
 import DeleteButton from "./DeleteButton";
 
-export const AttributeChip = ({index, attribute, value}) => {
+export const AttributeChip = ({ index, attribute, value }) => {
     return <div
-    key={index}
-    className="flex items-center lg:gap-1 gap-0.5 text-xs rounded-full border border-[#4a270d]/50 bg-[#4a270d]/10 h-fit lg:px-3 lg:py-1 p-1 text-black">
+        key={index}
+        className="flex items-center lg:gap-1 gap-0.5 text-xs rounded-full border border-[#4a270d]/50 bg-[#4a270d]/10 h-fit lg:px-3 lg:py-1 p-1 text-black">
         <span className="text-black">{attribute}</span>
         <span className="text-gray-500">·</span>
         <span className="text-black">{value}</span>
@@ -26,16 +26,16 @@ const VariantCard = ({ image, attributes = {}, price, stock = 0, handleConfirmDe
                     {
                         Object.keys(attributes).length > 0 && (
                             <div className="flex flex-wrap gap-2 mb-4 h-20 overflow-hidden"
-                            style={{
-                                scrollbarWidth: 'none'
-                            }}
+                                style={{
+                                    scrollbarWidth: 'none'
+                                }}
                             >
                                 {
                                     Object.keys(attributes).map((attribute, index) => {
-                                        return <AttributeChip 
-                                        key={index}
-                                        attribute={attribute}
-                                        value={attributes[attribute]}
+                                        return <AttributeChip
+                                            key={index}
+                                            attribute={attribute}
+                                            value={attributes[attribute]}
                                         />
                                     })
                                 }

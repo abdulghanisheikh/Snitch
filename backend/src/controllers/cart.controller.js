@@ -82,10 +82,8 @@ export async function addToCart(req, res) {
     }
 }
 
-export async function getCart(req, res) {
-    const userId = req.user?.id;
-    try {
-        let cart = await Cart.aggregate([
+async function getCartDetails(userId) {
+    const cart = await Cart.aggregate([
             // 1. Get this user's cart document
             {
                 '$match': {
@@ -209,8 +207,15 @@ export async function getCart(req, res) {
                     'items': { '$push': '$items' }
                 }
             }
-        ]);
+    ]);
 
+    return cart;
+}
+
+export async function getCart(req, res) {
+    const userId = req.user?.id;
+    try {
+        let cart = await getCartDetails(userId);
         if (!cart) {
             await Cart.create({ user: userId });
         }
@@ -376,9 +381,19 @@ export async function deleteItemFromCart(req, res) {
 }
 
 export async function createOrderController(req, res) {
-    const {amount, currency} = req.body;
     try {
-        const order = await createOrder({amount, currency});
+        const cart = await getCartDetails(req.user.id); // fetching from DB
+        if(!cart) {
+            return res.status(400).json({
+                success: false,
+                message: "Cart is empty."
+            });
+        }
+
+        const order = await createOrder({
+            amount: cart.totalCartPrice,
+            currency: cart.currency
+        });
 
         return res.status(200).json({
             success: true,

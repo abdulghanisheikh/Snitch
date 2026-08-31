@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import { AttributeChip } from './VariantCard';
 import { useSelector } from 'react-redux'
-import { formatAmount } from '../../../shared/components/utils/priceFormat.util';
+import { formatAmount } from '../../../shared/utils/priceFormat.util';
 
 const DetailsCard = ({ product, baseProduct, selectedVariant, handleAddToCartClick, setSelectedVariant, images, activeImage, setActiveImage }) => {
     const displayTitle = selectedVariant
@@ -120,8 +120,8 @@ const DetailsCard = ({ product, baseProduct, selectedVariant, handleAddToCartCli
                 {
                     alreadyInCart ? (
                         <Link
-                        to='/cart'
-                        className="lg:w-2/3 w-full bg-stone-900 rounded-sm cursor-pointer text-white lg:text-sm text-xs tracking-widest text-center py-1.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90">
+                            to='/cart'
+                            className="lg:w-2/3 w-full bg-stone-900 rounded-sm cursor-pointer text-white lg:text-sm text-xs tracking-widest text-center py-1.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90">
                             See in Cart
                         </Link>
                     ) : (

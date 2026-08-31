@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { formatAmount } from "../../../shared/components/utils/priceFormat.util";
+import { formatAmount } from "../../../shared/utils/priceFormat.util";
 
 const SellerProduct = ({ product, handleDeleteClick }) => {
 	const navigate = useNavigate();
@@ -33,14 +33,14 @@ const SellerProduct = ({ product, handleDeleteClick }) => {
 
 			<div className="flex items-center justify-between gap-2">
 				<button
-				onClick={handleDeleteClick}
-				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide duration-300 ease-in-out rounded-sm bg-black text-white active:scale-90 hover:bg-black/90">
+					onClick={handleDeleteClick}
+					className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide duration-300 ease-in-out rounded-sm bg-black text-white active:scale-90 hover:bg-black/90">
 					Delete
 				</button>
 
 				<button
-				onClick={() => navigate(`/seller/product/${product._id}`)}
-				className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide duration-300 ease-in-out rounded-sm bg-black text-white hover:bg-black/90 active:scale-90">
+					onClick={() => navigate(`/seller/product/${product._id}`)}
+					className="flex-1 py-1.5 px-2 text-xs cursor-pointer tracking-wide duration-300 ease-in-out rounded-sm bg-black text-white hover:bg-black/90 active:scale-90">
 					Add Variant
 				</button>
 			</div>

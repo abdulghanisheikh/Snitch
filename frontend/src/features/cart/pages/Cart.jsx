@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import CartItem from "../components/CartItem";
 import { Link } from "react-router";
 import { useRazorpay } from "react-razorpay";
-import { formatAmount } from "../../../shared/components/utils/priceFormat.util.js";
+import { formatAmount } from "../../../shared/utils/priceFormat.util.js";
 
 const Cart = () => {
 	const { handleUpdateCart, handleDeleteItemFromCart, handleCreateCartOrder } = useCart();
@@ -13,7 +13,6 @@ const Cart = () => {
 	const loading = useSelector(state => state.cart.loading);
 	const cartItems = useSelector(state => state.cart.cartItems);
 	const totalBillAmount = useSelector(state => state.cart.totalCartPrice);
-	const currency = useSelector(state => state.cart.currency);
 	const user = useSelector(state => state.auth.user);
 
 	const { Razorpay } = useRazorpay();
@@ -24,7 +23,7 @@ const Cart = () => {
 
 	// Triggering create order event
 	async function handleCheckout() {
-		const order = await handleCreateCartOrder({ amount: totalBillAmount, currency });
+		const order = await handleCreateCartOrder();
 
 		const options = {
 			key: "rzp_test_TVthn1fDKKReIZ",

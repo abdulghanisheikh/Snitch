@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { useCart } from "../hooks/useCart.js";
 import { useEffect } from "react";
-import { formatAmount } from "../../../shared/components/utils/priceFormat.util.js";
+import { formatAmount } from "../../../shared/utils/priceFormat.util.js";
 
 const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) => {
-    const {product, quantity, price} = cartItem;
+    const { product, quantity, price } = cartItem;
     let variant = cartItem.variant || null;
 
     let selectedItem = {
@@ -13,7 +13,7 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) =
         price
     };
 
-    if(variant) {
+    if (variant) {
         selectedItem = {
             ...selectedItem,
             images: variant.images
@@ -36,8 +36,8 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) =
         getCart();
     }, [selectedItem.quantity]);
 
-	return <main
-    className="w-full flex h-40 relative items-start rounded-xl overflow-hidden shadow-md bg-white border border-black/20">
+    return <main
+        className="w-full flex h-40 relative items-start rounded-xl overflow-hidden shadow-md bg-white border border-black/20">
 
         <div className="relative w-[30%] h-full">
             <img
@@ -58,29 +58,29 @@ const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) =
                 <p className="opacity-50 text-xs">{selectedItem.quantity} in Stock</p>
             </div>
 
-			<div className="flex items-center justify-between px-8">
+            <div className="flex items-center justify-between px-8">
                 <div className="flex items-center text-white justify-center bg-stone-900 rounded-sm w-fit self-center gap-2">
                     <button
-                    disabled={loading === 'update cart'}
-                    onClick={handleIncQty}
-                    className="px-3 cursor-pointer hover:bg-stone-800 duration-300 ease-in-out lg:text-lg active:scale-95">
+                        disabled={loading === 'update cart'}
+                        onClick={handleIncQty}
+                        className="px-3 cursor-pointer hover:bg-stone-800 duration-300 ease-in-out lg:text-lg active:scale-95">
                         +
                     </button>
 
                     <p>{selectedItem.quantity}</p>
-                    
-                    <button 
-                    disabled={loading === 'update cart'}
-                    onClick={handleDecQty}
-                    className="px-3 cursor-pointer hover:bg-stone-800 duration-300 ease-in-out lg:text-lg active:scale-95">
+
+                    <button
+                        disabled={loading === 'update cart'}
+                        onClick={handleDecQty}
+                        className="px-3 cursor-pointer hover:bg-stone-800 duration-300 ease-in-out lg:text-lg active:scale-95">
                         -
                     </button>
                 </div>
 
-                <button 
-                onClick={handleRemoveClick}
-                disabled={loading === "delete cart"}
-                className="opacity-80 hover:opacity-100 duration-300 ease-in-out cursor-pointer uppercase tracking-wide text-red-500 text-xs">
+                <button
+                    onClick={handleRemoveClick}
+                    disabled={loading === "delete cart"}
+                    className="opacity-80 hover:opacity-100 duration-300 ease-in-out cursor-pointer uppercase tracking-wide text-red-500 text-xs">
                     Remove
                 </button>
             </div>

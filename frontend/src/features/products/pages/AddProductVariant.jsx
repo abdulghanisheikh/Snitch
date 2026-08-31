@@ -8,7 +8,7 @@ import AddVariantForm from "../components/AddVariantForm";
 import VariantCard from "../components/VariantCard";
 import ConfirmDelete from "../../../shared/components/ConfirmDelete";
 import { useSelector } from "react-redux";
-import { formatAmount } from "../../../shared/components/utils/priceFormat.util";
+import { formatAmount } from "../../../shared/utils/priceFormat.util";
 
 // Main Page
 const AddProductVariant = () => {

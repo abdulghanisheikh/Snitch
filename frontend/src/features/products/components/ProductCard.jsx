@@ -1,9 +1,9 @@
-import { formatAmount } from "../../../shared/components/utils/priceFormat.util";
+import { formatAmount } from "../../../shared/utils/priceFormat.util";
 
-const ProductCard = ({product, handleOnClick}) => {
+const ProductCard = ({ product, handleOnClick }) => {
     return <main
-    onClick={ handleOnClick }
-    className="w-80 h-120 flex flex-col justify-between gap-3 rounded-xl overflow-hidden shadow-md bg-white cursor-pointer hover:scale-101 duration-300 ease-in-out border border-black/20">
+        onClick={handleOnClick}
+        className="w-80 h-120 flex flex-col justify-between gap-3 rounded-xl overflow-hidden shadow-md bg-white cursor-pointer hover:scale-101 duration-300 ease-in-out border border-black/20">
 
         <div className="relative flex-1 w-full">
             <img
@@ -23,9 +23,9 @@ const ProductCard = ({product, handleOnClick}) => {
             <hr className="w-full border-1/2 border-black/30"></hr>
 
             <p className="text-xs px-5 h-20 text-black/80 leading-relaxed overflow-y-auto"
-            style={{
-                scrollbarWidth: 'none'
-            }}
+                style={{
+                    scrollbarWidth: 'none'
+                }}
             >
                 {product.description}
             </p>

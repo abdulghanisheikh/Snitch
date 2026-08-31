@@ -25,11 +25,7 @@ export async function getCart() {
     return response;
 }
 
-export async function createCartOrder({amount, currency}) {
-    const response = await cartApiInstance.post("/payment/createOrder", {
-        amount,
-        currency
-    });
-
+export async function createCartOrder() {
+    const response = await cartApiInstance.post("/payment/createOrder");
     return response;
 }

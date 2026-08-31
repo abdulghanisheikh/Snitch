@@ -84,15 +84,13 @@ export const useCart = () => {
         }
     }
 
-    async function handleCreateCartOrder({amount, currency}) {
+    async function handleCreateCartOrder() {
         try {
-            const {data} = await createCartOrder({amount, currency});
+            const {data} = await createCartOrder();
             const {success, message, order} = data;
 
             if(success) {
                 toast.success(message);
-                console.log("Order:", order);
-
                 return order;
             }
         } catch(err) {
