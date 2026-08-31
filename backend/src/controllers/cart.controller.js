@@ -2,6 +2,7 @@ import { compareSync } from "bcryptjs";
 import Cart from "../models/cart.model.js";
 import Product from "../models/product.model.js";
 import mongoose from "mongoose";
+import { createOrder } from "../services/payment.service.js";
 
 export async function addToCart(req, res) {
     const { productId, variantId } = req.params;
@@ -368,6 +369,24 @@ export async function deleteItemFromCart(req, res) {
         });
     } catch (err) {
         res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+}
+
+export async function createOrderController(req, res) {
+    const {amount, currency} = req.body;
+    try {
+        const order = await createOrder({amount, currency});
+
+        return res.status(200).json({
+            success: true,
+            message: "Order created.",
+            order
+        });
+    } catch(err) {
+        return res.status(500).json({
             success: false,
             error: err.message
         });

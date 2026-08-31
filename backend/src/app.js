@@ -12,7 +12,6 @@ import { appConfig } from "./configs/app.config.js";
 const app = express();
 
 app.use(passport.initialize());
-
 passport.use(new GoogleStrategy({
     clientID: appConfig.GOOGLE_CLIENT_ID,
     clientSecret: appConfig.GOOGLE_CLIENT_SECRET,

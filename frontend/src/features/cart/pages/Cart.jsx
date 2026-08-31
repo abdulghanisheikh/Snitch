@@ -4,17 +4,51 @@ import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import CartItem from "../components/CartItem";
 import { Link } from "react-router";
+import { useRazorpay } from "react-razorpay";
 
 const Cart = () => {
-	const { handleUpdateCart, handleDeleteItemFromCart } = useCart();
+	const { handleUpdateCart, handleDeleteItemFromCart, handleCreateCartOrder } = useCart();
 
 	const loading = useSelector(state => state.cart.loading);
 	const cartItems = useSelector(state => state.cart.cartItems);
 	const totalBillAmount = useSelector(state => state.cart.totalCartPrice);
 	const currency = useSelector(state => state.cart.currency);
+	const user = useSelector(state => state.auth.user);
 
-	async function handleRemoveClick({productId, variantId}) {
+	const { error, isLoading, Razorpay } = useRazorpay();
+
+	async function handleRemoveClick({ productId, variantId }) {
 		await handleDeleteItemFromCart({productId, variantId});
+	}
+
+	// Triggering create order event
+	async function handleCheckout() {
+		const order = await handleCreateCartOrder({amount: totalBillAmount, currency});
+		
+		const options = {
+			key: "rzp_test_TVthn1fDKKReIZ",
+			amount: order?.amount,
+			currency: order?.currency,
+			name: "Snitch",
+			description: "Test Transaction",
+			order_id: order?.id,
+			handler: (response) => {
+				console.log(response);
+				alert("Payment Successful!");
+			},
+			prefill: {
+				name: user?.fullname,
+				email: user?.email,
+				contact: user?.contact,
+			},
+			theme: {
+				color: "#F37254"
+			}
+		};
+
+		const razorpayInstance = new Razorpay(options);
+		razorpayInstance.open();
+		
 	}
 
 	const totalNumberOfItems = cartItems.reduce((acc, item) => {
@@ -32,86 +66,86 @@ const Cart = () => {
 				<div className="min-h-full lg:w-[70%] lg:px-5 flex gap-3 lg:flex-row flex-col items-center flex-wrap">
 					{
 						cartItems.length === 0 && loading === "cart" ?
-						<p className="text-center text-sm tracking-wide">
-							Loading Cart...
-						</p> :
-						cartItems.length === 0 && loading !== "cart" ? 
-						<p className="text-center text-sm opacity-70">
-							Your cart is currently empty.
-						</p> :
-						
-						cartItems.map((item) => {
-							return <CartItem 
-							key={item.product._id}
-							cartItem={item}
-							handleIncQty={async() => {
-								await handleUpdateCart({
-									productId: item.product._id,
-									variantId: item.variant?._id,
-									action: "inc"
-								});
-							}}
-							handleDecQty={async() => {
-								await handleUpdateCart({
-									productId: item.product._id,
-									variantId: item.variant?._id,
-									action: "dec"
-								});
-							}}
-							handleRemoveClick={() => handleRemoveClick({
-								productId: item.product._id,
-								variantId: item.variant?._id
-							})}
-							/>
-						})
+							<p className="text-center text-sm tracking-wide">
+								Loading Cart...
+							</p> :
+							cartItems.length === 0 && loading !== "cart" ?
+								<p className="text-center text-sm opacity-70">
+									Your cart is currently empty.
+								</p> :
+
+								cartItems.map((item) => {
+									return <CartItem
+										key={item.product._id}
+										cartItem={item}
+										handleIncQty={async () => {
+											await handleUpdateCart({
+												productId: item.product._id,
+												variantId: item.variant?._id,
+												action: "inc"
+											});
+										}}
+										handleDecQty={async () => {
+											await handleUpdateCart({
+												productId: item.product._id,
+												variantId: item.variant?._id,
+												action: "dec"
+											});
+										}}
+										handleRemoveClick={() => handleRemoveClick({
+											productId: item.product._id,
+											variantId: item.variant?._id
+										})}
+									/>
+								})
 					}
 				</div>
 
 				{/* Order Summary of Cart */}
 				<div
-				className="lg:w-[30%] w-full h-100 px-5 py-3 gap-2.5 rounded-lg shadow-xs shadow-black/50 tracking-tight flex flex-col items-center relative bg-white">
+					className="lg:w-[30%] w-full h-100 px-5 py-3 gap-2.5 rounded-lg shadow-xs shadow-black/50 tracking-tight flex flex-col items-center relative bg-white">
 					<p className="font-semibold lg:text-xl text-lg self-start">Order Summary</p>
 
 					<hr className="border border-black/10 w-full rounded-full" />
 
 					<div
-					className="flex flex-col tracking-wide lg:text-sm text-xs w-full lg:px-7 lg:py-5 px-2 py-1 gap-1.5">
+						className="flex flex-col uppercase tracking-wide text-xs w-full lg:py-5 py-1 gap-1.5">
 						{
-							cartItems.length === 0 && loading === "cart" ? 
-							<p className="text-xs w-full text-center tracking-wide">
-								Loading order summary...
-							</p> :
-							cartItems.length === 0 && loading !== "cart" ?
-							<p className="text-xs w-full text-center opacity-70">
-								Add product to cart to generate the order summary.
-							</p> :
-							<>
-								<div className="flex opacity-70 items-center justify-between">
-									<p>Items</p>
-									<p>{totalNumberOfItems}</p>
-								</div>
+							cartItems.length === 0 && loading === "cart" ?
+								<p className="text-xs w-full text-center tracking-wide">
+									Loading order summary...
+								</p> :
+								cartItems.length === 0 && loading !== "cart" ?
+									<p className="text-xs w-full text-center opacity-70">
+										Add product to cart to generate the order summary.
+									</p> :
+									<>
+										<div className="flex opacity-70 items-center justify-between">
+											<p>Items</p>
+											<p>{totalNumberOfItems}</p>
+										</div>
 
-								<div className="flex items-center justify-between">
-									<p className="opacity-70">Subtotal</p>
-									<p className="font-semibold"><span className="uppercase text-xs">{currency}</span> {totalBillAmount}</p>
-								</div>
+										<div className="flex items-center justify-between">
+											<p className="opacity-70">Subtotal</p>
+											<p className="font-semibold"><span className="uppercase text-xs">{currency}</span> {totalBillAmount}</p>
+										</div>
 
-								<div className="flex opacity-70 items-center justify-between">
-									<p>Shipping</p>
-									<p className="font-semibold"><span className="font-normal uppercase text-xs">Inr</span> 0</p>
-								</div>
+										<div className="flex opacity-70 items-center justify-between">
+											<p>Shipping</p>
+											<p className="font-semibold">Complimentary</p>
+										</div>
 
-								<div className="flex opacity-70 items-center justify-between">
-									<p>Taxes</p>
-									<p className="font-semibold"><span className="font-normal uppercase text-xs">Inr</span> 0</p>
-								</div>
-							</>
+										<div className="flex opacity-70 items-center justify-between">
+											<p>Duties and Taxes</p>
+											<p className="font-semibold">Included</p>
+										</div>
+									</>
 						}
 					</div>
 
 					<div className="w-full flex flex-col items-center gap-3 justify-between py-3 tracking-wide absolute bottom-0 px-5">
 						<hr className="border border-black/10 w-full rounded-full mb-2" />
-						
+
 						<div className="flex w-full items-center justify-between">
 							<p className="text-sm uppercase">Total</p>
 							<p className="lg:text-lg text-sm font-semibold"><span className="uppercase lg:text-sm font-normal text-xs">{currency}</span> {totalBillAmount}</p>
@@ -119,14 +153,14 @@ const Cart = () => {
 
 						{/* CTA Buttons */}
 						<div className="flex justify-between items-center w-full">
-							<Link to='/' className="rounded-sm text-white lg:text-sm text-xs py-0.5 px-2.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90 cursor-pointer bg-stone-900">
+							<Link to='/' className="rounded-sm text-white lg:text-sm text-xs lg:py-1 py-0.5 px-2.5 hover:bg-stone-700 duration-300 ease-in-out active:scale-90 cursor-pointer bg-stone-900">
 								Continue Shopping
 							</Link>
 
 							<button
-							disabled={cartItems.length === 0}
-							onClick={() => console.log("Checkout button clicked")}
-							className={`rounded-sm text-white lg:text-sm text-xs py-0.5 px-2.5 ${cartItems.length > 0 ? 'hover:bg-stone-700 duration-300 ease-in-out active:scale-90 cursor-pointer bg-stone-900' : 'bg-stone-900/90'}`}>
+								disabled={cartItems.length === 0}
+								onClick={handleCheckout}
+								className={`rounded-sm text-white lg:text-sm text-xs lg:py-1 py-0.5 px-2.5 ${cartItems.length > 0 ? 'hover:bg-stone-700 duration-300 ease-in-out active:scale-90 cursor-pointer bg-stone-900' : 'bg-stone-900/90'}`}>
 								Proceed to Checkout
 							</button>
 						</div>

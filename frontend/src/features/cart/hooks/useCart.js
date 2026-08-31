@@ -1,4 +1,4 @@
-import { addToCart, getCart, updateCart, deleteItemFromCart } from "../services/cart.api.js";
+import { addToCart, getCart, updateCart, deleteItemFromCart, createCartOrder } from "../services/cart.api.js";
 import { setLoading, incrementItemQty, decrementItemQty, removeCartItem, setCart } from "../states/cart.slice.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -83,5 +83,23 @@ export const useCart = () => {
             dispatch(setLoading(""));
         }
     }
-    return { handleAddToCart, handleGetCart, handleUpdateCart, handleDeleteItemFromCart };
+
+    async function handleCreateCartOrder({amount, currency}) {
+        try {
+            const {data} = await createCartOrder({amount, currency});
+            const {success, message, order} = data;
+
+            if(success) {
+                toast.success(message);
+                console.log("Order:", order);
+
+                return order;
+            }
+        } catch(err) {
+            toast.error(err.response?.data?.message || "Error in creating cart order.");
+            return err;
+        }
+    }
+
+    return { handleAddToCart, handleGetCart, handleUpdateCart, handleDeleteItemFromCart, handleCreateCartOrder };
 }

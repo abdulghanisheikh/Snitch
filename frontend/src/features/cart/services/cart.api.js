@@ -20,7 +20,16 @@ export async function deleteItemFromCart({ productId, variantId }) {
     return response;
 }
 
-export const getCart = async () => {
+export async function getCart() {
     const response = await cartApiInstance.get('/');
+    return response;
+}
+
+export async function createCartOrder({amount, currency}) {
+    const response = await cartApiInstance.post("/payment/createOrder", {
+        amount,
+        currency
+    });
+
     return response;
 }

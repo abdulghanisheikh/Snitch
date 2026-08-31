@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useCart } from "../hooks/useCart";
+import { useCart } from "../hooks/useCart.js";
 import { useEffect } from "react";
 
 const CartItem = ({ cartItem, handleIncQty, handleDecQty, handleRemoveClick }) => {

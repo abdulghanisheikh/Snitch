@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { authenticateUser } from "../middlewares/auth.middleware.js";
 import { validateAddToCart, validateUpdateCart, validateDeleteItemFromCart } from "../validators/cart.validator.js";
-import { addToCart, getCart, updateItemInCart, deleteItemFromCart } from "../controllers/cart.controller.js";
+import { addToCart, getCart, updateItemInCart, deleteItemFromCart, createOrderController } from "../controllers/cart.controller.js";
 
 const router = Router();
 
@@ -32,5 +32,12 @@ router.delete("/delete/:productId/:variantId", authenticateUser, validateDeleteI
  * @access private
  */
 router.get('/', authenticateUser, getCart);
+
+/**
+ * @route POST /api/cart/payment/createOrder
+ * @description Create cart order
+ * @access private
+ */
+router.post("/payment/createOrder", authenticateUser, createOrderController);
 
 export default router;
