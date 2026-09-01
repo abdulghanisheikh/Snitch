@@ -7,14 +7,41 @@ const paymentSchema = new mongoose.Schema({
         enum: ["pending", "failed", "paid"],
         default: "pending"
     },
-    price: priceSchema,
+    price: {
+        type: priceSchema,
+        required: true
+    },
     razorpay: {
         orderId: String,
         paymentId: String,
         signature: String
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        required: true
+    },
+    orderItems: [
+        {
+            title: String,
+            productId: mongoose.Schema.Types.ObjectId,
+            variantId: mongoose.Schema.Types.ObjectId,
+            images: [
+                {
+                    url: {
+                        type: String,
+                        required: true
+                    }
+                }
+            ],
+            price: {
+                type: priceSchema,
+                required: true
+            },
+            quantity: Number
+        }
+    ]
+}, { timestamps: true });
 
-}, {timestamps: true});
-
-const Payment = mongoose.model("payments", paymentSchema);
+const Payment = mongoose.model("payment", paymentSchema);
 export default Payment;

@@ -1,8 +1,9 @@
-import { compareSync } from "bcryptjs";
 import Cart from "../models/cart.model.js";
 import Product from "../models/product.model.js";
 import mongoose from "mongoose";
 import { createOrder } from "../services/payment.service.js";
+import Payment from "../models/payment.model.js";
+import User from "../models/user.model.js";
 
 export async function addToCart(req, res) {
     const { productId, variantId } = req.params;
@@ -83,7 +84,7 @@ export async function addToCart(req, res) {
 }
 
 async function getCartDetails(userId) {
-    const cart = await Cart.aggregate([
+    const cartDetails = (await Cart.aggregate([
             // 1. Get this user's cart document
             {
                 '$match': {
@@ -207,9 +208,9 @@ async function getCartDetails(userId) {
                     'items': { '$push': '$items' }
                 }
             }
-    ]);
+    ]))[0];
 
-    return cart;
+    return cartDetails;
 }
 
 export async function getCart(req, res) {
@@ -221,19 +222,17 @@ export async function getCart(req, res) {
         }
 
         if (cart?.length === 0) {
-            cart = [
-                {
-                    items: [],
-                    totalCartPrice: 0,
-                    currency: "INR"
-                }
-            ];
+            cart = {
+                items: [],
+                totalCartPrice: 0,
+                currency: "INR"
+            };
         }
 
         return res.status(200).json({
             success: true,
             message: "Cart details fetched.",
-            cart: cart[0]
+            cart
         });
     }
     catch (err) {
@@ -381,8 +380,10 @@ export async function deleteItemFromCart(req, res) {
 }
 
 export async function createOrderController(req, res) {
+    const userId = req.user?.id;
     try {
-        const cart = await getCartDetails(req.user.id); // fetching from DB
+        const cart = await getCartDetails(userId); // fetching from DB
+
         if(!cart) {
             return res.status(400).json({
                 success: false,
@@ -393,6 +394,35 @@ export async function createOrderController(req, res) {
         const order = await createOrder({
             amount: cart.totalCartPrice,
             currency: cart.currency
+        });
+
+        if(!order) {
+            return res.status(400).json({
+                success: false,
+                message: "Failed to create order."
+            });
+        }
+
+        const user = await User.findById(userId);
+        const payment = await Payment.create({
+            price: {
+                amount: cart.totalCartPrice,
+                currency: cart.currency
+            },
+            razorpay: {
+                orderId: order.id
+            },
+            user,
+            orderItems: cart.items.map((item) => {
+                return {
+                    title: item.product.title,
+                    productId: item.product._id,
+                    variantId: item.variant?._id,
+                    price: item.variant?.price || item.product.price,
+                    images: item.variant?.images || item.product.images,
+                    quantity: item.quantity
+                }
+            })
         });
 
         return res.status(200).json({
