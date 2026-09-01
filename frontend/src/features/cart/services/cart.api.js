@@ -29,3 +29,12 @@ export async function createCartOrder() {
     const response = await cartApiInstance.post("/payment/order/create");
     return response;
 }
+
+export async function verifyOrderPayment({razorpay_order_id, razorpay_payment_id, razorpay_signature}) {
+    const response = await cartApiInstance.post("/payment/verify/order", {
+        razorpay_order_id,
+        razorpay_payment_id,
+        razorpay_signature
+    });
+    return response;
+}

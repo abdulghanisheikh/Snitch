@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { authenticateUser } from "../middlewares/auth.middleware.js";
 import { validateAddToCart, validateUpdateCart, validateDeleteItemFromCart } from "../validators/cart.validator.js";
-import { addToCart, getCart, updateItemInCart, deleteItemFromCart, createOrderController, verifyOrder } from "../controllers/cart.controller.js";
+import { addToCart, getCart, updateItemInCart, deleteItemFromCart, createOrderController, verifyOrderController } from "../controllers/cart.controller.js";
 
 const router = Router();
 
@@ -42,7 +42,7 @@ router.post("/payment/order/create", authenticateUser, createOrderController);
 
 /**
  * @route POST /api/cart/payment/verify/order
- * @description Verify the payment for order
+ * @description Verify the payment of order
  * @access private
  */
 router.post("/payment/verify/order", authenticateUser, verifyOrderController);

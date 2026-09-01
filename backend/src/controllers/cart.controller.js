@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import { createOrder } from "../services/payment.service.js";
 import Payment from "../models/payment.model.js";
 import User from "../models/user.model.js";
-import { validatePaymentVerification } from "/razorpay/dist/utils/razorpay-utils.js";
+import { validatePaymentVerification } from "razorpay/dist/utils/razorpay-utils.js";
 import { appConfig } from "../configs/app.config.js";
 
 export async function addToCart(req, res) {
@@ -465,12 +465,15 @@ export async function verifyOrderController(req, res) {
             });
         }
 
-        const isPaymentValid = await validatePaymentVerification({"order_id": razorpay_order_id, "payment_id": razorpay_payment_id}, razorpay_signature, appConfig.RAZORPAY_KEY_SECRET);
+        const isPaymentValid = validatePaymentVerification({
+            "order_id": razorpay_order_id, 
+            "payment_id": razorpay_payment_id
+        }, razorpay_signature, appConfig.RAZORPAY_KEY_SECRET);
 
         if(isPaymentValid) {
-            payment.razorpay.paymentId = razorpay_payment_id,
-            payment.razorpay.signature = razorpay_signature,
-            payment.status = "paid"
+            payment.razorpay.paymentId = razorpay_payment_id;
+            payment.razorpay.signature = razorpay_signature;
+            payment.status = "paid";
             await payment.save();
 
             return res.status(200).json({
