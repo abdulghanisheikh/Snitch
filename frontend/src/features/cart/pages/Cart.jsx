@@ -32,7 +32,7 @@ const Cart = () => {
 			name: "Snitch",
 			description: "Test Transaction",
 			order_id: order?.id,
-			handler: (response) => {
+			handler: (response) => { // This handler triggers when payment is successfull
 				console.log(response);
 				alert("Payment Successful!");
 			},
