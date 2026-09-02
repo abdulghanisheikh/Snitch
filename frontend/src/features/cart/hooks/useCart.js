@@ -1,4 +1,4 @@
-import { addToCart, getCart, updateCart, deleteItemFromCart, createCartOrder } from "../services/cart.api.js";
+import { addToCart, getCart, updateCart, deleteItemFromCart, createCartOrder, verifyOrderPayment } from "../services/cart.api.js";
 import { setLoading, incrementItemQty, decrementItemQty, removeCartItem, setCart } from "../states/cart.slice.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -99,5 +99,20 @@ export const useCart = () => {
         }
     }
 
-    return { handleAddToCart, handleGetCart, handleUpdateCart, handleDeleteItemFromCart, handleCreateCartOrder };
+    async function handleVerifyOrderPayment({razorpay_order_id, razorpay_payment_id, razorpay_signature}) {
+        try {
+            const {data} = await verifyOrderPayment({razorpay_order_id, razorpay_payment_id, razorpay_signature});
+            const {success, message} = data;
+
+            if(success) {
+                toast.success(message);
+                return {success: true};
+            }
+        } catch(err) {
+            toast.error(err?.response?.data?.message || "Error in verifying payment.");
+            return {success: false};
+        }
+    }
+
+    return { handleAddToCart, handleGetCart, handleUpdateCart, handleDeleteItemFromCart, handleCreateCartOrder, handleVerifyOrderPayment };
 }

@@ -6,9 +6,12 @@ import CartItem from "../components/CartItem";
 import { Link } from "react-router";
 import { useRazorpay } from "react-razorpay";
 import { formatAmount } from "../../../shared/utils/priceFormat.util.js";
+import { useNavigate } from "react-router";
 
 const Cart = () => {
-	const { handleUpdateCart, handleDeleteItemFromCart, handleCreateCartOrder } = useCart();
+	const { handleUpdateCart, handleDeleteItemFromCart, handleCreateCartOrder, handleVerifyOrderPayment } = useCart();
+
+	const navigate = useNavigate();
 
 	const loading = useSelector(state => state.cart.loading);
 	const cartItems = useSelector(state => state.cart.cartItems);
@@ -32,9 +35,12 @@ const Cart = () => {
 			name: "Snitch",
 			description: "Test Transaction",
 			order_id: order?.id,
-			handler: (response) => { // This handler triggers when payment is successfull
-				console.log(response);
-				alert("Payment Successful!");
+			handler: async(response) => { // This handler triggers when payment is successfull
+				const isValid = await handleVerifyOrderPayment(response);
+
+				if(isValid) {
+					navigate(`/orderSuccess?order_id=${response?.rezorpay_order_id}`);
+				}
 			},
 			prefill: {
 				name: user?.fullname,

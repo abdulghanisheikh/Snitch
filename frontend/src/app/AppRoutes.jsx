@@ -9,6 +9,7 @@ import Home from "../features/products/pages/Home";
 import ProductDetail from "../features/products/pages/ProductDetail";
 import AddProductVariant from "../features/products/pages/AddProductVariant";
 import Cart from "../features/cart/pages/Cart";
+import OrderSuccess from "../features/cart/pages/OrderSuccess";
 
 const AppRoutes = () => {
 	return <Routes>
@@ -41,6 +42,12 @@ const AppRoutes = () => {
 		<Route path="/cart" element={
 			<Protected>
 				<Cart />
+			</Protected>
+		}></Route>
+
+		<Route path="/orderSuccess" element={
+			<Protected>
+				<OrderSuccess />
 			</Protected>
 		}></Route>
 	</Routes>
